@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: test-service
+  profiles:
+    active: dev
+  freemarker:
+    suffix: .ftl
+
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/fit?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: y123456y
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
