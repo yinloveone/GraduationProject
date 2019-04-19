@@ -3,9 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="欢迎你"/>
+    <ImageView
+        android:src="@drawable/av_smile"
+        android:id="@+id/image"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
 
 </LinearLayout>

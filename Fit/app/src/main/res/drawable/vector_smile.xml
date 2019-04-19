@@ -1,0 +1,17 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="smile"
+    android:width="30dp"
+    android:height="30dp"
+    android:viewportHeight="100"
+    android:viewportWidth="100">
+    <!--脸-->
+    <path
+        android:name="smile_circle"
+        android:fillColor="#f7ec22"
+        android:pathData="M0 50, A50 50 0 0 1 100 50, A50 50 0 0 1 0 50" />
+    <!--嘴巴-->
+    <path
+        android:name="mouth"
+        android:strokeColor="#00ff00"
+        android:strokeWidth="5" />
+</vector>

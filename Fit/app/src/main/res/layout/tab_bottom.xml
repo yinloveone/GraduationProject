@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TabActivity">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/fragment_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tabs_rg"/>
+        <RadioGroup
+            android:id="@+id/tabs_rg"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="#dcdcdc"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true">
+            <RadioButton
+                android:id="@+id/group_tab"
+                android:checked="true"
+                style="@style/Custom.TabRadioButton"
+                android:drawableTop="@drawable/ic_star_36dp"
+                android:text="团体约课"/>
+            <RadioButton
+                android:id="@+id/private_tab"
+                style="@style/Custom.TabRadioButton"
+                android:drawableTop="@drawable/ic_star_36dp"
+                android:text="私教约课" />
+
+            <RadioButton
+                android:id="@+id/message_tab"
+                style="@style/Custom.TabRadioButton"
+                android:drawableTop="@drawable/ic_star_36dp"
+                android:text="消息" />
+
+            <RadioButton
+                android:id="@+id/settings_tab"
+                style="@style/Custom.TabRadioButton"
+                android:drawableTop="@drawable/ic_star_36dp"
+                android:text="我" />
+        </RadioGroup>
+
+
+</RelativeLayout>

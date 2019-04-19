@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
     private Button btn_login;
     private String result;
     private TextView tx_register;
+
     private int RequestCode = 1;
 
     @Override
@@ -89,7 +90,7 @@ public class MainActivity extends Activity {
                                             @Override
                                             public void run(){
                                                 Toast.makeText(getApplicationContext(), "登录成功", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(MainActivity.this,IndexActivity.class);
+                                                Intent intent = new Intent(MainActivity.this,TabActivity.class);
                                                 startActivity(intent);
 
                                             }
@@ -109,7 +110,6 @@ public class MainActivity extends Activity {
                     Intent intent=new Intent(MainActivity.this,RegisterActivity.class);
                     startActivityForResult(intent,RequestCode);
                     break;
-
             }
         }
     };

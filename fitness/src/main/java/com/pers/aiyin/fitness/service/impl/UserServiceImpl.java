@@ -18,4 +18,8 @@ public class UserServiceImpl implements UserService {
         user.setPassword(password);
         return userDao.login(user);
     }
+    public int register(User u){
+
+        return userDao.insert(u);
+    }
 }

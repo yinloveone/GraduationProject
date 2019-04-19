@@ -4,7 +4,7 @@
 </head>
 <body>
 <div>
-    <form action="loginPage" method="post">
+    <form action="register" method="post">
         <table>
             <tr>
                 <tr>
@@ -16,7 +16,11 @@
                 <td><input type="password" name="password"></td>
             </tr>
             <tr>
-                <td><input type="submit" value="登陆"></td>
+                <td>邮箱：</td>
+                <td><input type="email" name="email"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="注册"></td>
             </tr>
 
         </table>
