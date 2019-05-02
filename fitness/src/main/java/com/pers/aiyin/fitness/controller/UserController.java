@@ -3,59 +3,54 @@ package com.pers.aiyin.fitness.controller;
 import com.pers.aiyin.fitness.entity.User;
 import com.pers.aiyin.fitness.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Map;
+import java.util.HashMap;
 
 
-@Controller
+@RestController
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
 
     @PostMapping("/loginPage")
-    public void loginCon(HttpServletRequest request, HttpServletResponse response) throws
+    public Map<String, Object> loginCon(HttpServletRequest request) throws
             IOException {
-        String name=request.getParameter("name");
-        String password=request.getParameter("password");
-        String result=userService.login(name,password);
-        if(null!=result)
-            response.getOutputStream().write((name )
-                    .getBytes("utf-8"));
-        else
-        response.getOutputStream().write(("fail").getBytes("utf-8"));
+       Map<String,Object> result=new HashMap<>();
+        User user=new ObjectMapper().readValue(request.getInputStream(), User.class);
+        String userName=userService.login(user);
+        if(null!=userName&&!"".equals(userName)){
+            result.put("status", 0);
+            result.put("result", userName);
+            result.put("msg", "登陆成功");
+        }else{
+            result.put("status", 1);
+            result.put("msg", "请检查你的用户名和密码");
+        }
+       return result;
     }
     @PostMapping("/register")
-    public void register(HttpServletRequest request,HttpServletResponse response) throws IOException{
-        String name=request.getParameter("name");
-        String password=request.getParameter("password");
-        String email=request.getParameter("email");
-        String result;
-        User user=new User();
-        user.setName(name);
-        user.setPassword(password);
-        user.setEmail(email);
+    public Map<String, Object> register(HttpServletRequest request) throws IOException{
+        Map<String, Object> result = new HashMap<>();
+        User user=new ObjectMapper().readValue(request.getInputStream(), User.class);
         int id=userService.register(user);
-        PrintWriter out = response.getWriter();
         if(id!=0){
-            result = "success";
+            result.put("status", 0);
+            result.put("result", id);
+            result.put("msg", "注册成功");
         }
         else{
-            result = "fail";
+            result.put("status", 1);
+            result.put("msg", "注册失败");
         }
-        out.write(result);
-        out.flush();
-        out.close();
+        return result;
 
     }
 
