@@ -1,6 +1,6 @@
 package com.pers.aiyin.fitness.service.impl;
 
-import com.pers.aiyin.fitness.dao.UserDao;
+import com.pers.aiyin.fitness.mapper.custom.UserDao;
 import com.pers.aiyin.fitness.entity.User;
 import com.pers.aiyin.fitness.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;

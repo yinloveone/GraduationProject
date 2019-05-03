@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pers.aiyin.fitness.mapper.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.pers.aiyin.fitness.entity.Course">
+    <id column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="course_time_start" jdbcType="TIMESTAMP" property="courseTimeStart" />
+    <result column="course_time_end" jdbcType="TIMESTAMP" property="courseTimeEnd" />
+    <result column="room_id" jdbcType="INTEGER" property="roomId" />
+    <result column="room_name" jdbcType="VARCHAR" property="roomName" />
+    <result column="coach_id" jdbcType="INTEGER" property="coachId" />
+    <result column="coach_name" jdbcType="VARCHAR" property="coachName" />
+    <result column="course_type" jdbcType="VARCHAR" property="courseType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    course_id, course_name, course_time_start, course_time_end, room_id, room_name, coach_id, 
+    coach_name, course_type
+  </sql>
+  <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.CourseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from course
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pers.aiyin.fitness.entity.CourseExample">
+    delete from course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pers.aiyin.fitness.entity.Course">
+    insert into course (course_id, course_name, course_time_start, 
+      course_time_end, room_id, room_name, 
+      coach_id, coach_name, course_type
+      )
+    values (#{courseId,jdbcType=INTEGER}, #{courseName,jdbcType=VARCHAR}, #{courseTimeStart,jdbcType=TIMESTAMP}, 
+      #{courseTimeEnd,jdbcType=TIMESTAMP}, #{roomId,jdbcType=INTEGER}, #{roomName,jdbcType=VARCHAR}, 
+      #{coachId,jdbcType=INTEGER}, #{coachName,jdbcType=VARCHAR}, #{courseType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.Course">
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="courseName != null">
+        course_name,
+      </if>
+      <if test="courseTimeStart != null">
+        course_time_start,
+      </if>
+      <if test="courseTimeEnd != null">
+        course_time_end,
+      </if>
+      <if test="roomId != null">
+        room_id,
+      </if>
+      <if test="roomName != null">
+        room_name,
+      </if>
+      <if test="coachId != null">
+        coach_id,
+      </if>
+      <if test="coachName != null">
+        coach_name,
+      </if>
+      <if test="courseType != null">
+        course_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="courseName != null">
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTimeStart != null">
+        #{courseTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="courseTimeEnd != null">
+        #{courseTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roomId != null">
+        #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="roomName != null">
+        #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="coachId != null">
+        #{coachId,jdbcType=INTEGER},
+      </if>
+      <if test="coachName != null">
+        #{coachName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseType != null">
+        #{courseType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pers.aiyin.fitness.entity.CourseExample" resultType="java.lang.Long">
+    select count(*) from course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update course
+    <set>
+      <if test="record.courseId != null">
+        course_id = #{record.courseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseName != null">
+        course_name = #{record.courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseTimeStart != null">
+        course_time_start = #{record.courseTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.courseTimeEnd != null">
+        course_time_end = #{record.courseTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.roomId != null">
+        room_id = #{record.roomId,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomName != null">
+        room_name = #{record.roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coachId != null">
+        coach_id = #{record.coachId,jdbcType=INTEGER},
+      </if>
+      <if test="record.coachName != null">
+        coach_name = #{record.coachName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseType != null">
+        course_type = #{record.courseType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update course
+    set course_id = #{record.courseId,jdbcType=INTEGER},
+      course_name = #{record.courseName,jdbcType=VARCHAR},
+      course_time_start = #{record.courseTimeStart,jdbcType=TIMESTAMP},
+      course_time_end = #{record.courseTimeEnd,jdbcType=TIMESTAMP},
+      room_id = #{record.roomId,jdbcType=INTEGER},
+      room_name = #{record.roomName,jdbcType=VARCHAR},
+      coach_id = #{record.coachId,jdbcType=INTEGER},
+      coach_name = #{record.coachName,jdbcType=VARCHAR},
+      course_type = #{record.courseType,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pers.aiyin.fitness.entity.Course">
+    update course
+    <set>
+      <if test="courseName != null">
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTimeStart != null">
+        course_time_start = #{courseTimeStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="courseTimeEnd != null">
+        course_time_end = #{courseTimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roomId != null">
+        room_id = #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="roomName != null">
+        room_name = #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="coachId != null">
+        coach_id = #{coachId,jdbcType=INTEGER},
+      </if>
+      <if test="coachName != null">
+        coach_name = #{coachName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseType != null">
+        course_type = #{courseType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pers.aiyin.fitness.entity.Course">
+    update course
+    set course_name = #{courseName,jdbcType=VARCHAR},
+      course_time_start = #{courseTimeStart,jdbcType=TIMESTAMP},
+      course_time_end = #{courseTimeEnd,jdbcType=TIMESTAMP},
+      room_id = #{roomId,jdbcType=INTEGER},
+      room_name = #{roomName,jdbcType=VARCHAR},
+      coach_id = #{coachId,jdbcType=INTEGER},
+      coach_name = #{coachName,jdbcType=VARCHAR},
+      course_type = #{courseType,jdbcType=VARCHAR}
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </update>
+</mapper>

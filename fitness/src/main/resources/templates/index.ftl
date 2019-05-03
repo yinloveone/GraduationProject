@@ -8,10 +8,10 @@
     <link href="${path}/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="${path}/css/sb-admin.css" rel="stylesheet">
     <link href="${path}/css/bootstrap-table.min.css" rel="stylesheet">
-
-    <script src="${path}/js/popper.min.js"></script>
-    <script rel="script" src="${path}/js/bootstrap-table.min.js"></script>
     <script src="${path}/js/jquery-3.3.1.js"></script>
+    <script src="${path}/js/popper.min.js"></script>
+    <script src="${path}/js/bootstrap-table.min.js"></script>
+    <script src="${path}/js/bootstrap-table-zh-CN.js"></script>
     <script src="${path}/js/bootstrap.min.js"></script>
 </head>
 <body id="page-top">
@@ -80,13 +80,6 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         　<table id="tb_roles" data-filter-control="true">
-                        <thead>
-                        <tr>
-                            <th data-field="ROLE_NAME" data-filter-control="select">角色名称</th>
-                            <th data-field="DESCRIPTION" data-filter-control="input">角色描述</th>
-                            <th data-field="ROLE_DEFAULTURL" data-filter-control="input">角色默认页面</th>
-                        </tr>
-                        </thead>
                     </table>
 
 
@@ -95,11 +88,7 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
-
-
     </div>
 
 
@@ -110,10 +99,14 @@
 <script src="${path}/js/sb-admin.min.js"></script>
 </html>
 <script>
-    var $table;
+
+    $(function(){
+        InitMainTable();
+    });
     function InitMainTable () {
-        $table = $('#tb_roles').bootstrapTable({
-            url: 'api/member/studentList',
+
+       $('#tb_roles').bootstrapTable({
+            url: 'member/studentList',
             contentType : "application/x-www-form-urlencoded",
             dataType:"json",
             method: 'POST',
@@ -124,12 +117,12 @@
             sortOrder: "asc",
             sidePagination: 'server',
             pageNumber: 1,
-            pageSize: rows,
+            pageSize: 5,
             pageList: [5,10,15],
             search: false,
-            strictSearch: true,
+           /* strictSearch: true,
             showColumns: true,
-            showRefresh: true,
+            showRefresh: true,*/
             minimumCountColumns: 2,
             clickToSelect: true,
             uniqueId: "ID",
@@ -149,52 +142,35 @@
              },
                  columns: [{
                          checkbox: true,
-                             visible: true                  //是否显示复选框
+                         visible: true                  //是否显示复选框
                  }, {
-                         field: 'Name',
+                         field: 'stuName',
                                  title: '姓名',
                                  sortable: true
                      }, {
-                         field: 'Mobile',
+                         field: 'phone',
                                  title: '手机',
                                  sortable: true
                      }, {
-                         field: 'Email',
+                         field: 'email',
                                  title: '邮箱',
                                  sortable: true,
 
                      },  {
-                         field: 'Gender',
+                         field: 'sex',
                                  title: '性别',
                                  sortable: true
                      }, {
-                         field: 'Age',
+                         field: 'age',
                                  title: '年龄'
                      }, {
-                         field: 'BirthDate',
+                         field: 'birthday',
                                  title: '出生日期',
 
                      }, {
-                         field: 'Height',
+                         field: 'height',
                                  title: '身高'
-                     }, /*{
-                         field:'ID',
-                                 title: '操作',
-                                 width: 120,
-                                 align: 'center',
-                                 valign: 'middle',
-                                 formatter: actionFormatter
-                     },*/ ],
-                 onLoadSuccess: function () {
-                     },
-                 onLoadError: function () {
-                        // showTips("数据加载失败！");
-                     },
-                 onDblClickRow: function (row, $element) {
-                         var id = row.ID;
-                         //EditViewById(id, 'view');
-                     },
-
+                     } ]
         })
     }
 

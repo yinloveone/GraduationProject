@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import java.util.Properties;
 
 @SpringBootApplication
-@MapperScan("com.pers.aiyin.fitness.dao")
+@MapperScan("com.pers.aiyin.fitness.mapper")
 public class FitnessApplication {
 
     public static void main(String[] args) {
