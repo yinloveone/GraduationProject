@@ -22,6 +22,10 @@ public class Course implements Serializable {
 
     private String courseType;
 
+    private Integer courseCapacity;
+
+    private Integer courseSurplus;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getCourseId() {
@@ -94,5 +98,21 @@ public class Course implements Serializable {
 
     public void setCourseType(String courseType) {
         this.courseType = courseType == null ? null : courseType.trim();
+    }
+
+    public Integer getCourseCapacity() {
+        return courseCapacity;
+    }
+
+    public void setCourseCapacity(Integer courseCapacity) {
+        this.courseCapacity = courseCapacity;
+    }
+
+    public Integer getCourseSurplus() {
+        return courseSurplus;
+    }
+
+    public void setCourseSurplus(Integer courseSurplus) {
+        this.courseSurplus = courseSurplus;
     }
 }

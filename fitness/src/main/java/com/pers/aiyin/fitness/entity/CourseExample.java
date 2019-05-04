@@ -684,6 +684,126 @@ public class CourseExample {
             addCriterion("course_type not between", value1, value2, "courseType");
             return (Criteria) this;
         }
+
+        public Criteria andCourseCapacityIsNull() {
+            addCriterion("course_capacity is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseCapacityIsNotNull() {
+            addCriterion("course_capacity is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseCapacityEqualTo(Integer value) {
+            addCriterion("course_capacity =", value, "courseCapacity");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseCapacityNotEqualTo(Integer value) {
+            addCriterion("course_capacity <>", value, "courseCapacity");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseCapacityGreaterThan(Integer value) {
+            addCriterion("course_capacity >", value, "courseCapacity");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseCapacityGreaterThanOrEqualTo(Integer value) {
+            addCriterion("course_capacity >=", value, "courseCapacity");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseCapacityLessThan(Integer value) {
+            addCriterion("course_capacity <", value, "courseCapacity");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseCapacityLessThanOrEqualTo(Integer value) {
+            addCriterion("course_capacity <=", value, "courseCapacity");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseCapacityIn(List<Integer> values) {
+            addCriterion("course_capacity in", values, "courseCapacity");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseCapacityNotIn(List<Integer> values) {
+            addCriterion("course_capacity not in", values, "courseCapacity");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseCapacityBetween(Integer value1, Integer value2) {
+            addCriterion("course_capacity between", value1, value2, "courseCapacity");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseCapacityNotBetween(Integer value1, Integer value2) {
+            addCriterion("course_capacity not between", value1, value2, "courseCapacity");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseSurplusIsNull() {
+            addCriterion("course_surplus is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseSurplusIsNotNull() {
+            addCriterion("course_surplus is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseSurplusEqualTo(Integer value) {
+            addCriterion("course_surplus =", value, "courseSurplus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseSurplusNotEqualTo(Integer value) {
+            addCriterion("course_surplus <>", value, "courseSurplus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseSurplusGreaterThan(Integer value) {
+            addCriterion("course_surplus >", value, "courseSurplus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseSurplusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("course_surplus >=", value, "courseSurplus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseSurplusLessThan(Integer value) {
+            addCriterion("course_surplus <", value, "courseSurplus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseSurplusLessThanOrEqualTo(Integer value) {
+            addCriterion("course_surplus <=", value, "courseSurplus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseSurplusIn(List<Integer> values) {
+            addCriterion("course_surplus in", values, "courseSurplus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseSurplusNotIn(List<Integer> values) {
+            addCriterion("course_surplus not in", values, "courseSurplus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseSurplusBetween(Integer value1, Integer value2) {
+            addCriterion("course_surplus between", value1, value2, "courseSurplus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCourseSurplusNotBetween(Integer value1, Integer value2) {
+            addCriterion("course_surplus not between", value1, value2, "courseSurplus");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

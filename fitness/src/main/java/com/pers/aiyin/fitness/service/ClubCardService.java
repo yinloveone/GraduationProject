@@ -6,11 +6,11 @@ import com.pers.aiyin.fitness.entity.ClubCard;
 public interface ClubCardService {
     PageInfo<ClubCard> getCardList(int pageCurrent, int pageSize);
 
-    int addCoach(ClubCard clubCard);
+    int addClubCard(ClubCard clubCard);
 
-    ClubCard getCoach(Integer cardId);
+    ClubCard getClubCard(Integer cardId);
 
-    int deleteCoach(Integer cardId);
+    int deleteClubCard(Integer cardId);
 
-    int updateCoach(ClubCard clubCard);
+    int updateClubCard(ClubCard clubCard);
 }

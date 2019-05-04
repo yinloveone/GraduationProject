@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
-@RequestMapping("api")
+/*
+* 会员管理
+* */
+@RestController("api")
 public class MemberController {
 
     @Autowired

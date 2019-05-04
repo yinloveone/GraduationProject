@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.pers.aiyin.fitness.mapper.CustomStudentMapper">
+<mapper namespace="com.pers.aiyin.fitness.mapper.custom.CustomStudentMapper">
     <resultMap id="BaseResultMap" type="com.pers.aiyin.fitness.response.CustomStudent">
         <id column="stu_id" jdbcType="INTEGER" property="stuId" />
         <result column="stu_name" jdbcType="VARCHAR" property="stuName" />

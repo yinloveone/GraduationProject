@@ -26,19 +26,19 @@ public class ClubCardServiceImpl implements ClubCardService {
           return pageInfo;
     }
     @Override
-    public int addCoach(ClubCard clubCard){
+    public int addClubCard(ClubCard clubCard){
           return clubCardMapper.insertSelective(clubCard);
     }
     @Override
-    public ClubCard getCoach(Integer cardId){
+    public ClubCard getClubCard(Integer cardId){
       return clubCardMapper.selectByPrimaryKey(cardId);
     }
     @Override
-    public int deleteCoach(Integer cardId){
+    public int deleteClubCard(Integer cardId){
       return clubCardMapper.deleteByPrimaryKey(cardId);
     }
     @Override
-    public int updateCoach(ClubCard clubCard){
+    public int updateClubCard(ClubCard clubCard){
       return clubCardMapper.updateByPrimaryKeySelective(clubCard);
     }
 }

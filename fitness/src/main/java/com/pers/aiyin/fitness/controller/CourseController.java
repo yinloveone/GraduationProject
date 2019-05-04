@@ -2,8 +2,8 @@ package com.pers.aiyin.fitness.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
-import com.pers.aiyin.fitness.entity.Coach;
-import com.pers.aiyin.fitness.service.CoachService;
+import com.pers.aiyin.fitness.entity.Course;
+import com.pers.aiyin.fitness.service.CourseService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,46 +15,45 @@ import java.util.HashMap;
 import java.util.Map;
 
 /*
-* 教练管理
-*
+* 课程管理(团体)
 * */
 
 @RestController("api")
-public class CoachController {
+public class CourseController {
 
     @Autowired
-    private CoachService coachService;
+    private CourseService courseService;
 
-    @PostMapping("/coach/coachList")
-    public String getCoachList(Integer rows, Integer page){
+    @PostMapping("/course/coachList")
+    public String getCourseList(Integer rows, Integer page){
         Map<String,Object> resultMap=new HashMap<>();
-        PageInfo<Coach> pageInfo = coachService.getCoachList(rows,page);
+        PageInfo<Course> pageInfo = courseService.getCourseList(rows,page);
         resultMap.put("rows",pageInfo.getList());
         resultMap.put("total",pageInfo.getList().size());
         return new Gson().toJson(resultMap);
     }
 
-    @PostMapping("/coach/addCoach")
-    public Result addCoach(Coach coach){
-        int result = coachService.addCoach(coach);
+    @PostMapping("/course/addCourse")
+    public Result addCourse(Course course){
+        int result = courseService.addCourse(course);
         if(result != -1){
             return Result.success();
         }else {
             return  Result.failure(ResponseCode.FAIL);
         }
     }
-    @PostMapping("/coach/getCoach/{coachId}")
-    public Result getCoach(@PathVariable("coachId") Integer coachId){
-        Coach coach = coachService.getCoach(coachId);
-        if(null!=coach){
-            return Result.success(coach);
+    @PostMapping("/course/getCourse/{courseId}")
+    public Result getCourse(@PathVariable("courseId") Integer courseId){
+        Course course = courseService.getCourse(courseId);
+        if(null!=course){
+            return Result.success(course);
         }
         return Result.failure(ResponseCode.FAIL);
     }
 
-    @PostMapping("/coach/deleteCoach/{coachId}")
-    public Result deleteCoach(@PathVariable("coachId") Integer coachId){
-        int result = coachService.deleteCoach(coachId);
+    @PostMapping("/course/deleteCourse/{courseId}")
+    public Result deleteCourse(@PathVariable("courseId") Integer courseId){
+        int result = courseService.deleteCourse(courseId);
         if(result!=-1){
             return Result.success();
         }else {
@@ -63,16 +62,13 @@ public class CoachController {
     }
 
 
-    @PostMapping("/coach/updateCoach")
-    public Result updateCoach(Coach coach){
-        int result = coachService.updateCoach(coach);
+    @PostMapping("/course/updateCourse")
+    public Result updateCourse(Course course){
+        int result = courseService.updateCourse(course);
         if(result!=-1){
             return Result.success();
         }else {
             return  Result.failure(ResponseCode.FAIL);
         }
     }
-
-
-
 }
