@@ -22,4 +22,8 @@ public class CourseHourServiceImpl implements CourseHourService {
         return courseHourMapper.selectByExample(example);
 
     }
+    @Override
+    public int addCourseHour(CourseHour courseHour){
+        return courseHourMapper.insertSelective(courseHour);
+    }
 }

@@ -19,7 +19,8 @@ import java.util.Map;
 /*
 * 会员管理
 * */
-@RestController("api")
+@RestController
+@RequestMapping("api")
 public class MemberController {
 
     @Autowired

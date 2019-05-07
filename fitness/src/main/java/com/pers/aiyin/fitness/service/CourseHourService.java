@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface CourseHourService {
     List<CourseHour> getByStuId(Integer stuId);
+    int addCourseHour(CourseHour courseHour);
+
 }

@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.pers.aiyin.fitness.entity.Coach">
     <id column="coach_id" jdbcType="INTEGER" property="coachId" />
     <result column="coach_name" jdbcType="VARCHAR" property="coachName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="sex" jdbcType="TINYINT" property="sex" />
     <result column="age" jdbcType="INTEGER" property="age" />
     <result column="grade" jdbcType="TINYINT" property="grade" />
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    coach_id, coach_name, sex, age, grade, birthday
+    coach_id, coach_name, password, sex, age, grade, birthday
   </sql>
   <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.CoachExample" resultMap="BaseResultMap">
     select
@@ -102,10 +103,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.pers.aiyin.fitness.entity.Coach">
-    insert into coach (coach_id, coach_name, sex, 
-      age, grade, birthday)
-    values (#{coachId,jdbcType=INTEGER}, #{coachName,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, 
-      #{age,jdbcType=INTEGER}, #{grade,jdbcType=TINYINT}, #{birthday,jdbcType=DATE})
+    insert into coach (coach_id, coach_name, password, 
+      sex, age, grade, birthday
+      )
+    values (#{coachId,jdbcType=INTEGER}, #{coachName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=TINYINT}, #{age,jdbcType=INTEGER}, #{grade,jdbcType=TINYINT}, #{birthday,jdbcType=DATE}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.Coach">
     insert into coach
@@ -115,6 +118,9 @@
       </if>
       <if test="coachName != null">
         coach_name,
+      </if>
+      <if test="password != null">
+        password,
       </if>
       <if test="sex != null">
         sex,
@@ -135,6 +141,9 @@
       </if>
       <if test="coachName != null">
         #{coachName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
       <if test="sex != null">
         #{sex,jdbcType=TINYINT},
@@ -165,6 +174,9 @@
       <if test="record.coachName != null">
         coach_name = #{record.coachName,jdbcType=VARCHAR},
       </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
       <if test="record.sex != null">
         sex = #{record.sex,jdbcType=TINYINT},
       </if>
@@ -186,6 +198,7 @@
     update coach
     set coach_id = #{record.coachId,jdbcType=INTEGER},
       coach_name = #{record.coachName,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=TINYINT},
       age = #{record.age,jdbcType=INTEGER},
       grade = #{record.grade,jdbcType=TINYINT},
@@ -199,6 +212,9 @@
     <set>
       <if test="coachName != null">
         coach_name = #{coachName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="sex != null">
         sex = #{sex,jdbcType=TINYINT},
@@ -218,6 +234,7 @@
   <update id="updateByPrimaryKey" parameterType="com.pers.aiyin.fitness.entity.Coach">
     update coach
     set coach_name = #{coachName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=TINYINT},
       age = #{age,jdbcType=INTEGER},
       grade = #{grade,jdbcType=TINYINT},

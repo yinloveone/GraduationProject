@@ -9,22 +9,24 @@ import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /*
-* 课程管理(团体)
+* 课程管理
 * */
 
-@RestController("api")
+@RestController
+@RequestMapping("api")
 public class CourseController {
 
     @Autowired
     private CourseService courseService;
 
-    @PostMapping("/course/coachList")
+    @PostMapping("/course/courseList")
     public String getCourseList(Integer rows, Integer page){
         Map<String,Object> resultMap=new HashMap<>();
         PageInfo<Course> pageInfo = courseService.getCourseList(rows,page);
@@ -60,7 +62,6 @@ public class CourseController {
             return  Result.failure(ResponseCode.FAIL);
         }
     }
-
 
     @PostMapping("/course/updateCourse")
     public Result updateCourse(Course course){

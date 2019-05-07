@@ -3,6 +3,7 @@ package com.pers.aiyin.fitness.controller;
 import com.pers.aiyin.fitness.response.CustomCourseRecord;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
 * 学生和教练的课表管理
 * */
 
-@RestController("api")
+@RestController
+@RequestMapping("api")
 public class CourseRecordController {
 
     /*

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.pers.aiyin.fitness.mapper.custom.UserMapper">
+<mapper namespace="com.pers.aiyin.fitness.mapper.UserMapper">
     <resultMap id="BaseResultMap" type="com.pers.aiyin.fitness.entity.Course">
         <id column="course_id" jdbcType="INTEGER" property="courseId" />
         <result column="course_name" jdbcType="VARCHAR" property="courseName" />
@@ -22,8 +22,11 @@
         course_surplus
         from course
         where course_type=#{courseType}
-        <if test="beginDate != null and beginDate != ''">
+        <if test="beginDate != null">
             AND course_time_start <![CDATA[>=]]> #{beginDate}
+        </if>
+        <if test="endDate != null">
+            AND course_time_start <![CDATA[<=]]> #{endDate}
         </if>
 
     </select>

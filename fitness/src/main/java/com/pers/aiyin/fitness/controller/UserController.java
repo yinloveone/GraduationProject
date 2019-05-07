@@ -1,22 +1,23 @@
 package com.pers.aiyin.fitness.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pers.aiyin.fitness.entity.Course;
 import com.pers.aiyin.fitness.entity.CourseHour;
 import com.pers.aiyin.fitness.entity.CourseRecord;
 import com.pers.aiyin.fitness.entity.User;
+import com.pers.aiyin.fitness.response.CustomStudent;
+import com.pers.aiyin.fitness.response.PrivateCourse;
 import com.pers.aiyin.fitness.service.CourseHourService;
 import com.pers.aiyin.fitness.service.CourseRecordService;
 import com.pers.aiyin.fitness.service.UserService;
+import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ import java.util.HashMap;
 * */
 
 @RestController
+@RequestMapping("api")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -36,72 +38,73 @@ public class UserController {
     @Autowired
     private CourseRecordService courseRecordService;
 
-    @PostMapping("/loginPage")
-    public Map<String, Object> loginCon(HttpServletRequest request) throws
+    @PostMapping("/user/stuLogin")
+    public Result loginCon(HttpServletRequest request) throws
             IOException {
-       Map<String,Object> result=new HashMap<>();
-        User user=new ObjectMapper().readValue(request.getInputStream(), User.class);
-        String userName=userService.login(user);
-        if(null!=userName&&!"".equals(userName)){
-            result.put("status", 0);
-            result.put("result", userName);
-            result.put("msg", "登陆成功");
+
+        CustomStudent student=new ObjectMapper().readValue(request.getInputStream(), CustomStudent.class);
+         CustomStudent u  =userService.stuLogin(student);
+        if(null!=u){
+          return  Result.success(u);
         }else{
-            result.put("status", 1);
-            result.put("msg", "请检查你的用户名和密码");
+           return Result.failure(ResponseCode.FAIL);
         }
-       return result;
     }
-    @PostMapping("/register")
-    public Map<String, Object> register(HttpServletRequest request) throws IOException{
-        Map<String, Object> result = new HashMap<>();
-        User user=new ObjectMapper().readValue(request.getInputStream(), User.class);
-        int id=userService.register(user);
-        if(id!=0){
-            result.put("status", 0);
-            result.put("result", id);
-            result.put("msg", "注册成功");
+    /*
+    * 获取可预约课程(团体课程)
+    * */
+    @GetMapping("/user/getCourse/{dateSelect}")
+    public Result getCourse(@PathVariable("dateSelect") Date dateSelect){
+        List<Course> list = userService.getCourse(dateSelect);
+        if(null!=list&&list.size()!=0){
+            return Result.success(list);
+        }else{
+            return Result.failure(ResponseCode.FAIL);
         }
-        else{
-            result.put("status", 1);
-            result.put("msg", "注册失败");
-        }
-        return result;
+    }
+    /*
+     * 获取可预约课程(私教课程)
+     * */
+    @PostMapping("/user/getPrivateCourse")
+    public Result getPrivateCourse(HttpServletRequest request) throws
+            IOException {
+        PrivateCourse privateCourse = new ObjectMapper().readValue(
+                request.getInputStream(), PrivateCourse.class);
+    return null;
     }
 
-    /*
-    * 获取可预约课程
-    * */
-    @PostMapping("/getCourse")
-    public List<Course> getCourse(){
-        return userService.getCourse();
-    }
 
     /*
     * 预约课程
     * */
-    @PostMapping("/orderCourse")
-    public Result orderCourse(CourseRecord courseRecord){
-        String str = courseRecordService.orderCourse(courseRecord);
-       return new Result(200,str);
+    @PostMapping("/user/orderCourse")
+    public Result orderCourse(HttpServletRequest request) throws
+            IOException {
+        CourseRecord courseRecord=new ObjectMapper().readValue(
+                request.getInputStream(), CourseRecord.class);
+
+       return courseRecordService.orderCourse(courseRecord);
     }
-
-
-
     /*
     * 取消预约课程
     * */
-    @PostMapping("/cancelOrder")
+    @PostMapping("/user/cancelOrder")
     public Result cancelOrder(CourseRecord courseRecord){
-        return new Result();
+
+        return courseRecordService.cancelOrder(courseRecord);
     }
 
     /*
     * 课时查询
     * */
-    @PostMapping("/getCourseHour/{stuId}")
-    public List<CourseHour> getCourseHour(@PathVariable("stuId") Integer stuId){
-        return courseHourService.getByStuId(stuId);
+    @GetMapping("/user/getCourseHour/{stuId}")
+    public Result getCourseHour(@PathVariable("stuId") Integer stuId)  {
+       List<CourseHour> list = courseHourService.getByStuId(stuId);
+       if(null!=list&&list.size()!=0){
+           return Result.success(list);
+       }else{
+           return Result.failure(ResponseCode.FAIL);
+       }
     }
 
 

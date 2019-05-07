@@ -8,6 +8,8 @@ public class Coach implements Serializable {
 
     private String coachName;
 
+    private String password;
+
     private Byte sex;
 
     private Integer age;
@@ -32,6 +34,14 @@ public class Coach implements Serializable {
 
     public void setCoachName(String coachName) {
         this.coachName = coachName == null ? null : coachName.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
     public Byte getSex() {

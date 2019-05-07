@@ -1,4 +1,4 @@
-package com.pers.aiyin.fitness.mapper.custom;
+package com.pers.aiyin.fitness.mapper;
 
 import com.pers.aiyin.fitness.response.CustomCourseRecord;
 

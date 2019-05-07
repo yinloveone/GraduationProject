@@ -1,13 +1,13 @@
 package com.pers.aiyin.fitness.service;
 
 import com.pers.aiyin.fitness.entity.Course;
-import com.pers.aiyin.fitness.entity.User;
+import com.pers.aiyin.fitness.response.CustomStudent;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
+
 
 public interface UserService {
-     String login(User user);
-     int register(User user);
-     List<Course> getCourse();
+     List<Course> getCourse(Date selectDate);
+    CustomStudent stuLogin(CustomStudent student);
 }

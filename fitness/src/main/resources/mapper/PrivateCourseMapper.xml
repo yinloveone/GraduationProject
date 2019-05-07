@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.pers.aiyin.fitness.mapper.PrivateCourseMapper">
+    <resultMap id="BaseResultMap" type="com.pers.aiyin.fitness.response.PrivateCourse">
+        <id column="course_id" jdbcType="INTEGER" property="courseId" />
+        <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+        <result column="course_time_start" jdbcType="TIMESTAMP" property="courseTimeStart" />
+        <result column="course_time_end" jdbcType="TIMESTAMP" property="courseTimeEnd" />
+        <result column="coach_id" jdbcType="INTEGER" property="coachId" />
+        <result column="coach_name" jdbcType="VARCHAR" property="coachName" />
+        <result column="grade" jdbcType="INTEGER" property="grade" />
+    </resultMap>
+    <select id="getPrivateCourse" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select course_id,course_name,course_time_start,course_time_end,course.coach_id,course.coach_name,grade
+        from course
+        left join coach on coach.coach_id=course.coach_id
+        WHERE  course_type=#{courseType}
+        <if test="beginDate != null">
+            AND course_time_start <![CDATA[>=]]> #{beginDate}
+        </if>
+        <if test="endDate != null">
+            AND course_time_start <![CDATA[<=]]> #{endDate}
+        </if>
+        AND coachId IN
+        <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+            #{idList}
+        </foreach>
+    </select>
+
+    <select id="getCoachId" parameterType="java.lang.Integer" resultType="java.util.List">
+        select coach_id
+        from coursehour
+        where stu_id=#{stuId} and hour_count>0
+    </select>
+
+</mapper>

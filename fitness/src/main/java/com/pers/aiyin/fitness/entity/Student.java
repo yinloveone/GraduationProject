@@ -8,6 +8,8 @@ public class Student implements Serializable {
 
     private String stuName;
 
+    private String password;
+
     private Integer age;
 
     private Byte sex;
@@ -40,6 +42,14 @@ public class Student implements Serializable {
 
     public void setStuName(String stuName) {
         this.stuName = stuName == null ? null : stuName.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
     public Integer getAge() {

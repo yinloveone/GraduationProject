@@ -1,11 +1,10 @@
 package com.pers.aiyin.fitness.service.impl;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pers.aiyin.fitness.entity.Student;
 import com.pers.aiyin.fitness.mapper.StudentMapper;
-import com.pers.aiyin.fitness.mapper.custom.CustomStudentMapper;
+import com.pers.aiyin.fitness.mapper.CustomStudentMapper;
 import com.pers.aiyin.fitness.response.CustomStudent;
 import com.pers.aiyin.fitness.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;

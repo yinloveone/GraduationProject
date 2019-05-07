@@ -10,6 +10,8 @@ public class CustomStudent {
 
     private String stuName;
 
+    private String password;
+
     private Integer age;
 
     private Byte sex;

@@ -1,4 +1,4 @@
-package com.pers.aiyin.fitness.mapper.custom;
+package com.pers.aiyin.fitness.mapper;
 
 import com.pers.aiyin.fitness.response.CustomStudent;
 
@@ -9,4 +9,6 @@ public interface CustomStudentMapper {
     List<CustomStudent> getStudentList();
 
     CustomStudent getStudent(Integer stuId);
+
+    CustomStudent stuLogin(CustomStudent customStudent);
 }
