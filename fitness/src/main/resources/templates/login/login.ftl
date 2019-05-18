@@ -3,12 +3,12 @@
     <meta charset="UTF-8"/>
     <title>欢迎你</title>
 </head>
-   <script src="${path}/js/jquery-3.3.1.js"></script>
+<#--   <script src="${path}/js/jquery-3.3.1.js"></script>
     <script src="${path}/bootstrap-4.1.3-dist/js/bootstrap.js"></script>
     <link href="${path}/bootstrap-4.1.3-dist/css/bootstrap.css" rel="stylesheet" />
     <script src="${path}/js/bootstrap-table.min.js"></script>
     <link href="${path}/css/bootstrap-table.min.css" rel="stylesheet" />
-    <script src="${path}/js/bootstrap-table-zh-CN.min.js"></script>
+    <script src="${path}/js/bootstrap-table-zh-CN.min.js"></script>-->
 <body class="bare-body">
 <header class="bare-header">
     <img src="${path}/img/1.png" height="100px" width="100px"/>
@@ -21,11 +21,11 @@
         <form action="/api/loginPage" method="post">
             <div class="form-group">
                 <label class="control-label">用户名:</label>
-                <input class="form-control" type="text"/>
+                <input class="form-control" name="name" type="text"/>
             </div>
             <div class="form-group">
                 <label class="control-label">密码:</label>
-                <input class="form-control" type="password"/>
+                <input class="form-control" name="password" type="password"/>
             </div>
             <div class="btn-panel">
                 <button class="btn btn-main">登陆</button>

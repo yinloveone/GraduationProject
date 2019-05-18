@@ -1,6 +1,5 @@
 package com.pers.aiyin.fitness.service.impl;
 
-import com.pers.aiyin.fitness.mapper.CourseHourMapper;
 import com.pers.aiyin.fitness.mapper.PrivateCourseMapper;
 import com.pers.aiyin.fitness.response.PrivateCourse;
 import com.pers.aiyin.fitness.service.PrivateCourseService;

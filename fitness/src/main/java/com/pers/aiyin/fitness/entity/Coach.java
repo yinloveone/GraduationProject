@@ -18,6 +18,8 @@ public class Coach implements Serializable {
 
     private Date birthday;
 
+    private String coachPortrait;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getCoachId() {
@@ -74,5 +76,13 @@ public class Coach implements Serializable {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public String getCoachPortrait() {
+        return coachPortrait;
+    }
+
+    public void setCoachPortrait(String coachPortrait) {
+        this.coachPortrait = coachPortrait == null ? null : coachPortrait.trim();
     }
 }

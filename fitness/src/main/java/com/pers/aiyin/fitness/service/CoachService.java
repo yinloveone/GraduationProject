@@ -2,6 +2,7 @@ package com.pers.aiyin.fitness.service;
 
 import com.github.pagehelper.PageInfo;
 import com.pers.aiyin.fitness.entity.Coach;
+import com.pers.aiyin.fitness.utils.Result;
 
 public interface CoachService {
     PageInfo<Coach> getCoachList(int pageCurrent, int pageSize);
@@ -13,5 +14,7 @@ public interface CoachService {
     int deleteCoach(Integer coachId);
 
     int updateCoach(Coach coach);
+
+    Result login(Coach coach);
 
 }

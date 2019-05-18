@@ -5,6 +5,7 @@ import com.pers.aiyin.fitness.mapper.CourseHourMapper;
 import com.pers.aiyin.fitness.mapper.CourseMapper;
 import com.pers.aiyin.fitness.mapper.CourseRecordMapper;
 import com.pers.aiyin.fitness.mapper.CustomCourseRecordMapper;
+import com.pers.aiyin.fitness.response.CourseRecordList;
 import com.pers.aiyin.fitness.response.CustomCourseRecord;
 import com.pers.aiyin.fitness.service.CourseRecordService;
 import com.pers.aiyin.fitness.utils.Result;
@@ -31,11 +32,11 @@ public class CourseRecordServiceImpl implements CourseRecordService {
 
 
     @Override
-    public List<CustomCourseRecord> getRecordByStuId(Integer stuId){
+    public List<CourseRecordList> getRecordByStuId(Integer stuId){
         return customCourseRecordMapper.getRecordByStuId(stuId);
     }
     @Override
-    public List<CustomCourseRecord> getRecordByCoachId(Integer coachId){
+    public List<CourseRecordList> getRecordByCoachId(Integer coachId){
         return customCourseRecordMapper.getRecordByCoachId(coachId);
     }
     @Override

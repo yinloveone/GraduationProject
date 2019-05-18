@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pers.aiyin.fitness.mapper.ClockInMapper">
+  <resultMap id="BaseResultMap" type="com.pers.aiyin.fitness.entity.ClockIn">
+    <id column="clock_in_id" jdbcType="INTEGER" property="clockInId" />
+    <result column="clock_time" jdbcType="TIMESTAMP" property="clockTime" />
+    <result column="cock_content" jdbcType="VARCHAR" property="cockContent" />
+    <result column="stu_id" jdbcType="INTEGER" property="stuId" />
+    <result column="is_valid" jdbcType="TINYINT" property="isValid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    clock_in_id, clock_time, cock_content, stu_id, is_valid
+  </sql>
+  <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.ClockInExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from clockin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from clockin
+    where clock_in_id = #{clockInId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from clockin
+    where clock_in_id = #{clockInId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pers.aiyin.fitness.entity.ClockInExample">
+    delete from clockin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pers.aiyin.fitness.entity.ClockIn">
+    insert into clockin (clock_in_id, clock_time, cock_content, 
+      stu_id, is_valid)
+    values (#{clockInId,jdbcType=INTEGER}, #{clockTime,jdbcType=TIMESTAMP}, #{cockContent,jdbcType=VARCHAR}, 
+      #{stuId,jdbcType=INTEGER}, #{isValid,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.ClockIn">
+    insert into clockin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="clockInId != null">
+        clock_in_id,
+      </if>
+      <if test="clockTime != null">
+        clock_time,
+      </if>
+      <if test="cockContent != null">
+        cock_content,
+      </if>
+      <if test="stuId != null">
+        stu_id,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="clockInId != null">
+        #{clockInId,jdbcType=INTEGER},
+      </if>
+      <if test="clockTime != null">
+        #{clockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cockContent != null">
+        #{cockContent,jdbcType=VARCHAR},
+      </if>
+      <if test="stuId != null">
+        #{stuId,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pers.aiyin.fitness.entity.ClockInExample" resultType="java.lang.Long">
+    select count(*) from clockin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update clockin
+    <set>
+      <if test="record.clockInId != null">
+        clock_in_id = #{record.clockInId,jdbcType=INTEGER},
+      </if>
+      <if test="record.clockTime != null">
+        clock_time = #{record.clockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cockContent != null">
+        cock_content = #{record.cockContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuId != null">
+        stu_id = #{record.stuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isValid != null">
+        is_valid = #{record.isValid,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update clockin
+    set clock_in_id = #{record.clockInId,jdbcType=INTEGER},
+      clock_time = #{record.clockTime,jdbcType=TIMESTAMP},
+      cock_content = #{record.cockContent,jdbcType=VARCHAR},
+      stu_id = #{record.stuId,jdbcType=INTEGER},
+      is_valid = #{record.isValid,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pers.aiyin.fitness.entity.ClockIn">
+    update clockin
+    <set>
+      <if test="clockTime != null">
+        clock_time = #{clockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cockContent != null">
+        cock_content = #{cockContent,jdbcType=VARCHAR},
+      </if>
+      <if test="stuId != null">
+        stu_id = #{stuId,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=TINYINT},
+      </if>
+    </set>
+    where clock_in_id = #{clockInId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pers.aiyin.fitness.entity.ClockIn">
+    update clockin
+    set clock_time = #{clockTime,jdbcType=TIMESTAMP},
+      cock_content = #{cockContent,jdbcType=VARCHAR},
+      stu_id = #{stuId,jdbcType=INTEGER},
+      is_valid = #{isValid,jdbcType=TINYINT}
+    where clock_in_id = #{clockInId,jdbcType=INTEGER}
+  </update>
+</mapper>

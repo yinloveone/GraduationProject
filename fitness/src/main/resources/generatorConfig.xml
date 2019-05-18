@@ -56,15 +56,26 @@
         </javaClientGenerator>
 
         <!--对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等 -->
-    <table tableName="student" domainObjectName="Student"
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               selectByExampleQueryId="true"/>
         <table tableName="coach" domainObjectName="Coach"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true"/>
-
+       <!-- <table tableName="student" domainObjectName="Student"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"/>
+        <table tableName="clockin" domainObjectName="ClockIn"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"/>
+        <table tableName="weightrecord" domainObjectName="WeightRecord"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"/>
+        <table tableName="courserecord" domainObjectName="CourseRecord"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"/>-->
 
     </context>
 </generatorConfiguration>

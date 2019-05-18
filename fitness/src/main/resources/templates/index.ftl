@@ -7,19 +7,25 @@
     <link href="${path}/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
     <link href="${path}/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="${path}/css/sb-admin.css" rel="stylesheet">
+    <link href="${path}/css/base.css" rel="stylesheet">
     <link href="${path}/css/bootstrap-table.min.css" rel="stylesheet">
+    <link href="${path}/css/tempusdominus-bootstrap-4.css" rel="stylesheet">
     <script src="${path}/js/jquery-3.3.1.js"></script>
     <script src="${path}/js/popper.min.js"></script>
+    <script src="${path}/js/moment-with-locales.min.js"></script>
+    <script src="${path}/js/moment-timezone-with-data-2012-2022.min.js"></script>
     <script src="${path}/js/bootstrap-table.min.js"></script>
     <script src="${path}/js/bootstrap-table-zh-CN.js"></script>
     <script src="${path}/js/bootstrap.min.js"></script>
+    <script src="${path}/js/tempusdominus-bootstrap-4.js"></script>
+    <script src="${path}/js/base.js"></script>
 </head>
 <body id="page-top">
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
     <a class="navbar-brand mr-1" href="#">Small LazyWorm</a>
 
-    <button class="btn btn-link btn-sm text-primary order-1 order-sm-0" id="sidebarToggle" href="#">
+    <button class="btn btn-link btn-sm order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fa fa-bars"></i>
     </button>
     <!-- Navbar -->
@@ -29,10 +35,10 @@
                     <i class="fa fa-user-circle-o fa-2x"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">Settings</a>
+                <a class="dropdown-item" href="#">设置</a>
                 <a class="dropdown-item" href="#">Activity Log</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">注销登陆</a>
             </div>
         </li>
 
@@ -47,43 +53,60 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/api/coachManage">
                 <i class="fa fa-cogs"></i>
                 <span>教练管理</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/api/courseManage">
                 <i class="fa fa-group"></i>
                 <span>课程管理</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/api/cardManage">
                 <i class="fa fa-asterisk"></i>
-                <span>私教课管理</span></a>
+                <span>会员卡管理</span></a>
         </li>
     </ul>
     <div id="content-wrapper">
 
         <div class="container-fluid">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#">Dashboard</a>
-                </li>
-                <li class="breadcrumb-item active">Overview</li>
-            </ol>
-
             <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-table"></i>
-                    Data Table Example</div>
+
+                <div class="search-form" style="padding: 30px">
+                    <form class="form-inline" id="searhForm">
+                        <div class="form-group col-4">
+                            <label  class="col-3">姓名:</label>
+                            <input type="text" name="stuName" class="form-control col-9">
+                        </div>
+                        <div class="form-group col-4">
+                            <label  class="col-3">类型:</label>
+                            <input type="text"  class="form-control col-9">
+                        </div>
+                        <div class="form-group col-4">
+                            <label class="col-3">电话:</label>
+                            <input type="text" name="phone" class="form-control col-9">
+                        </div>
+
+                        <div class="margin-top-30" style="text-align: right;width: 100%">
+                            <button type="button" class="btn btn-outline-success" onclick="searchTable()"><i class="fa fa-check-square-o"></i> 提交</button>
+                            <button type="button" class="btn btn-outline-danger" type="reset"><i class="fa fa-refresh"></i> 重置</button>
+                        </div>
+
+                    </form>
+
+                </div>
+                <div style="height: 1px;background-color: #dee2e6"></div>
+
                 <div class="card-body">
                     <div class="table-responsive">
-                        　<table id="tb_roles" data-filter-control="true">
+                        <div class="margin-bottom-15">
+                            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> 新增</button>
+                        </div>
+
+                        　<table id="tb_roles" class="table table-striped table-hover table-sm" data-filter-control="true">
                     </table>
-
-
-
 
                     </div>
                 </div>
@@ -94,6 +117,100 @@
 
 
 </div>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- 模态框头部 -->
+            <div class="modal-header">
+                <h4 class="modal-title">新增学员</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- 模态框主体 -->
+            <div class="modal-body">
+                <form class="padding-30">
+
+                    <div class="form-group flex-display">
+                        <label class="col-4">姓名:</label>
+                        <input type="text" class="form-control col-8" id="addName">
+                    </div>
+                    <div class="form-group flex-display">
+                        <label class="col-4">电话:</label>
+                        <input type="text" class="form-control col-8" id="addPhone">
+                    </div>
+                    <div class="form-group flex-display">
+                        <label  class="col-4">邮箱:</label>
+                        <input type="text" class="form-control col-8" id="addEmail">
+                    </div>
+                    <div class="form-group flex-display">
+                        <label  class="col-4">生日:</label>
+                        <div class="input-group-prepend">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                        <input type="text" class="form-control col-7 datetimepicker-input" id="datetimepicker1" data-toggle="datetimepicker" data-target="#datetimepicker1">
+                    </div>
+                    <div class="form-group" style="display:flex;">
+                        <label  class="col-4">会员类型:</label>
+                        <select class="form-control col-8" id="addCard">
+                            <option value="1">月卡</option>
+                            <option value="2">季卡</option>
+                            <option value="3">年卡</option>
+                        </select>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- 模态框底部 -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" onclick="addStudent()"><i class="fa fa-check-square-o"></i> 提交</button>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-exclamation-circle"></i> 关闭</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changeModel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- 模态框头部 -->
+            <div class="modal-header">
+                <h4 class="modal-title">会员卡转让</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- 模态框主体 -->
+            <div class="modal-body">
+                <label>转让人信息：</label>
+                <form class="padding-30">
+
+                    <div class="form-group flex-display">
+                        <label class="col-4">姓名:</label>
+                        <input type="text" class="form-control col-8">
+                    </div>
+                    <div class="form-group flex-display">
+                        <label class="col-4">电话:</label>
+                        <input type="text" class="form-control col-8">
+                    </div>
+                    <div class="form-group flex-display">
+                        <label  class="col-4">邮箱:</label>
+                        <input type="text" class="form-control col-8">
+                    </div>
+                </form>
+            </div>
+
+            <!-- 模态框底部 -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">关闭</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 </body>
 <script src="${path}/js/sb-admin.min.js"></script>
@@ -101,6 +218,9 @@
 <script>
 
     $(function(){
+        $('#datetimepicker1').datetimepicker({
+            format: 'L'
+        });
         InitMainTable();
     });
     function InitMainTable () {
@@ -126,7 +246,7 @@
             minimumCountColumns: 2,
             clickToSelect: true,
             uniqueId: "ID",
-            showToggle: true,
+            //showToggle: true,
             carView: false,
             detailView: false,
             //得到查询的参数
@@ -135,44 +255,78 @@
                  var temp = {
                              rows: params.limit,                         //页面大小
                              page: (params.offset / params.limit) + 1,   //页码
-                             sort: params.sort,      //排序列名
-                             sortOrder: params.order //排位命令（desc，asc）
+                             stuName: $("#searhForm").find("input[name='stuName']").val(),
+                             phone: $("#searhForm").find("input[name='phone']").val(),
                  };
                  return temp;
              },
-                 columns: [{
-                         checkbox: true,
-                         visible: true                  //是否显示复选框
-                 }, {
+                 columns: [ {
                          field: 'stuName',
                                  title: '姓名',
-                                 sortable: true
+
                      }, {
                          field: 'phone',
                                  title: '手机',
-                                 sortable: true
+
                      }, {
                          field: 'email',
                                  title: '邮箱',
-                                 sortable: true,
 
-                     },  {
-                         field: 'sex',
-                                 title: '性别',
-                                 sortable: true
-                     }, {
-                         field: 'age',
-                                 title: '年龄'
+
                      }, {
                          field: 'birthday',
-                                 title: '出生日期',
+                                 title: '生日'
+                     },{
+                     field: 'cardName',
+                     title:'会员卡类型'
+                 },{
+                     field:'stuId',
+                     title: '操作',
+                     width: 120,
+                     align: 'center',
+                     formatter: actionFormatter
 
-                     }, {
-                         field: 'height',
-                                 title: '身高'
-                     } ]
+                 }
+                 ]
         })
     }
+    function searchTable(){
+        $('#tb_roles').bootstrapTable('refresh')
+    }
+    function actionFormatter(value, row, index){
+        var id=value;
+        var result="";
+        result += "<a href='javascript:;' class='btn' onclick=\"ViewById('"+ id +"')\" title='会员卡转让'><i class='fa fa-arrow-right'></i></a>"
+        return result;
+    }
+    function ViewById(id) {
+        $('#changeModel').modal('show');
 
+    }
+    function addStudent() {
+        var student={
+            stuName:$('#addName').val(),
+            phone:$('#addPhone').val(),
+            email:$('#addEmail').val(),
+            birthday:$('#datetimepicker1').val(),
+            cardId:$('#addCard').val(),
+        }
+        debugger
+       $.ajax({
+            type:'POST',
+            url:'member/addStudent',
+            data:student,
+            dataType:"json",
+            success: function (data){
+                alert(data.msg);
+                $('#myModal').modal('hide');
+                $('#tb_roles').bootstrapTable('refresh')
+             },
+            error:function(){
+               alert("请求失败");
+                $('#myModal').modal('hide');
+            },
+    })
+    }
 
 </script>

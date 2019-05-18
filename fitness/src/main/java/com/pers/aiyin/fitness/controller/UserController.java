@@ -9,6 +9,7 @@ import com.pers.aiyin.fitness.response.CustomStudent;
 import com.pers.aiyin.fitness.response.PrivateCourse;
 import com.pers.aiyin.fitness.service.CourseHourService;
 import com.pers.aiyin.fitness.service.CourseRecordService;
+import com.pers.aiyin.fitness.service.PrivateCourseService;
 import com.pers.aiyin.fitness.service.UserService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;
@@ -19,8 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 /*
 *
 *学员
@@ -38,12 +37,17 @@ public class UserController {
     @Autowired
     private CourseRecordService courseRecordService;
 
+    @Autowired
+    private PrivateCourseService privateCourseService;
+
     @PostMapping("/user/stuLogin")
     public Result loginCon(HttpServletRequest request) throws
             IOException {
-
-        CustomStudent student=new ObjectMapper().readValue(request.getInputStream(), CustomStudent.class);
+        //获取请求Json数据流中登陆信息
+         CustomStudent student=new ObjectMapper().readValue(request.getInputStream(), CustomStudent.class);
+         //验证用户身份信息
          CustomStudent u  =userService.stuLogin(student);
+         //返回结果
         if(null!=u){
           return  Result.success(u);
         }else{
@@ -70,7 +74,7 @@ public class UserController {
             IOException {
         PrivateCourse privateCourse = new ObjectMapper().readValue(
                 request.getInputStream(), PrivateCourse.class);
-    return null;
+    return privateCourseService.getPrivateCourse(privateCourse);
     }
 
 
@@ -89,8 +93,10 @@ public class UserController {
     * 取消预约课程
     * */
     @PostMapping("/user/cancelOrder")
-    public Result cancelOrder(CourseRecord courseRecord){
-
+    public Result cancelOrder(HttpServletRequest request) throws
+            IOException {
+        CourseRecord courseRecord=new ObjectMapper().readValue(
+                request.getInputStream(), CourseRecord.class);
         return courseRecordService.cancelOrder(courseRecord);
     }
 

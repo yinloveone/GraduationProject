@@ -22,15 +22,16 @@ public class MemberServiceImp implements MemberService {
     private StudentMapper studentMapper;
 
     @Override
-    public PageInfo<CustomStudent> getStudentList(int pageCurrent,int pageSize){
+    public PageInfo<CustomStudent> getStudentList(int pageSize,int pageCurrent,CustomStudent student){
         PageHelper.startPage(pageCurrent, pageSize);
-        List<CustomStudent> list =  customStudentMapper.getStudentList();
+        List<CustomStudent> list =  customStudentMapper.getStudentList(student);
         PageInfo<CustomStudent> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }
 
     @Override
     public int addStudent(Student student){
+        student.setPassword("123");
         return studentMapper.insertSelective(student);
     }
 

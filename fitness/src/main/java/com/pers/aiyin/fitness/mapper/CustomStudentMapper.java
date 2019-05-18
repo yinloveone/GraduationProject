@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CustomStudentMapper {
 
-    List<CustomStudent> getStudentList();
+    List<CustomStudent> getStudentList(CustomStudent student);
 
     CustomStudent getStudent(Integer stuId);
 

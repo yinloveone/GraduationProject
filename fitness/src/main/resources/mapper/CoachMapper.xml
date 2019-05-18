@@ -9,6 +9,7 @@
     <result column="age" jdbcType="INTEGER" property="age" />
     <result column="grade" jdbcType="TINYINT" property="grade" />
     <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="coach_portrait" jdbcType="VARCHAR" property="coachPortrait" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    coach_id, coach_name, password, sex, age, grade, birthday
+    coach_id, coach_name, password, sex, age, grade, birthday, coach_portrait
   </sql>
   <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.CoachExample" resultMap="BaseResultMap">
     select
@@ -104,11 +105,11 @@
   </delete>
   <insert id="insert" parameterType="com.pers.aiyin.fitness.entity.Coach">
     insert into coach (coach_id, coach_name, password, 
-      sex, age, grade, birthday
-      )
+      sex, age, grade, birthday, 
+      coach_portrait)
     values (#{coachId,jdbcType=INTEGER}, #{coachName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=TINYINT}, #{age,jdbcType=INTEGER}, #{grade,jdbcType=TINYINT}, #{birthday,jdbcType=DATE}
-      )
+      #{sex,jdbcType=TINYINT}, #{age,jdbcType=INTEGER}, #{grade,jdbcType=TINYINT}, #{birthday,jdbcType=DATE}, 
+      #{coachPortrait,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.Coach">
     insert into coach
@@ -134,6 +135,9 @@
       <if test="birthday != null">
         birthday,
       </if>
+      <if test="coachPortrait != null">
+        coach_portrait,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="coachId != null">
@@ -156,6 +160,9 @@
       </if>
       <if test="birthday != null">
         #{birthday,jdbcType=DATE},
+      </if>
+      <if test="coachPortrait != null">
+        #{coachPortrait,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -189,6 +196,9 @@
       <if test="record.birthday != null">
         birthday = #{record.birthday,jdbcType=DATE},
       </if>
+      <if test="record.coachPortrait != null">
+        coach_portrait = #{record.coachPortrait,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -202,7 +212,8 @@
       sex = #{record.sex,jdbcType=TINYINT},
       age = #{record.age,jdbcType=INTEGER},
       grade = #{record.grade,jdbcType=TINYINT},
-      birthday = #{record.birthday,jdbcType=DATE}
+      birthday = #{record.birthday,jdbcType=DATE},
+      coach_portrait = #{record.coachPortrait,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -228,6 +239,9 @@
       <if test="birthday != null">
         birthday = #{birthday,jdbcType=DATE},
       </if>
+      <if test="coachPortrait != null">
+        coach_portrait = #{coachPortrait,jdbcType=VARCHAR},
+      </if>
     </set>
     where coach_id = #{coachId,jdbcType=INTEGER}
   </update>
@@ -238,7 +252,8 @@
       sex = #{sex,jdbcType=TINYINT},
       age = #{age,jdbcType=INTEGER},
       grade = #{grade,jdbcType=TINYINT},
-      birthday = #{birthday,jdbcType=DATE}
+      birthday = #{birthday,jdbcType=DATE},
+      coach_portrait = #{coachPortrait,jdbcType=VARCHAR}
     where coach_id = #{coachId,jdbcType=INTEGER}
   </update>
 </mapper>

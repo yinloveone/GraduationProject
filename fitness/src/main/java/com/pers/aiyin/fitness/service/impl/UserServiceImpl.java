@@ -10,6 +10,7 @@ import com.pers.aiyin.fitness.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;

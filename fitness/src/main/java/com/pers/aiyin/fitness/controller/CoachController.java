@@ -1,8 +1,10 @@
 package com.pers.aiyin.fitness.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.pers.aiyin.fitness.entity.Coach;
+import com.pers.aiyin.fitness.response.PrivateCourse;
 import com.pers.aiyin.fitness.service.CoachService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,7 +78,12 @@ public class CoachController {
             return  Result.failure(ResponseCode.FAIL);
         }
     }
-
+    @PostMapping("/coach/login")
+    public Result coachLogin(HttpServletRequest request) throws
+            IOException {
+        Coach coach=new ObjectMapper().readValue(request.getInputStream(), Coach.class);
+        return coachService.login(coach);
+    }
 
 
 }

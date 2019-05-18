@@ -13,6 +13,7 @@
     <result column="weight" jdbcType="DOUBLE" property="weight" />
     <result column="birthday" jdbcType="DATE" property="birthday" />
     <result column="card_id" jdbcType="INTEGER" property="cardId" />
+    <result column="student_portrait" jdbcType="VARCHAR" property="studentPortrait" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,7 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    stu_id, stu_name, password, age, sex, email, phone, height, weight, birthday, card_id
+    stu_id, stu_name, password, age, sex, email, phone, height, weight, birthday, card_id, 
+    student_portrait
   </sql>
   <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.StudentExample" resultMap="BaseResultMap">
     select
@@ -110,11 +112,11 @@
     insert into student (stu_id, stu_name, password, 
       age, sex, email, phone, 
       height, weight, birthday, 
-      card_id)
+      card_id, student_portrait)
     values (#{stuId,jdbcType=INTEGER}, #{stuName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{age,jdbcType=INTEGER}, #{sex,jdbcType=TINYINT}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{height,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE}, #{birthday,jdbcType=DATE}, 
-      #{cardId,jdbcType=INTEGER})
+      #{cardId,jdbcType=INTEGER}, #{studentPortrait,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.Student">
     insert into student
@@ -152,6 +154,9 @@
       <if test="cardId != null">
         card_id,
       </if>
+      <if test="studentPortrait != null">
+        student_portrait,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="stuId != null">
@@ -186,6 +191,9 @@
       </if>
       <if test="cardId != null">
         #{cardId,jdbcType=INTEGER},
+      </if>
+      <if test="studentPortrait != null">
+        #{studentPortrait,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -231,6 +239,9 @@
       <if test="record.cardId != null">
         card_id = #{record.cardId,jdbcType=INTEGER},
       </if>
+      <if test="record.studentPortrait != null">
+        student_portrait = #{record.studentPortrait,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -248,7 +259,8 @@
       height = #{record.height,jdbcType=DOUBLE},
       weight = #{record.weight,jdbcType=DOUBLE},
       birthday = #{record.birthday,jdbcType=DATE},
-      card_id = #{record.cardId,jdbcType=INTEGER}
+      card_id = #{record.cardId,jdbcType=INTEGER},
+      student_portrait = #{record.studentPortrait,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -286,6 +298,9 @@
       <if test="cardId != null">
         card_id = #{cardId,jdbcType=INTEGER},
       </if>
+      <if test="studentPortrait != null">
+        student_portrait = #{studentPortrait,jdbcType=VARCHAR},
+      </if>
     </set>
     where stu_id = #{stuId,jdbcType=INTEGER}
   </update>
@@ -300,7 +315,8 @@
       height = #{height,jdbcType=DOUBLE},
       weight = #{weight,jdbcType=DOUBLE},
       birthday = #{birthday,jdbcType=DATE},
-      card_id = #{cardId,jdbcType=INTEGER}
+      card_id = #{cardId,jdbcType=INTEGER},
+      student_portrait = #{studentPortrait,jdbcType=VARCHAR}
     where stu_id = #{stuId,jdbcType=INTEGER}
   </update>
 </mapper>

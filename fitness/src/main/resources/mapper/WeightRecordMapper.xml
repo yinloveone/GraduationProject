@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pers.aiyin.fitness.mapper.DietRecordMapper">
-  <resultMap id="BaseResultMap" type="com.pers.aiyin.fitness.entity.DietRecord">
-    <id column="diet_id" jdbcType="INTEGER" property="dietId" />
-    <result column="diet_date" jdbcType="DATE" property="dietDate" />
+<mapper namespace="com.pers.aiyin.fitness.mapper.WeightRecordMapper">
+  <resultMap id="BaseResultMap" type="com.pers.aiyin.fitness.entity.WeightRecord">
+    <id column="wei_record_id" jdbcType="INTEGER" property="weiRecordId" />
+    <result column="weight" jdbcType="DOUBLE" property="weight" />
+    <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+    <result column="is_valid" jdbcType="TINYINT" property="isValid" />
     <result column="stu_id" jdbcType="INTEGER" property="stuId" />
-    <result column="diet_content" jdbcType="VARCHAR" property="dietContent" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,16 +67,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    diet_id, diet_date, stu_id, diet_content
+    wei_record_id, weight, record_time, is_valid, stu_id
   </sql>
-  <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.DietRecordExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.WeightRecordExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from dietrecord
+    from weightrecord
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,76 +87,85 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from dietrecord
-    where diet_id = #{dietId,jdbcType=INTEGER}
+    from weightrecord
+    where wei_record_id = #{weiRecordId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from dietrecord
-    where diet_id = #{dietId,jdbcType=INTEGER}
+    delete from weightrecord
+    where wei_record_id = #{weiRecordId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.pers.aiyin.fitness.entity.DietRecordExample">
-    delete from dietrecord
+  <delete id="deleteByExample" parameterType="com.pers.aiyin.fitness.entity.WeightRecordExample">
+    delete from weightrecord
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pers.aiyin.fitness.entity.DietRecord">
-    insert into dietrecord (diet_id, diet_date, stu_id, 
-      diet_content)
-    values (#{dietId,jdbcType=INTEGER}, #{dietDate,jdbcType=DATE}, #{stuId,jdbcType=INTEGER}, 
-      #{dietContent,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.pers.aiyin.fitness.entity.WeightRecord">
+    insert into weightrecord (wei_record_id, weight, record_time, 
+      is_valid, stu_id)
+    values (#{weiRecordId,jdbcType=INTEGER}, #{weight,jdbcType=DOUBLE}, #{recordTime,jdbcType=TIMESTAMP}, 
+      #{isValid,jdbcType=TINYINT}, #{stuId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.DietRecord">
-    insert into dietrecord
+  <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.WeightRecord">
+    insert into weightrecord
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="dietId != null">
-        diet_id,
+      <if test="weiRecordId != null">
+        wei_record_id,
       </if>
-      <if test="dietDate != null">
-        diet_date,
+      <if test="weight != null">
+        weight,
+      </if>
+      <if test="recordTime != null">
+        record_time,
+      </if>
+      <if test="isValid != null">
+        is_valid,
       </if>
       <if test="stuId != null">
         stu_id,
       </if>
-      <if test="dietContent != null">
-        diet_content,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="dietId != null">
-        #{dietId,jdbcType=INTEGER},
+      <if test="weiRecordId != null">
+        #{weiRecordId,jdbcType=INTEGER},
       </if>
-      <if test="dietDate != null">
-        #{dietDate,jdbcType=DATE},
+      <if test="weight != null">
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="recordTime != null">
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=TINYINT},
       </if>
       <if test="stuId != null">
         #{stuId,jdbcType=INTEGER},
       </if>
-      <if test="dietContent != null">
-        #{dietContent,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pers.aiyin.fitness.entity.DietRecordExample" resultType="java.lang.Long">
-    select count(*) from dietrecord
+  <select id="countByExample" parameterType="com.pers.aiyin.fitness.entity.WeightRecordExample" resultType="java.lang.Long">
+    select count(*) from weightrecord
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update dietrecord
+    update weightrecord
     <set>
-      <if test="record.dietId != null">
-        diet_id = #{record.dietId,jdbcType=INTEGER},
+      <if test="record.weiRecordId != null">
+        wei_record_id = #{record.weiRecordId,jdbcType=INTEGER},
       </if>
-      <if test="record.dietDate != null">
-        diet_date = #{record.dietDate,jdbcType=DATE},
+      <if test="record.weight != null">
+        weight = #{record.weight,jdbcType=DOUBLE},
+      </if>
+      <if test="record.recordTime != null">
+        record_time = #{record.recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isValid != null">
+        is_valid = #{record.isValid,jdbcType=TINYINT},
       </if>
       <if test="record.stuId != null">
         stu_id = #{record.stuId,jdbcType=INTEGER},
-      </if>
-      <if test="record.dietContent != null">
-        diet_content = #{record.dietContent,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -163,35 +173,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update dietrecord
-    set diet_id = #{record.dietId,jdbcType=INTEGER},
-      diet_date = #{record.dietDate,jdbcType=DATE},
-      stu_id = #{record.stuId,jdbcType=INTEGER},
-      diet_content = #{record.dietContent,jdbcType=VARCHAR}
+    update weightrecord
+    set wei_record_id = #{record.weiRecordId,jdbcType=INTEGER},
+      weight = #{record.weight,jdbcType=DOUBLE},
+      record_time = #{record.recordTime,jdbcType=TIMESTAMP},
+      is_valid = #{record.isValid,jdbcType=TINYINT},
+      stu_id = #{record.stuId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pers.aiyin.fitness.entity.DietRecord">
-    update dietrecord
+  <update id="updateByPrimaryKeySelective" parameterType="com.pers.aiyin.fitness.entity.WeightRecord">
+    update weightrecord
     <set>
-      <if test="dietDate != null">
-        diet_date = #{dietDate,jdbcType=DATE},
+      <if test="weight != null">
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="recordTime != null">
+        record_time = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=TINYINT},
       </if>
       <if test="stuId != null">
         stu_id = #{stuId,jdbcType=INTEGER},
       </if>
-      <if test="dietContent != null">
-        diet_content = #{dietContent,jdbcType=VARCHAR},
-      </if>
     </set>
-    where diet_id = #{dietId,jdbcType=INTEGER}
+    where wei_record_id = #{weiRecordId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pers.aiyin.fitness.entity.DietRecord">
-    update dietrecord
-    set diet_date = #{dietDate,jdbcType=DATE},
-      stu_id = #{stuId,jdbcType=INTEGER},
-      diet_content = #{dietContent,jdbcType=VARCHAR}
-    where diet_id = #{dietId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.pers.aiyin.fitness.entity.WeightRecord">
+    update weightrecord
+    set weight = #{weight,jdbcType=DOUBLE},
+      record_time = #{recordTime,jdbcType=TIMESTAMP},
+      is_valid = #{isValid,jdbcType=TINYINT},
+      stu_id = #{stuId,jdbcType=INTEGER}
+    where wei_record_id = #{weiRecordId,jdbcType=INTEGER}
   </update>
 </mapper>

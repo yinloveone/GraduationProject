@@ -371,6 +371,126 @@ public class CourseRecordExample {
             addCriterionForJDBCDate("scdate not between", value1, value2, "scdate");
             return (Criteria) this;
         }
+
+        public Criteria andSignInIsNull() {
+            addCriterion("sign_in is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignInIsNotNull() {
+            addCriterion("sign_in is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignInEqualTo(Byte value) {
+            addCriterion("sign_in =", value, "signIn");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignInNotEqualTo(Byte value) {
+            addCriterion("sign_in <>", value, "signIn");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignInGreaterThan(Byte value) {
+            addCriterion("sign_in >", value, "signIn");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignInGreaterThanOrEqualTo(Byte value) {
+            addCriterion("sign_in >=", value, "signIn");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignInLessThan(Byte value) {
+            addCriterion("sign_in <", value, "signIn");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignInLessThanOrEqualTo(Byte value) {
+            addCriterion("sign_in <=", value, "signIn");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignInIn(List<Byte> values) {
+            addCriterion("sign_in in", values, "signIn");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignInNotIn(List<Byte> values) {
+            addCriterion("sign_in not in", values, "signIn");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignInBetween(Byte value1, Byte value2) {
+            addCriterion("sign_in between", value1, value2, "signIn");
+            return (Criteria) this;
+        }
+
+        public Criteria andSignInNotBetween(Byte value1, Byte value2) {
+            addCriterion("sign_in not between", value1, value2, "signIn");
+            return (Criteria) this;
+        }
+
+        public Criteria andScoreIsNull() {
+            addCriterion("score is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andScoreIsNotNull() {
+            addCriterion("score is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andScoreEqualTo(Integer value) {
+            addCriterion("score =", value, "score");
+            return (Criteria) this;
+        }
+
+        public Criteria andScoreNotEqualTo(Integer value) {
+            addCriterion("score <>", value, "score");
+            return (Criteria) this;
+        }
+
+        public Criteria andScoreGreaterThan(Integer value) {
+            addCriterion("score >", value, "score");
+            return (Criteria) this;
+        }
+
+        public Criteria andScoreGreaterThanOrEqualTo(Integer value) {
+            addCriterion("score >=", value, "score");
+            return (Criteria) this;
+        }
+
+        public Criteria andScoreLessThan(Integer value) {
+            addCriterion("score <", value, "score");
+            return (Criteria) this;
+        }
+
+        public Criteria andScoreLessThanOrEqualTo(Integer value) {
+            addCriterion("score <=", value, "score");
+            return (Criteria) this;
+        }
+
+        public Criteria andScoreIn(List<Integer> values) {
+            addCriterion("score in", values, "score");
+            return (Criteria) this;
+        }
+
+        public Criteria andScoreNotIn(List<Integer> values) {
+            addCriterion("score not in", values, "score");
+            return (Criteria) this;
+        }
+
+        public Criteria andScoreBetween(Integer value1, Integer value2) {
+            addCriterion("score between", value1, value2, "score");
+            return (Criteria) this;
+        }
+
+        public Criteria andScoreNotBetween(Integer value1, Integer value2) {
+            addCriterion("score not between", value1, value2, "score");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

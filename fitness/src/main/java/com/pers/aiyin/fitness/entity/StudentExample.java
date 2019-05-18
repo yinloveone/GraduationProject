@@ -831,6 +831,76 @@ public class StudentExample {
             addCriterion("card_id not between", value1, value2, "cardId");
             return (Criteria) this;
         }
+
+        public Criteria andStudentPortraitIsNull() {
+            addCriterion("student_portrait is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentPortraitIsNotNull() {
+            addCriterion("student_portrait is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentPortraitEqualTo(String value) {
+            addCriterion("student_portrait =", value, "studentPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentPortraitNotEqualTo(String value) {
+            addCriterion("student_portrait <>", value, "studentPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentPortraitGreaterThan(String value) {
+            addCriterion("student_portrait >", value, "studentPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentPortraitGreaterThanOrEqualTo(String value) {
+            addCriterion("student_portrait >=", value, "studentPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentPortraitLessThan(String value) {
+            addCriterion("student_portrait <", value, "studentPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentPortraitLessThanOrEqualTo(String value) {
+            addCriterion("student_portrait <=", value, "studentPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentPortraitLike(String value) {
+            addCriterion("student_portrait like", value, "studentPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentPortraitNotLike(String value) {
+            addCriterion("student_portrait not like", value, "studentPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentPortraitIn(List<String> values) {
+            addCriterion("student_portrait in", values, "studentPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentPortraitNotIn(List<String> values) {
+            addCriterion("student_portrait not in", values, "studentPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentPortraitBetween(String value1, String value2) {
+            addCriterion("student_portrait between", value1, value2, "studentPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andStudentPortraitNotBetween(String value1, String value2) {
+            addCriterion("student_portrait not between", value1, value2, "studentPortrait");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

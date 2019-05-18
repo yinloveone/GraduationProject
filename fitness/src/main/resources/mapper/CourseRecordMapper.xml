@@ -6,6 +6,8 @@
     <result column="stu_id" jdbcType="INTEGER" property="stuId" />
     <result column="course_id" jdbcType="INTEGER" property="courseId" />
     <result column="scdate" jdbcType="DATE" property="scdate" />
+    <result column="sign_in" jdbcType="TINYINT" property="signIn" />
+    <result column="score" jdbcType="INTEGER" property="score" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    course_record_id, stu_id, course_id, scdate
+    course_record_id, stu_id, course_id, scdate, sign_in, score
   </sql>
   <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.CourseRecordExample" resultMap="BaseResultMap">
     select
@@ -101,9 +103,9 @@
   </delete>
   <insert id="insert" parameterType="com.pers.aiyin.fitness.entity.CourseRecord">
     insert into courserecord (course_record_id, stu_id, course_id, 
-      scdate)
+      scdate, sign_in, score)
     values (#{courseRecordId,jdbcType=INTEGER}, #{stuId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, 
-      #{scdate,jdbcType=DATE})
+      #{scdate,jdbcType=DATE}, #{signIn,jdbcType=TINYINT}, #{score,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.CourseRecord">
     insert into courserecord
@@ -120,6 +122,12 @@
       <if test="scdate != null">
         scdate,
       </if>
+      <if test="signIn != null">
+        sign_in,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="courseRecordId != null">
@@ -133,6 +141,12 @@
       </if>
       <if test="scdate != null">
         #{scdate,jdbcType=DATE},
+      </if>
+      <if test="signIn != null">
+        #{signIn,jdbcType=TINYINT},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -157,6 +171,12 @@
       <if test="record.scdate != null">
         scdate = #{record.scdate,jdbcType=DATE},
       </if>
+      <if test="record.signIn != null">
+        sign_in = #{record.signIn,jdbcType=TINYINT},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -167,7 +187,9 @@
     set course_record_id = #{record.courseRecordId,jdbcType=INTEGER},
       stu_id = #{record.stuId,jdbcType=INTEGER},
       course_id = #{record.courseId,jdbcType=INTEGER},
-      scdate = #{record.scdate,jdbcType=DATE}
+      scdate = #{record.scdate,jdbcType=DATE},
+      sign_in = #{record.signIn,jdbcType=TINYINT},
+      score = #{record.score,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -184,6 +206,12 @@
       <if test="scdate != null">
         scdate = #{scdate,jdbcType=DATE},
       </if>
+      <if test="signIn != null">
+        sign_in = #{signIn,jdbcType=TINYINT},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
     </set>
     where course_record_id = #{courseRecordId,jdbcType=INTEGER}
   </update>
@@ -191,7 +219,9 @@
     update courserecord
     set stu_id = #{stuId,jdbcType=INTEGER},
       course_id = #{courseId,jdbcType=INTEGER},
-      scdate = #{scdate,jdbcType=DATE}
+      scdate = #{scdate,jdbcType=DATE},
+      sign_in = #{signIn,jdbcType=TINYINT},
+      score = #{score,jdbcType=INTEGER}
     where course_record_id = #{courseRecordId,jdbcType=INTEGER}
   </update>
 </mapper>

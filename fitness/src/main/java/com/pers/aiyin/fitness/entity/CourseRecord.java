@@ -12,6 +12,10 @@ public class CourseRecord implements Serializable {
 
     private Date scdate;
 
+    private Byte signIn;
+
+    private Integer score;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getCourseRecordId() {
@@ -44,5 +48,21 @@ public class CourseRecord implements Serializable {
 
     public void setScdate(Date scdate) {
         this.scdate = scdate;
+    }
+
+    public Byte getSignIn() {
+        return signIn;
+    }
+
+    public void setSignIn(Byte signIn) {
+        this.signIn = signIn;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }

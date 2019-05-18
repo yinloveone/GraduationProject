@@ -26,6 +26,8 @@ public class Student implements Serializable {
 
     private Integer cardId;
 
+    private String studentPortrait;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getStuId() {
@@ -114,5 +116,13 @@ public class Student implements Serializable {
 
     public void setCardId(Integer cardId) {
         this.cardId = cardId;
+    }
+
+    public String getStudentPortrait() {
+        return studentPortrait;
+    }
+
+    public void setStudentPortrait(String studentPortrait) {
+        this.studentPortrait = studentPortrait == null ? null : studentPortrait.trim();
     }
 }

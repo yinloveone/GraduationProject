@@ -1,10 +1,11 @@
 package com.pers.aiyin.fitness.controller;
 
+import com.pers.aiyin.fitness.response.CourseRecordList;
 import com.pers.aiyin.fitness.response.CustomCourseRecord;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.pers.aiyin.fitness.service.CourseRecordService;
+import com.pers.aiyin.fitness.utils.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,20 +17,34 @@ import java.util.List;
 @RequestMapping("api")
 public class CourseRecordController {
 
+    @Autowired
+    private CourseRecordService courseRecordService;
+
     /*
     * *根据学生id获得课程表
      */
-    @PostMapping("/courseRecord/getRecordById/{stuId}")
-    public List<CustomCourseRecord> getRecordById(@PathVariable("stuId") Integer stuId){
-        return null;
+    @GetMapping("/courseRecord/getRecordById/{stuId}")
+    public Result getRecordById(@PathVariable("stuId") Integer stuId){
+        List<CourseRecordList> courseRecordList = courseRecordService.getRecordByStuId(stuId);
+        if(null!=courseRecordList&&courseRecordList.size()>0){
+            return Result.success(courseRecordList);
+        }else{
+            return new Result(1,"没有课表记录");
+        }
+
     }
 
     /*
      * *根据教练id获得课程表
      */
-    @PostMapping("/courseRecord/getRecordByCoachId/{coachId}")
-    public List<CustomCourseRecord> getRecordByCoachId(@PathVariable("coachId") Integer coachId){
-        return null;
+    @GetMapping("/courseRecord/getRecordByCoachId/{coachId}")
+    public Result getRecordByCoachId(@PathVariable("coachId") Integer coachId){
+        List<CourseRecordList> courseRecordList = courseRecordService.getRecordByCoachId(coachId);
+        if(null!=courseRecordList&&courseRecordList.size()>0){
+            return Result.success(courseRecordList);
+        }else{
+            return new Result(1,"没有课表记录");
+        }
     }
 
 }

@@ -17,10 +17,20 @@
         <result column="card_name" jdbcType="VARCHAR" property="cardName" />
     </resultMap>
 
-    <select id="getStudentList" resultMap="BaseResultMap">
+    <select id="getStudentList" parameterType="com.pers.aiyin.fitness.response.CustomStudent" resultMap="BaseResultMap">
         select stu_id,stu_name,age,sex,email,phone,height,weight,birthday,student.card_id,card_name
          from student
          left join clubcard on clubcard.card_id=student.card_id
+         where 1=1
+        <if test="stuName != null and stuName != ''">
+           and stu_name = #{stuName,jdbcType=VARCHAR}
+        </if>
+        <if test="phone != null and phone != ''">
+            and  phone = #{phone,jdbcType=VARCHAR}
+        </if>
+        <if test="cardName != null and cardName != ''">
+            and card_name = #{cardName,jdbcType=VARCHAR}
+        </if>
 
     </select>
 

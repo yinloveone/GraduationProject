@@ -27,9 +27,9 @@ public class MemberController {
     private MemberService memberService;
 
     @PostMapping("/member/studentList")
-    public String getList(Integer rows, Integer page){
+    public String getList(Integer rows, Integer page,CustomStudent student){
         Map<String,Object> resultMap=new HashMap<>();
-        PageInfo<CustomStudent> pageInfo=memberService.getStudentList(rows,page);
+        PageInfo<CustomStudent> pageInfo=memberService.getStudentList(rows,page,student);
         resultMap.put("rows",pageInfo.getList());
         resultMap.put("total",pageInfo.getList().size());
         return new Gson().toJson(resultMap);

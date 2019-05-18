@@ -571,6 +571,76 @@ public class CoachExample {
             addCriterionForJDBCDate("birthday not between", value1, value2, "birthday");
             return (Criteria) this;
         }
+
+        public Criteria andCoachPortraitIsNull() {
+            addCriterion("coach_portrait is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoachPortraitIsNotNull() {
+            addCriterion("coach_portrait is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoachPortraitEqualTo(String value) {
+            addCriterion("coach_portrait =", value, "coachPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoachPortraitNotEqualTo(String value) {
+            addCriterion("coach_portrait <>", value, "coachPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoachPortraitGreaterThan(String value) {
+            addCriterion("coach_portrait >", value, "coachPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoachPortraitGreaterThanOrEqualTo(String value) {
+            addCriterion("coach_portrait >=", value, "coachPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoachPortraitLessThan(String value) {
+            addCriterion("coach_portrait <", value, "coachPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoachPortraitLessThanOrEqualTo(String value) {
+            addCriterion("coach_portrait <=", value, "coachPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoachPortraitLike(String value) {
+            addCriterion("coach_portrait like", value, "coachPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoachPortraitNotLike(String value) {
+            addCriterion("coach_portrait not like", value, "coachPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoachPortraitIn(List<String> values) {
+            addCriterion("coach_portrait in", values, "coachPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoachPortraitNotIn(List<String> values) {
+            addCriterion("coach_portrait not in", values, "coachPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoachPortraitBetween(String value1, String value2) {
+            addCriterion("coach_portrait between", value1, value2, "coachPortrait");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoachPortraitNotBetween(String value1, String value2) {
+            addCriterion("coach_portrait not between", value1, value2, "coachPortrait");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

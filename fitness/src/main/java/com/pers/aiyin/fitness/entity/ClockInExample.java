@@ -2,17 +2,16 @@ package com.pers.aiyin.fitness.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
-public class DietRecordExample {
+public class ClockInExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public DietRecordExample() {
+    public ClockInExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -106,149 +105,193 @@ public class DietRecordExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
-        }
-
-        public Criteria andDietIdIsNull() {
-            addCriterion("diet_id is null");
+        public Criteria andClockInIdIsNull() {
+            addCriterion("clock_in_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andDietIdIsNotNull() {
-            addCriterion("diet_id is not null");
+        public Criteria andClockInIdIsNotNull() {
+            addCriterion("clock_in_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDietIdEqualTo(Integer value) {
-            addCriterion("diet_id =", value, "dietId");
+        public Criteria andClockInIdEqualTo(Integer value) {
+            addCriterion("clock_in_id =", value, "clockInId");
             return (Criteria) this;
         }
 
-        public Criteria andDietIdNotEqualTo(Integer value) {
-            addCriterion("diet_id <>", value, "dietId");
+        public Criteria andClockInIdNotEqualTo(Integer value) {
+            addCriterion("clock_in_id <>", value, "clockInId");
             return (Criteria) this;
         }
 
-        public Criteria andDietIdGreaterThan(Integer value) {
-            addCriterion("diet_id >", value, "dietId");
+        public Criteria andClockInIdGreaterThan(Integer value) {
+            addCriterion("clock_in_id >", value, "clockInId");
             return (Criteria) this;
         }
 
-        public Criteria andDietIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("diet_id >=", value, "dietId");
+        public Criteria andClockInIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("clock_in_id >=", value, "clockInId");
             return (Criteria) this;
         }
 
-        public Criteria andDietIdLessThan(Integer value) {
-            addCriterion("diet_id <", value, "dietId");
+        public Criteria andClockInIdLessThan(Integer value) {
+            addCriterion("clock_in_id <", value, "clockInId");
             return (Criteria) this;
         }
 
-        public Criteria andDietIdLessThanOrEqualTo(Integer value) {
-            addCriterion("diet_id <=", value, "dietId");
+        public Criteria andClockInIdLessThanOrEqualTo(Integer value) {
+            addCriterion("clock_in_id <=", value, "clockInId");
             return (Criteria) this;
         }
 
-        public Criteria andDietIdIn(List<Integer> values) {
-            addCriterion("diet_id in", values, "dietId");
+        public Criteria andClockInIdIn(List<Integer> values) {
+            addCriterion("clock_in_id in", values, "clockInId");
             return (Criteria) this;
         }
 
-        public Criteria andDietIdNotIn(List<Integer> values) {
-            addCriterion("diet_id not in", values, "dietId");
+        public Criteria andClockInIdNotIn(List<Integer> values) {
+            addCriterion("clock_in_id not in", values, "clockInId");
             return (Criteria) this;
         }
 
-        public Criteria andDietIdBetween(Integer value1, Integer value2) {
-            addCriterion("diet_id between", value1, value2, "dietId");
+        public Criteria andClockInIdBetween(Integer value1, Integer value2) {
+            addCriterion("clock_in_id between", value1, value2, "clockInId");
             return (Criteria) this;
         }
 
-        public Criteria andDietIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("diet_id not between", value1, value2, "dietId");
+        public Criteria andClockInIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("clock_in_id not between", value1, value2, "clockInId");
             return (Criteria) this;
         }
 
-        public Criteria andDietDateIsNull() {
-            addCriterion("diet_date is null");
+        public Criteria andClockTimeIsNull() {
+            addCriterion("clock_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andDietDateIsNotNull() {
-            addCriterion("diet_date is not null");
+        public Criteria andClockTimeIsNotNull() {
+            addCriterion("clock_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDietDateEqualTo(Date value) {
-            addCriterionForJDBCDate("diet_date =", value, "dietDate");
+        public Criteria andClockTimeEqualTo(Date value) {
+            addCriterion("clock_time =", value, "clockTime");
             return (Criteria) this;
         }
 
-        public Criteria andDietDateNotEqualTo(Date value) {
-            addCriterionForJDBCDate("diet_date <>", value, "dietDate");
+        public Criteria andClockTimeNotEqualTo(Date value) {
+            addCriterion("clock_time <>", value, "clockTime");
             return (Criteria) this;
         }
 
-        public Criteria andDietDateGreaterThan(Date value) {
-            addCriterionForJDBCDate("diet_date >", value, "dietDate");
+        public Criteria andClockTimeGreaterThan(Date value) {
+            addCriterion("clock_time >", value, "clockTime");
             return (Criteria) this;
         }
 
-        public Criteria andDietDateGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("diet_date >=", value, "dietDate");
+        public Criteria andClockTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("clock_time >=", value, "clockTime");
             return (Criteria) this;
         }
 
-        public Criteria andDietDateLessThan(Date value) {
-            addCriterionForJDBCDate("diet_date <", value, "dietDate");
+        public Criteria andClockTimeLessThan(Date value) {
+            addCriterion("clock_time <", value, "clockTime");
             return (Criteria) this;
         }
 
-        public Criteria andDietDateLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("diet_date <=", value, "dietDate");
+        public Criteria andClockTimeLessThanOrEqualTo(Date value) {
+            addCriterion("clock_time <=", value, "clockTime");
             return (Criteria) this;
         }
 
-        public Criteria andDietDateIn(List<Date> values) {
-            addCriterionForJDBCDate("diet_date in", values, "dietDate");
+        public Criteria andClockTimeIn(List<Date> values) {
+            addCriterion("clock_time in", values, "clockTime");
             return (Criteria) this;
         }
 
-        public Criteria andDietDateNotIn(List<Date> values) {
-            addCriterionForJDBCDate("diet_date not in", values, "dietDate");
+        public Criteria andClockTimeNotIn(List<Date> values) {
+            addCriterion("clock_time not in", values, "clockTime");
             return (Criteria) this;
         }
 
-        public Criteria andDietDateBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("diet_date between", value1, value2, "dietDate");
+        public Criteria andClockTimeBetween(Date value1, Date value2) {
+            addCriterion("clock_time between", value1, value2, "clockTime");
             return (Criteria) this;
         }
 
-        public Criteria andDietDateNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("diet_date not between", value1, value2, "dietDate");
+        public Criteria andClockTimeNotBetween(Date value1, Date value2) {
+            addCriterion("clock_time not between", value1, value2, "clockTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCockContentIsNull() {
+            addCriterion("cock_content is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCockContentIsNotNull() {
+            addCriterion("cock_content is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCockContentEqualTo(String value) {
+            addCriterion("cock_content =", value, "cockContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andCockContentNotEqualTo(String value) {
+            addCriterion("cock_content <>", value, "cockContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andCockContentGreaterThan(String value) {
+            addCriterion("cock_content >", value, "cockContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andCockContentGreaterThanOrEqualTo(String value) {
+            addCriterion("cock_content >=", value, "cockContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andCockContentLessThan(String value) {
+            addCriterion("cock_content <", value, "cockContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andCockContentLessThanOrEqualTo(String value) {
+            addCriterion("cock_content <=", value, "cockContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andCockContentLike(String value) {
+            addCriterion("cock_content like", value, "cockContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andCockContentNotLike(String value) {
+            addCriterion("cock_content not like", value, "cockContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andCockContentIn(List<String> values) {
+            addCriterion("cock_content in", values, "cockContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andCockContentNotIn(List<String> values) {
+            addCriterion("cock_content not in", values, "cockContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andCockContentBetween(String value1, String value2) {
+            addCriterion("cock_content between", value1, value2, "cockContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andCockContentNotBetween(String value1, String value2) {
+            addCriterion("cock_content not between", value1, value2, "cockContent");
             return (Criteria) this;
         }
 
@@ -312,73 +355,63 @@ public class DietRecordExample {
             return (Criteria) this;
         }
 
-        public Criteria andDietContentIsNull() {
-            addCriterion("diet_content is null");
+        public Criteria andIsValidIsNull() {
+            addCriterion("is_valid is null");
             return (Criteria) this;
         }
 
-        public Criteria andDietContentIsNotNull() {
-            addCriterion("diet_content is not null");
+        public Criteria andIsValidIsNotNull() {
+            addCriterion("is_valid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDietContentEqualTo(String value) {
-            addCriterion("diet_content =", value, "dietContent");
+        public Criteria andIsValidEqualTo(Byte value) {
+            addCriterion("is_valid =", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andDietContentNotEqualTo(String value) {
-            addCriterion("diet_content <>", value, "dietContent");
+        public Criteria andIsValidNotEqualTo(Byte value) {
+            addCriterion("is_valid <>", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andDietContentGreaterThan(String value) {
-            addCriterion("diet_content >", value, "dietContent");
+        public Criteria andIsValidGreaterThan(Byte value) {
+            addCriterion("is_valid >", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andDietContentGreaterThanOrEqualTo(String value) {
-            addCriterion("diet_content >=", value, "dietContent");
+        public Criteria andIsValidGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_valid >=", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andDietContentLessThan(String value) {
-            addCriterion("diet_content <", value, "dietContent");
+        public Criteria andIsValidLessThan(Byte value) {
+            addCriterion("is_valid <", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andDietContentLessThanOrEqualTo(String value) {
-            addCriterion("diet_content <=", value, "dietContent");
+        public Criteria andIsValidLessThanOrEqualTo(Byte value) {
+            addCriterion("is_valid <=", value, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andDietContentLike(String value) {
-            addCriterion("diet_content like", value, "dietContent");
+        public Criteria andIsValidIn(List<Byte> values) {
+            addCriterion("is_valid in", values, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andDietContentNotLike(String value) {
-            addCriterion("diet_content not like", value, "dietContent");
+        public Criteria andIsValidNotIn(List<Byte> values) {
+            addCriterion("is_valid not in", values, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andDietContentIn(List<String> values) {
-            addCriterion("diet_content in", values, "dietContent");
+        public Criteria andIsValidBetween(Byte value1, Byte value2) {
+            addCriterion("is_valid between", value1, value2, "isValid");
             return (Criteria) this;
         }
 
-        public Criteria andDietContentNotIn(List<String> values) {
-            addCriterion("diet_content not in", values, "dietContent");
-            return (Criteria) this;
-        }
-
-        public Criteria andDietContentBetween(String value1, String value2) {
-            addCriterion("diet_content between", value1, value2, "dietContent");
-            return (Criteria) this;
-        }
-
-        public Criteria andDietContentNotBetween(String value1, String value2) {
-            addCriterion("diet_content not between", value1, value2, "dietContent");
+        public Criteria andIsValidNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_valid not between", value1, value2, "isValid");
             return (Criteria) this;
         }
     }

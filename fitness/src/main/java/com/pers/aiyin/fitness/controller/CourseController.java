@@ -37,12 +37,7 @@ public class CourseController {
 
     @PostMapping("/course/addCourse")
     public Result addCourse(Course course){
-        int result = courseService.addCourse(course);
-        if(result != -1){
-            return Result.success();
-        }else {
-            return  Result.failure(ResponseCode.FAIL);
-        }
+        return courseService.addCourse(course);
     }
     @PostMapping("/course/getCourse/{courseId}")
     public Result getCourse(@PathVariable("courseId") Integer courseId){
