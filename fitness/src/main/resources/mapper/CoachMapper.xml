@@ -10,6 +10,9 @@
     <result column="grade" jdbcType="TINYINT" property="grade" />
     <result column="birthday" jdbcType="DATE" property="birthday" />
     <result column="coach_portrait" jdbcType="VARCHAR" property="coachPortrait" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="is_valid" jdbcType="TINYINT" property="isValid" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -70,7 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    coach_id, coach_name, password, sex, age, grade, birthday, coach_portrait
+    coach_id, coach_name, password, sex, age, grade, birthday, coach_portrait, phone, 
+    is_valid, is_delete
   </sql>
   <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.CoachExample" resultMap="BaseResultMap">
     select
@@ -106,10 +110,12 @@
   <insert id="insert" parameterType="com.pers.aiyin.fitness.entity.Coach">
     insert into coach (coach_id, coach_name, password, 
       sex, age, grade, birthday, 
-      coach_portrait)
+      coach_portrait, phone, is_valid, 
+      is_delete)
     values (#{coachId,jdbcType=INTEGER}, #{coachName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{sex,jdbcType=TINYINT}, #{age,jdbcType=INTEGER}, #{grade,jdbcType=TINYINT}, #{birthday,jdbcType=DATE}, 
-      #{coachPortrait,jdbcType=VARCHAR})
+      #{coachPortrait,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{isValid,jdbcType=TINYINT}, 
+      #{isDelete,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.Coach">
     insert into coach
@@ -138,6 +144,15 @@
       <if test="coachPortrait != null">
         coach_portrait,
       </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="coachId != null">
@@ -163,6 +178,15 @@
       </if>
       <if test="coachPortrait != null">
         #{coachPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -199,6 +223,15 @@
       <if test="record.coachPortrait != null">
         coach_portrait = #{record.coachPortrait,jdbcType=VARCHAR},
       </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isValid != null">
+        is_valid = #{record.isValid,jdbcType=TINYINT},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -213,7 +246,10 @@
       age = #{record.age,jdbcType=INTEGER},
       grade = #{record.grade,jdbcType=TINYINT},
       birthday = #{record.birthday,jdbcType=DATE},
-      coach_portrait = #{record.coachPortrait,jdbcType=VARCHAR}
+      coach_portrait = #{record.coachPortrait,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      is_valid = #{record.isValid,jdbcType=TINYINT},
+      is_delete = #{record.isDelete,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -242,6 +278,15 @@
       <if test="coachPortrait != null">
         coach_portrait = #{coachPortrait,jdbcType=VARCHAR},
       </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
     </set>
     where coach_id = #{coachId,jdbcType=INTEGER}
   </update>
@@ -253,7 +298,11 @@
       age = #{age,jdbcType=INTEGER},
       grade = #{grade,jdbcType=TINYINT},
       birthday = #{birthday,jdbcType=DATE},
-      coach_portrait = #{coachPortrait,jdbcType=VARCHAR}
+      coach_portrait = #{coachPortrait,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      is_valid = #{isValid,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT}
     where coach_id = #{coachId,jdbcType=INTEGER}
   </update>
+
 </mapper>

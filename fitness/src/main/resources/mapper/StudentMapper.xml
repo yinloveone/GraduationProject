@@ -14,6 +14,10 @@
     <result column="birthday" jdbcType="DATE" property="birthday" />
     <result column="card_id" jdbcType="INTEGER" property="cardId" />
     <result column="student_portrait" jdbcType="VARCHAR" property="studentPortrait" />
+    <result column="rest_date" jdbcType="TIMESTAMP" property="restDate" />
+    <result column="due_date" jdbcType="TIMESTAMP" property="dueDate" />
+    <result column="is_valid" jdbcType="TINYINT" property="isValid" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,7 +79,7 @@
   </sql>
   <sql id="Base_Column_List">
     stu_id, stu_name, password, age, sex, email, phone, height, weight, birthday, card_id, 
-    student_portrait
+    student_portrait, rest_date, due_date, is_valid, is_delete
   </sql>
   <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.StudentExample" resultMap="BaseResultMap">
     select
@@ -112,11 +116,15 @@
     insert into student (stu_id, stu_name, password, 
       age, sex, email, phone, 
       height, weight, birthday, 
-      card_id, student_portrait)
+      card_id, student_portrait, rest_date, 
+      due_date, is_valid, is_delete
+      )
     values (#{stuId,jdbcType=INTEGER}, #{stuName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{age,jdbcType=INTEGER}, #{sex,jdbcType=TINYINT}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{height,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE}, #{birthday,jdbcType=DATE}, 
-      #{cardId,jdbcType=INTEGER}, #{studentPortrait,jdbcType=VARCHAR})
+      #{cardId,jdbcType=INTEGER}, #{studentPortrait,jdbcType=VARCHAR}, #{restDate,jdbcType=TIMESTAMP}, 
+      #{dueDate,jdbcType=TIMESTAMP}, #{isValid,jdbcType=TINYINT}, #{isDelete,jdbcType=TINYINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.Student">
     insert into student
@@ -157,6 +165,18 @@
       <if test="studentPortrait != null">
         student_portrait,
       </if>
+      <if test="restDate != null">
+        rest_date,
+      </if>
+      <if test="dueDate != null">
+        due_date,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="stuId != null">
@@ -194,6 +214,18 @@
       </if>
       <if test="studentPortrait != null">
         #{studentPortrait,jdbcType=VARCHAR},
+      </if>
+      <if test="restDate != null">
+        #{restDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dueDate != null">
+        #{dueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -242,6 +274,18 @@
       <if test="record.studentPortrait != null">
         student_portrait = #{record.studentPortrait,jdbcType=VARCHAR},
       </if>
+      <if test="record.restDate != null">
+        rest_date = #{record.restDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dueDate != null">
+        due_date = #{record.dueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isValid != null">
+        is_valid = #{record.isValid,jdbcType=TINYINT},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -260,7 +304,11 @@
       weight = #{record.weight,jdbcType=DOUBLE},
       birthday = #{record.birthday,jdbcType=DATE},
       card_id = #{record.cardId,jdbcType=INTEGER},
-      student_portrait = #{record.studentPortrait,jdbcType=VARCHAR}
+      student_portrait = #{record.studentPortrait,jdbcType=VARCHAR},
+      rest_date = #{record.restDate,jdbcType=TIMESTAMP},
+      due_date = #{record.dueDate,jdbcType=TIMESTAMP},
+      is_valid = #{record.isValid,jdbcType=TINYINT},
+      is_delete = #{record.isDelete,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -301,6 +349,18 @@
       <if test="studentPortrait != null">
         student_portrait = #{studentPortrait,jdbcType=VARCHAR},
       </if>
+      <if test="restDate != null">
+        rest_date = #{restDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dueDate != null">
+        due_date = #{dueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
     </set>
     where stu_id = #{stuId,jdbcType=INTEGER}
   </update>
@@ -316,7 +376,11 @@
       weight = #{weight,jdbcType=DOUBLE},
       birthday = #{birthday,jdbcType=DATE},
       card_id = #{cardId,jdbcType=INTEGER},
-      student_portrait = #{studentPortrait,jdbcType=VARCHAR}
+      student_portrait = #{studentPortrait,jdbcType=VARCHAR},
+      rest_date = #{restDate,jdbcType=TIMESTAMP},
+      due_date = #{dueDate,jdbcType=TIMESTAMP},
+      is_valid = #{isValid,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT}
     where stu_id = #{stuId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pers.aiyin.fitness.mapper.OptionListMapper">
+
+    <resultMap id="BaseResultMap" type="com.pers.aiyin.fitness.entity.Coach">
+        <id column="coach_id" jdbcType="INTEGER" property="coachId" />
+        <result column="coach_name" jdbcType="VARCHAR" property="coachName" />
+    </resultMap>
+
+    <resultMap id="BaseResultMap1" type="com.pers.aiyin.fitness.entity.ClassRoom">
+        <id column="room_id" jdbcType="INTEGER" property="roomId" />
+        <result column="room_name" jdbcType="VARCHAR" property="roomName" />
+    </resultMap>
+
+
+<select id="getCoachList" resultMap="BaseResultMap">
+    select coach_id,coach_name
+    from coach
+</select>
+    <select id="getRoomList" resultMap="BaseResultMap1">
+    select room_id, room_name
+    from classroom
+</select>
+</mapper>

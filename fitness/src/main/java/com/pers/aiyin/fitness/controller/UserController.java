@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pers.aiyin.fitness.entity.Course;
 import com.pers.aiyin.fitness.entity.CourseHour;
 import com.pers.aiyin.fitness.entity.CourseRecord;
-import com.pers.aiyin.fitness.entity.User;
 import com.pers.aiyin.fitness.response.CustomStudent;
 import com.pers.aiyin.fitness.response.PrivateCourse;
 import com.pers.aiyin.fitness.service.CourseHourService;
@@ -57,9 +56,12 @@ public class UserController {
     /*
     * 获取可预约课程(团体课程)
     * */
-    @GetMapping("/user/getCourse/{dateSelect}")
-    public Result getCourse(@PathVariable("dateSelect") Date dateSelect){
-        List<Course> list = userService.getCourse(dateSelect);
+    @PostMapping("/user/getCourse")
+    public Result getCourse(HttpServletRequest request) throws
+    IOException {
+        PrivateCourse privateCourse = new ObjectMapper().readValue(
+                request.getInputStream(), PrivateCourse.class);
+        List<Course> list = userService.getCourse(privateCourse);
         if(null!=list&&list.size()!=0){
             return Result.success(list);
         }else{

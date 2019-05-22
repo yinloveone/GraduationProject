@@ -37,13 +37,7 @@ public class MemberController {
 
     @PostMapping("/member/addStudent")
     public Result addStudent(Student student){
-        int result=memberService.addStudent(student);
-        if(result!=-1){
-          return Result.success();
-        }else
-        {
-            return  Result.failure(ResponseCode.FAIL);
-        }
+        return memberService.addStudent(student);
     }
 
     @PostMapping("/member/getStudent/{stuId}")
@@ -67,13 +61,7 @@ public class MemberController {
     }
     @PostMapping("/member/updateStudent")
     public Result updateStudent(Student student){
-        int result=memberService.updateStudent(student);
-        if(result!=-1){
-            return Result.success();
-        }else
-        {
-            return  Result.failure(ResponseCode.FAIL);
-        }
+        return memberService.updateStudent(student);
     }
 
 }

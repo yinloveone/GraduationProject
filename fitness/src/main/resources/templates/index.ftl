@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>欢迎你</title>
+    <title>学员管理</title>
     <link href="${path}/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
     <link href="${path}/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="${path}/css/sb-admin.css" rel="stylesheet">
@@ -90,8 +90,8 @@
                         </div>
 
                         <div class="margin-top-30" style="text-align: right;width: 100%">
-                            <button type="button" class="btn btn-outline-success" onclick="searchTable()"><i class="fa fa-check-square-o"></i> 提交</button>
-                            <button type="button" class="btn btn-outline-danger" type="reset"><i class="fa fa-refresh"></i> 重置</button>
+                            <button type="button" class="btn btn-outline-success" onclick="searchTable()"><i class="fa fa-check-square-o"></i> 查询</button>
+                            <button type="button" class="btn btn-outline-danger" type="reset" onclick="resertForm()"><i class="fa fa-refresh"></i> 重置</button>
                         </div>
 
                     </form>
@@ -185,26 +185,27 @@
             <!-- 模态框主体 -->
             <div class="modal-body">
                 <label>转让人信息：</label>
-                <form class="padding-30">
-
+                <form class="">
+                    <input style="display: none" id="cardId" />
                     <div class="form-group flex-display">
                         <label class="col-4">姓名:</label>
-                        <input type="text" class="form-control col-8">
+                        <input type="text" class="form-control col-8" id="updateName">
                     </div>
                     <div class="form-group flex-display">
                         <label class="col-4">电话:</label>
-                        <input type="text" class="form-control col-8">
+                        <input type="text" class="form-control col-8" id="updatePhone">
                     </div>
                     <div class="form-group flex-display">
                         <label  class="col-4">邮箱:</label>
-                        <input type="text" class="form-control col-8">
+                        <input type="text" class="form-control col-8" id="updateEmail">
                     </div>
                 </form>
             </div>
 
             <!-- 模态框底部 -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-outline-primary" onclick="updateStudent()"><i class="fa fa-check-square-o"></i> 提交</button>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-exclamation-circle"></i> 关闭</button>
             </div>
 
         </div>
@@ -273,10 +274,16 @@
                                  title: '邮箱',
 
 
-                     }, {
+                     },
+                     {
                          field: 'birthday',
-                                 title: '生日'
-                     },{
+                        title: '生日',
+                     formatter: function (value,row,index) {
+
+                         return changeDateFormat(Date.parse(value));
+                        }
+                     },
+                     {
                      field: 'cardName',
                      title:'会员卡类型'
                  },{
@@ -301,7 +308,39 @@
     }
     function ViewById(id) {
         $('#changeModel').modal('show');
+        $('#cardId').val(id+"");
 
+    }
+    function updateStudent() {
+        debugger
+        var updateStudent ={
+            stuId:$('#cardId').val(),
+            stuName:$('#updateName').val(),
+            phone:$('#updatePhone').val(),
+            email:$('#updateEmail').val()
+        }
+        $.ajax({
+            type:'POST',
+            url:'member/updateStudent',
+            data:updateStudent,
+            dataType:"json",
+            success: function (data){
+                alert(data.msg);
+                $('#changeModel').modal('hide');
+                $('#tb_roles').bootstrapTable('refresh')
+            },
+            error:function(){
+                alert("请求失败");
+                $('#changeModel').modal('hide');
+            },
+        })
+    }
+    function  resertForm(){
+        $(':input','#searhForm')
+                .not(':button, :submit, :reset, :hidden')
+                .val('')
+                .removeAttr('checked')
+                .removeAttr('selected');
     }
     function addStudent() {
         var student={
@@ -311,7 +350,8 @@
             birthday:$('#datetimepicker1').val(),
             cardId:$('#addCard').val(),
         }
-        debugger
+
+
        $.ajax({
             type:'POST',
             url:'member/addStudent',
@@ -327,6 +367,25 @@
                 $('#myModal').modal('hide');
             },
     })
+
+                $('#addName').val("");
+                $('#addPhone').val("");
+                $('#addEmail').val("");
+                $('#datetimepicker1').val("");
+                $('#addCard').val("");
     }
+
+
+    function changeDateFormat(cellval) {
+        var dateVal = cellval + "";
+        if (cellval != null) {
+            var date = new Date(parseInt(dateVal.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            return date.getFullYear() + "-" + month + "-" + currentDate;
+        }
+    }
+
+
 
 </script>

@@ -3,16 +3,17 @@ package com.pers.aiyin.fitness.service;
 import com.github.pagehelper.PageInfo;
 import com.pers.aiyin.fitness.entity.Student;
 import com.pers.aiyin.fitness.response.CustomStudent;
+import com.pers.aiyin.fitness.utils.Result;
 
 
 public interface MemberService {
     PageInfo<CustomStudent> getStudentList(int pageCurrent, int pageSize, CustomStudent student);
 
-    int addStudent(Student student);
+    Result addStudent(Student student);
 
     CustomStudent getStudent(Integer stuId);
 
     int deleteStudent(Integer stuId);
 
-    int updateStudent(Student student);
+    Result updateStudent(Student student);
 }

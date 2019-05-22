@@ -6,6 +6,8 @@
     <result column="card_name" jdbcType="VARCHAR" property="cardName" />
     <result column="card_type" jdbcType="TINYINT" property="cardType" />
     <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="is_valid" jdbcType="TINYINT" property="isValid" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    card_id, card_name, card_type, price
+    card_id, card_name, card_type, price, is_valid, is_delete
   </sql>
   <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.ClubCardExample" resultMap="BaseResultMap">
     select
@@ -101,9 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.pers.aiyin.fitness.entity.ClubCard">
     insert into clubcard (card_id, card_name, card_type, 
-      price)
+      price, is_valid, is_delete
+      )
     values (#{cardId,jdbcType=INTEGER}, #{cardName,jdbcType=VARCHAR}, #{cardType,jdbcType=TINYINT}, 
-      #{price,jdbcType=DOUBLE})
+      #{price,jdbcType=DOUBLE}, #{isValid,jdbcType=TINYINT}, #{isDelete,jdbcType=TINYINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.ClubCard">
     insert into clubcard
@@ -120,6 +124,12 @@
       <if test="price != null">
         price,
       </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="cardId != null">
@@ -133,6 +143,12 @@
       </if>
       <if test="price != null">
         #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -157,6 +173,12 @@
       <if test="record.price != null">
         price = #{record.price,jdbcType=DOUBLE},
       </if>
+      <if test="record.isValid != null">
+        is_valid = #{record.isValid,jdbcType=TINYINT},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -167,7 +189,9 @@
     set card_id = #{record.cardId,jdbcType=INTEGER},
       card_name = #{record.cardName,jdbcType=VARCHAR},
       card_type = #{record.cardType,jdbcType=TINYINT},
-      price = #{record.price,jdbcType=DOUBLE}
+      price = #{record.price,jdbcType=DOUBLE},
+      is_valid = #{record.isValid,jdbcType=TINYINT},
+      is_delete = #{record.isDelete,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -184,6 +208,12 @@
       <if test="price != null">
         price = #{price,jdbcType=DOUBLE},
       </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
     </set>
     where card_id = #{cardId,jdbcType=INTEGER}
   </update>
@@ -191,7 +221,9 @@
     update clubcard
     set card_name = #{cardName,jdbcType=VARCHAR},
       card_type = #{cardType,jdbcType=TINYINT},
-      price = #{price,jdbcType=DOUBLE}
+      price = #{price,jdbcType=DOUBLE},
+      is_valid = #{isValid,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT}
     where card_id = #{cardId,jdbcType=INTEGER}
   </update>
 </mapper>

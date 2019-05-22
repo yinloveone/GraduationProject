@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pers.aiyin.fitness.mapper.ClassroomMapper">
-  <resultMap id="BaseResultMap" type="com.pers.aiyin.fitness.entity.Classroom">
+<mapper namespace="com.pers.aiyin.fitness.mapper.ClassRoomMapper">
+  <resultMap id="BaseResultMap" type="com.pers.aiyin.fitness.entity.ClassRoom">
     <id column="room_id" jdbcType="INTEGER" property="roomId" />
     <result column="room_name" jdbcType="VARCHAR" property="roomName" />
     <result column="room_status" jdbcType="TINYINT" property="roomStatus" />
+    <result column="is_valid" jdbcType="TINYINT" property="isValid" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,9 +67,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    room_id, room_name, room_status
+    room_id, room_name, room_status, is_valid, is_delete
   </sql>
-  <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.ClassroomExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.ClassRoomExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -92,19 +94,19 @@
     delete from classroom
     where room_id = #{roomId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.pers.aiyin.fitness.entity.ClassroomExample">
+  <delete id="deleteByExample" parameterType="com.pers.aiyin.fitness.entity.ClassRoomExample">
     delete from classroom
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pers.aiyin.fitness.entity.Classroom">
-    insert into classroom (room_id, room_name, room_status
-      )
-    values (#{roomId,jdbcType=INTEGER}, #{roomName,jdbcType=VARCHAR}, #{roomStatus,jdbcType=TINYINT}
-      )
+  <insert id="insert" parameterType="com.pers.aiyin.fitness.entity.ClassRoom">
+    insert into classroom (room_id, room_name, room_status, 
+      is_valid, is_delete)
+    values (#{roomId,jdbcType=INTEGER}, #{roomName,jdbcType=VARCHAR}, #{roomStatus,jdbcType=TINYINT}, 
+      #{isValid,jdbcType=TINYINT}, #{isDelete,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.Classroom">
+  <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.ClassRoom">
     insert into classroom
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="roomId != null">
@@ -115,6 +117,12 @@
       </if>
       <if test="roomStatus != null">
         room_status,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -127,9 +135,15 @@
       <if test="roomStatus != null">
         #{roomStatus,jdbcType=TINYINT},
       </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pers.aiyin.fitness.entity.ClassroomExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.pers.aiyin.fitness.entity.ClassRoomExample" resultType="java.lang.Long">
     select count(*) from classroom
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -147,6 +161,12 @@
       <if test="record.roomStatus != null">
         room_status = #{record.roomStatus,jdbcType=TINYINT},
       </if>
+      <if test="record.isValid != null">
+        is_valid = #{record.isValid,jdbcType=TINYINT},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -156,12 +176,14 @@
     update classroom
     set room_id = #{record.roomId,jdbcType=INTEGER},
       room_name = #{record.roomName,jdbcType=VARCHAR},
-      room_status = #{record.roomStatus,jdbcType=TINYINT}
+      room_status = #{record.roomStatus,jdbcType=TINYINT},
+      is_valid = #{record.isValid,jdbcType=TINYINT},
+      is_delete = #{record.isDelete,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pers.aiyin.fitness.entity.Classroom">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pers.aiyin.fitness.entity.ClassRoom">
     update classroom
     <set>
       <if test="roomName != null">
@@ -170,13 +192,21 @@
       <if test="roomStatus != null">
         room_status = #{roomStatus,jdbcType=TINYINT},
       </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
     </set>
     where room_id = #{roomId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pers.aiyin.fitness.entity.Classroom">
+  <update id="updateByPrimaryKey" parameterType="com.pers.aiyin.fitness.entity.ClassRoom">
     update classroom
     set room_name = #{roomName,jdbcType=VARCHAR},
-      room_status = #{roomStatus,jdbcType=TINYINT}
+      room_status = #{roomStatus,jdbcType=TINYINT},
+      is_valid = #{isValid,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT}
     where room_id = #{roomId,jdbcType=INTEGER}
   </update>
 </mapper>

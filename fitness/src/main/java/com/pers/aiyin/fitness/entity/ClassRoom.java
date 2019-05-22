@@ -2,12 +2,16 @@ package com.pers.aiyin.fitness.entity;
 
 import java.io.Serializable;
 
-public class Classroom implements Serializable {
+public class ClassRoom implements Serializable {
     private Integer roomId;
 
     private String roomName;
 
     private Byte roomStatus;
+
+    private Byte isValid;
+
+    private Byte isDelete;
 
     private static final long serialVersionUID = 1L;
 
@@ -33,5 +37,21 @@ public class Classroom implements Serializable {
 
     public void setRoomStatus(Byte roomStatus) {
         this.roomStatus = roomStatus;
+    }
+
+    public Byte getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(Byte isValid) {
+        this.isValid = isValid;
+    }
+
+    public Byte getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Byte isDelete) {
+        this.isDelete = isDelete;
     }
 }

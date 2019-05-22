@@ -32,9 +32,9 @@ public class CoachController {
     private CoachService coachService;
 
     @PostMapping("/coach/coachList")
-    public String getCoachList(Integer rows, Integer page){
+    public String getCoachList(Integer rows, Integer page,Coach coach){
         Map<String,Object> resultMap=new HashMap<>();
-        PageInfo<Coach> pageInfo = coachService.getCoachList(rows,page);
+        PageInfo<Coach> pageInfo = coachService.getCoachList(page,rows,coach);
         resultMap.put("rows",pageInfo.getList());
         resultMap.put("total",pageInfo.getList().size());
         return new Gson().toJson(resultMap);
@@ -42,12 +42,7 @@ public class CoachController {
 
     @PostMapping("/coach/addCoach")
     public Result addCoach(Coach coach){
-        int result = coachService.addCoach(coach);
-        if(result != -1){
-            return Result.success();
-        }else {
-            return  Result.failure(ResponseCode.FAIL);
-        }
+        return coachService.addCoach(coach);
     }
     @PostMapping("/coach/getCoach/{coachId}")
     public Result getCoach(@PathVariable("coachId") Integer coachId){

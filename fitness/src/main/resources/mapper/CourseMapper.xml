@@ -13,6 +13,8 @@
     <result column="course_type" jdbcType="VARCHAR" property="courseType" />
     <result column="course_capacity" jdbcType="INTEGER" property="courseCapacity" />
     <result column="course_surplus" jdbcType="INTEGER" property="courseSurplus" />
+    <result column="is_valid" jdbcType="TINYINT" property="isValid" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,7 +76,7 @@
   </sql>
   <sql id="Base_Column_List">
     course_id, course_name, course_time_start, course_time_end, room_id, room_name, coach_id, 
-    coach_name, course_type, course_capacity, course_surplus
+    coach_name, course_type, course_capacity, course_surplus, is_valid, is_delete
   </sql>
   <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.CourseExample" resultMap="BaseResultMap">
     select
@@ -111,11 +113,13 @@
     insert into course (course_id, course_name, course_time_start, 
       course_time_end, room_id, room_name, 
       coach_id, coach_name, course_type, 
-      course_capacity, course_surplus)
+      course_capacity, course_surplus, is_valid, 
+      is_delete)
     values (#{courseId,jdbcType=INTEGER}, #{courseName,jdbcType=VARCHAR}, #{courseTimeStart,jdbcType=TIMESTAMP}, 
       #{courseTimeEnd,jdbcType=TIMESTAMP}, #{roomId,jdbcType=INTEGER}, #{roomName,jdbcType=VARCHAR}, 
       #{coachId,jdbcType=INTEGER}, #{coachName,jdbcType=VARCHAR}, #{courseType,jdbcType=VARCHAR}, 
-      #{courseCapacity,jdbcType=INTEGER}, #{courseSurplus,jdbcType=INTEGER})
+      #{courseCapacity,jdbcType=INTEGER}, #{courseSurplus,jdbcType=INTEGER}, #{isValid,jdbcType=TINYINT}, 
+      #{isDelete,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.Course">
     insert into course
@@ -153,6 +157,12 @@
       <if test="courseSurplus != null">
         course_surplus,
       </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="courseId != null">
@@ -187,6 +197,12 @@
       </if>
       <if test="courseSurplus != null">
         #{courseSurplus,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -232,6 +248,12 @@
       <if test="record.courseSurplus != null">
         course_surplus = #{record.courseSurplus,jdbcType=INTEGER},
       </if>
+      <if test="record.isValid != null">
+        is_valid = #{record.isValid,jdbcType=TINYINT},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -249,7 +271,9 @@
       coach_name = #{record.coachName,jdbcType=VARCHAR},
       course_type = #{record.courseType,jdbcType=VARCHAR},
       course_capacity = #{record.courseCapacity,jdbcType=INTEGER},
-      course_surplus = #{record.courseSurplus,jdbcType=INTEGER}
+      course_surplus = #{record.courseSurplus,jdbcType=INTEGER},
+      is_valid = #{record.isValid,jdbcType=TINYINT},
+      is_delete = #{record.isDelete,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -287,6 +311,12 @@
       <if test="courseSurplus != null">
         course_surplus = #{courseSurplus,jdbcType=INTEGER},
       </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
     </set>
     where course_id = #{courseId,jdbcType=INTEGER}
   </update>
@@ -301,7 +331,9 @@
       coach_name = #{coachName,jdbcType=VARCHAR},
       course_type = #{courseType,jdbcType=VARCHAR},
       course_capacity = #{courseCapacity,jdbcType=INTEGER},
-      course_surplus = #{courseSurplus,jdbcType=INTEGER}
+      course_surplus = #{courseSurplus,jdbcType=INTEGER},
+      is_valid = #{isValid,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT}
     where course_id = #{courseId,jdbcType=INTEGER}
   </update>
 </mapper>

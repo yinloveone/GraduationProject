@@ -3,10 +3,13 @@ package com.pers.aiyin.fitness.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pers.aiyin.fitness.entity.Student;
+import com.pers.aiyin.fitness.entity.StudentExample;
 import com.pers.aiyin.fitness.mapper.StudentMapper;
 import com.pers.aiyin.fitness.mapper.CustomStudentMapper;
 import com.pers.aiyin.fitness.response.CustomStudent;
 import com.pers.aiyin.fitness.service.MemberService;
+import com.pers.aiyin.fitness.utils.ResponseCode;
+import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +21,6 @@ public class MemberServiceImp implements MemberService {
     private CustomStudentMapper customStudentMapper;
 
     @Autowired
-
     private StudentMapper studentMapper;
 
     @Override
@@ -30,9 +32,36 @@ public class MemberServiceImp implements MemberService {
     }
 
     @Override
-    public int addStudent(Student student){
-        student.setPassword("123");
-        return studentMapper.insertSelective(student);
+    public Result addStudent(Student student){
+        StudentExample example = new StudentExample();
+        StudentExample.Criteria criteria=example.createCriteria();
+        criteria.andPhoneEqualTo(student.getPhone());
+        List<Student> list = studentMapper.selectByExample(example);
+        if(null!=list&&list.size()>0){
+
+            return new Result(1,"此电话号码已经存在");
+        }else{
+            StudentExample.Criteria criteria1=example.createCriteria();
+            criteria1.andEmailEqualTo(student.getEmail());
+            example.or(criteria1);
+            example.or(criteria);
+            List<Student> list2 = studentMapper.selectByExample(example);
+            if(null!=list2&&list2.size()>0){
+                return new Result(1,"此邮箱已经存在");
+            }else{
+                student.setPassword("123");
+                int result = studentMapper.insertSelective(student);
+                if(result!=-1){
+                    return Result.success();
+                }else
+                {
+                    return  Result.failure(ResponseCode.FAIL);
+                }
+            }
+
+        }
+
+
     }
 
     @Override
@@ -46,9 +75,33 @@ public class MemberServiceImp implements MemberService {
     }
 
     @Override
-    public int updateStudent(Student student){
-        return studentMapper.updateByPrimaryKey(student);
-    }
+    public Result updateStudent(Student student) {
+        StudentExample example = new StudentExample();
+        StudentExample.Criteria criteria = example.createCriteria();
+        criteria.andPhoneEqualTo(student.getPhone());
+        List<Student> list = studentMapper.selectByExample(example);
+        if (null != list && list.size() > 0) {
 
+            return new Result(1, "此电话号码已经存在");
+        } else {
+            StudentExample.Criteria criteria1 = example.createCriteria();
+            criteria1.andEmailEqualTo(student.getEmail());
+            example.or(criteria1);
+            example.or(criteria);
+            List<Student> list2 = studentMapper.selectByExample(example);
+            if (null != list2 && list2.size() > 0) {
+                return new Result(1, "此邮箱已经存在");
+            } else {
+                student.setPassword("123");
+                int result = studentMapper.updateByPrimaryKeySelective(student);
+                if (result != -1) {
+                    return Result.success();
+                } else {
+                    return Result.failure(ResponseCode.FAIL);
+                }
+
+            }
+        }
+    }
 
 }

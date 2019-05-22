@@ -11,6 +11,10 @@ public class ClubCard implements Serializable {
 
     private Double price;
 
+    private Byte isValid;
+
+    private Byte isDelete;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getCardId() {
@@ -43,5 +47,21 @@ public class ClubCard implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Byte getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(Byte isValid) {
+        this.isValid = isValid;
+    }
+
+    public Byte getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Byte isDelete) {
+        this.isDelete = isDelete;
     }
 }

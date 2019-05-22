@@ -26,6 +26,10 @@ public class Course implements Serializable {
 
     private Integer courseSurplus;
 
+    private Byte isValid;
+
+    private Byte isDelete;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getCourseId() {
@@ -114,5 +118,21 @@ public class Course implements Serializable {
 
     public void setCourseSurplus(Integer courseSurplus) {
         this.courseSurplus = courseSurplus;
+    }
+
+    public Byte getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(Byte isValid) {
+        this.isValid = isValid;
+    }
+
+    public Byte getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Byte isDelete) {
+        this.isDelete = isDelete;
     }
 }

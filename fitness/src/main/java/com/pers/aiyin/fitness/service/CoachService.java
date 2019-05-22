@@ -5,9 +5,9 @@ import com.pers.aiyin.fitness.entity.Coach;
 import com.pers.aiyin.fitness.utils.Result;
 
 public interface CoachService {
-    PageInfo<Coach> getCoachList(int pageCurrent, int pageSize);
+    PageInfo<Coach> getCoachList(int pageCurrent, int pageSize,Coach coach);
 
-    int addCoach(Coach coach);
+    Result addCoach(Coach coach);
 
     Coach getCoach(Integer coachId);
 

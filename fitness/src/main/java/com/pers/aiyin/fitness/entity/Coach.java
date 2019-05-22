@@ -20,6 +20,12 @@ public class Coach implements Serializable {
 
     private String coachPortrait;
 
+    private String phone;
+
+    private Byte isValid;
+
+    private Byte isDelete;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getCoachId() {
@@ -84,5 +90,29 @@ public class Coach implements Serializable {
 
     public void setCoachPortrait(String coachPortrait) {
         this.coachPortrait = coachPortrait == null ? null : coachPortrait.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
+    public Byte getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(Byte isValid) {
+        this.isValid = isValid;
+    }
+
+    public Byte getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Byte isDelete) {
+        this.isDelete = isDelete;
     }
 }

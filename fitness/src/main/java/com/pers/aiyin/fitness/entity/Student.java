@@ -28,6 +28,14 @@ public class Student implements Serializable {
 
     private String studentPortrait;
 
+    private Date restDate;
+
+    private Date dueDate;
+
+    private Byte isValid;
+
+    private Byte isDelete;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getStuId() {
@@ -124,5 +132,37 @@ public class Student implements Serializable {
 
     public void setStudentPortrait(String studentPortrait) {
         this.studentPortrait = studentPortrait == null ? null : studentPortrait.trim();
+    }
+
+    public Date getRestDate() {
+        return restDate;
+    }
+
+    public void setRestDate(Date restDate) {
+        this.restDate = restDate;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public Byte getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(Byte isValid) {
+        this.isValid = isValid;
+    }
+
+    public Byte getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Byte isDelete) {
+        this.isDelete = isDelete;
     }
 }

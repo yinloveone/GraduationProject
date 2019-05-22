@@ -901,6 +901,246 @@ public class StudentExample {
             addCriterion("student_portrait not between", value1, value2, "studentPortrait");
             return (Criteria) this;
         }
+
+        public Criteria andRestDateIsNull() {
+            addCriterion("rest_date is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestDateIsNotNull() {
+            addCriterion("rest_date is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestDateEqualTo(Date value) {
+            addCriterion("rest_date =", value, "restDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestDateNotEqualTo(Date value) {
+            addCriterion("rest_date <>", value, "restDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestDateGreaterThan(Date value) {
+            addCriterion("rest_date >", value, "restDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("rest_date >=", value, "restDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestDateLessThan(Date value) {
+            addCriterion("rest_date <", value, "restDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestDateLessThanOrEqualTo(Date value) {
+            addCriterion("rest_date <=", value, "restDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestDateIn(List<Date> values) {
+            addCriterion("rest_date in", values, "restDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestDateNotIn(List<Date> values) {
+            addCriterion("rest_date not in", values, "restDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestDateBetween(Date value1, Date value2) {
+            addCriterion("rest_date between", value1, value2, "restDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestDateNotBetween(Date value1, Date value2) {
+            addCriterion("rest_date not between", value1, value2, "restDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDueDateIsNull() {
+            addCriterion("due_date is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDueDateIsNotNull() {
+            addCriterion("due_date is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDueDateEqualTo(Date value) {
+            addCriterion("due_date =", value, "dueDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDueDateNotEqualTo(Date value) {
+            addCriterion("due_date <>", value, "dueDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDueDateGreaterThan(Date value) {
+            addCriterion("due_date >", value, "dueDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDueDateGreaterThanOrEqualTo(Date value) {
+            addCriterion("due_date >=", value, "dueDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDueDateLessThan(Date value) {
+            addCriterion("due_date <", value, "dueDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDueDateLessThanOrEqualTo(Date value) {
+            addCriterion("due_date <=", value, "dueDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDueDateIn(List<Date> values) {
+            addCriterion("due_date in", values, "dueDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDueDateNotIn(List<Date> values) {
+            addCriterion("due_date not in", values, "dueDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDueDateBetween(Date value1, Date value2) {
+            addCriterion("due_date between", value1, value2, "dueDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andDueDateNotBetween(Date value1, Date value2) {
+            addCriterion("due_date not between", value1, value2, "dueDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidIsNull() {
+            addCriterion("is_valid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidIsNotNull() {
+            addCriterion("is_valid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidEqualTo(Byte value) {
+            addCriterion("is_valid =", value, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidNotEqualTo(Byte value) {
+            addCriterion("is_valid <>", value, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidGreaterThan(Byte value) {
+            addCriterion("is_valid >", value, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_valid >=", value, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidLessThan(Byte value) {
+            addCriterion("is_valid <", value, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidLessThanOrEqualTo(Byte value) {
+            addCriterion("is_valid <=", value, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidIn(List<Byte> values) {
+            addCriterion("is_valid in", values, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidNotIn(List<Byte> values) {
+            addCriterion("is_valid not in", values, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidBetween(Byte value1, Byte value2) {
+            addCriterion("is_valid between", value1, value2, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_valid not between", value1, value2, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIsNull() {
+            addCriterion("is_delete is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIsNotNull() {
+            addCriterion("is_delete is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteEqualTo(Byte value) {
+            addCriterion("is_delete =", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotEqualTo(Byte value) {
+            addCriterion("is_delete <>", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteGreaterThan(Byte value) {
+            addCriterion("is_delete >", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_delete >=", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteLessThan(Byte value) {
+            addCriterion("is_delete <", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteLessThanOrEqualTo(Byte value) {
+            addCriterion("is_delete <=", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIn(List<Byte> values) {
+            addCriterion("is_delete in", values, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotIn(List<Byte> values) {
+            addCriterion("is_delete not in", values, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteBetween(Byte value1, Byte value2) {
+            addCriterion("is_delete between", value1, value2, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_delete not between", value1, value2, "isDelete");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
