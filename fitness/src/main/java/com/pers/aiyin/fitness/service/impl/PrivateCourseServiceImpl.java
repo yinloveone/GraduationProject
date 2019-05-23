@@ -39,6 +39,15 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
             map.put("idList", listId);
             List<PrivateCourse> list = privateCourseMapper.getPrivateCourse(map);
             if (null!=list&&list.size()>0){
+                for(PrivateCourse course: list){
+                    if(course.getGrade()==1){
+                        course.setGradeStr("初级教练");
+                    }else if(course.getGrade()==2){
+                        course.setGradeStr("中级教练");
+                    }else{
+                        course.setGradeStr("高级教练");
+                    }
+                }
                 return Result.success(list);
             }else{
                 return Result.failure(ResponseCode.FAIL);

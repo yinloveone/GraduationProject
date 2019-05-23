@@ -1,5 +1,6 @@
 package com.pers.aiyin.fitness.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.pers.aiyin.fitness.entity.Student;
@@ -8,11 +9,10 @@ import com.pers.aiyin.fitness.service.MemberService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,13 +40,24 @@ public class MemberController {
         return memberService.addStudent(student);
     }
 
-    @PostMapping("/member/getStudent/{stuId}")
+    @GetMapping("/member/getStudent/{stuId}")
     public Result getStudent(@PathVariable("stuId") Integer stuId){
         CustomStudent customStudent=memberService.getStudent(stuId);
         if(null!=customStudent){
             return Result.success(customStudent);
         }
         return Result.failure(ResponseCode.FAIL);
+    }
+
+    /*
+    * 学员修改自己的基本信息
+    * */
+    @PostMapping("/member/modifyStudent")
+    public Result modifyStudent(HttpServletRequest request) throws
+            IOException {
+        Student student=new ObjectMapper().readValue(
+                request.getInputStream(),Student.class);
+        return memberService.updateStudent(student);
     }
 
     @PostMapping("/member/deleteStudent/{stuId}")
@@ -59,6 +70,9 @@ public class MemberController {
             return  Result.failure(ResponseCode.FAIL);
         }
     }
+    /*
+    * 会员卡转让
+    * */
     @PostMapping("/member/updateStudent")
     public Result updateStudent(Student student){
         return memberService.updateStudent(student);

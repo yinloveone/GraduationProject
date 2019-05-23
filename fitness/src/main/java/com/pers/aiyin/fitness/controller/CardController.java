@@ -8,9 +8,7 @@ import com.pers.aiyin.fitness.service.ClubCardService;
 import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.HashMap;
@@ -42,4 +40,10 @@ public class CardController {
     public Result update(ClubCard clubCard){
         return clubCardService.updateClubCard(clubCard);
     }
+
+    @GetMapping("/card/getByStuId/{stuId}")
+    public Result getByStuId(@PathVariable("stuId") Integer stuId){
+        return clubCardService.getByStuId(stuId);
+    }
+
 }

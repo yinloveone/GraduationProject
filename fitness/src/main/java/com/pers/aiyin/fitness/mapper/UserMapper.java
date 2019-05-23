@@ -1,6 +1,7 @@
 package com.pers.aiyin.fitness.mapper;
 
 import com.pers.aiyin.fitness.entity.Course;
+import com.pers.aiyin.fitness.response.CustomCourse;
 import com.pers.aiyin.fitness.response.PrivateCourse;
 
 
@@ -13,6 +14,6 @@ public interface UserMapper {
 
     int insert(User user);*/
 
-    List<Course> getCourse(PrivateCourse privateCourse);
+    List<CustomCourse> getCourse(PrivateCourse privateCourse);
 
 }

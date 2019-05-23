@@ -4,6 +4,7 @@ import com.pers.aiyin.fitness.entity.Course;
 import com.pers.aiyin.fitness.entity.Student;
 import com.pers.aiyin.fitness.mapper.CustomStudentMapper;
 import com.pers.aiyin.fitness.mapper.UserMapper;
+import com.pers.aiyin.fitness.response.CustomCourse;
 import com.pers.aiyin.fitness.response.CustomStudent;
 import com.pers.aiyin.fitness.response.PrivateCourse;
 import com.pers.aiyin.fitness.service.UserService;
@@ -34,16 +35,7 @@ public class UserServiceImpl implements UserService {
 
         return customStudentMapper.stuLogin(student);
     }
-    public List<Course> getCourse(PrivateCourse privateCourse){
-     /*   Map<String,Object> map=new HashMap<>();
-        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(selectDate.getTime()), ZoneId.systemDefault());
-        LocalDateTime endOfDay = localDateTime.with(LocalTime.MAX);
-        LocalDateTime startOfDay = localDateTime.with(LocalTime.MIN);
-        Date beginDate = Date.from(startOfDay.atZone(ZoneId.systemDefault()).toInstant());
-        Date endDate = Date.from(endOfDay.atZone(ZoneId.systemDefault()).toInstant());
-        map.put("beginDate",beginDate);
-        map.put("endDate",endDate);
-        map.put("courseType",1);*/
+    public List<CustomCourse> getCourse(PrivateCourse privateCourse){
         return userDao.getCourse(privateCourse);
     }
 }

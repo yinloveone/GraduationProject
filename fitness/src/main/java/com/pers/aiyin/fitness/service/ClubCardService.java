@@ -16,4 +16,6 @@ public interface ClubCardService {
     Result deleteClubCard(ClubCard clubCard);
 
     Result updateClubCard(ClubCard clubCard);
+
+    Result getByStuId(Integer stuId);
 }

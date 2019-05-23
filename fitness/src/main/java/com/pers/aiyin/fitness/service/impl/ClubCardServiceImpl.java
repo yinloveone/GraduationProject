@@ -5,6 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.pers.aiyin.fitness.entity.ClubCard;
 import com.pers.aiyin.fitness.entity.ClubCardExample;
 import com.pers.aiyin.fitness.mapper.ClubCardMapper;
+import com.pers.aiyin.fitness.mapper.CustomCardMapper;
+import com.pers.aiyin.fitness.response.CustomCard;
 import com.pers.aiyin.fitness.service.ClubCardService;
 import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,10 @@ import java.util.List;
 public class ClubCardServiceImpl implements ClubCardService {
 
     @Autowired
-    public ClubCardMapper clubCardMapper;
+    private ClubCardMapper clubCardMapper;
+
+    @Autowired
+    private CustomCardMapper customCardMapper;
 
     @Override
     public  PageInfo<ClubCard> getCardList(int pageCurrent, int pageSize, ClubCard card){
@@ -63,4 +68,14 @@ public class ClubCardServiceImpl implements ClubCardService {
         }
         return Result.success();
     }
+   @Override
+    public Result getByStuId(Integer stuId){
+
+        List<CustomCard> list = customCardMapper.getByStuId(stuId);
+        if(null!=list&&list.size()>0){
+            return Result.success(list);
+        }else
+        return new Result(1,"没有会员卡");
+    }
+
 }

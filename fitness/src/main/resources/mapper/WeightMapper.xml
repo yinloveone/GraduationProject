@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pers.aiyin.fitness.mapper.WeightMapper">
+    <resultMap id="BaseResultMap" type="com.pers.aiyin.fitness.response.CustomWeightRecord">
+        <id column="wei_record_id" jdbcType="INTEGER" property="weiRecordId" />
+        <result column="weight" jdbcType="DOUBLE" property="weight" />
+        <result column="record_time" jdbcType="TIMESTAMP" property="recordTime" />
+        <result column="stu_id" jdbcType="INTEGER" property="stuId" />
+        <result column="record_time_str" jdbcType="VARCHAR" property="recordTimeStr"/>
+    </resultMap>
+
+    <select id="getWeightList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select wei_record_id,weight,record_time,stu_id,
+        DATE_FORMAT(record_time,'%Y-%d-%m') as record_time_str
+        from weightrecord where stu_id=#{stuId}
+    </select>
+</mapper>

@@ -15,4 +15,6 @@ public class PrivateCourse {
     private Integer grade;
     private Date courseTimeStart;
     private Date courseTimeEnd;
+    private String timeStartStr;
+    private String timeEndStr;
 }

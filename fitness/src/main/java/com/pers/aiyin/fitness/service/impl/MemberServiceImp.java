@@ -13,6 +13,7 @@ import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -50,6 +51,7 @@ public class MemberServiceImp implements MemberService {
                 return new Result(1,"此邮箱已经存在");
             }else{
                 student.setPassword("123");
+                student.setRestDate(new Date());
                 int result = studentMapper.insertSelective(student);
                 if(result!=-1){
                     return Result.success();

@@ -1,9 +1,9 @@
 package com.pers.aiyin.fitness.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pers.aiyin.fitness.entity.Course;
 import com.pers.aiyin.fitness.entity.CourseHour;
 import com.pers.aiyin.fitness.entity.CourseRecord;
+import com.pers.aiyin.fitness.response.CustomCourse;
 import com.pers.aiyin.fitness.response.CustomStudent;
 import com.pers.aiyin.fitness.response.PrivateCourse;
 import com.pers.aiyin.fitness.service.CourseHourService;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 /*
 *
@@ -44,7 +43,7 @@ public class UserController {
             IOException {
         //获取请求Json数据流中登陆信息
          CustomStudent student=new ObjectMapper().readValue(request.getInputStream(), CustomStudent.class);
-         //验证用户身份信息
+        //         //验证用户身份信息
          CustomStudent u  =userService.stuLogin(student);
          //返回结果
         if(null!=u){
@@ -61,7 +60,7 @@ public class UserController {
     IOException {
         PrivateCourse privateCourse = new ObjectMapper().readValue(
                 request.getInputStream(), PrivateCourse.class);
-        List<Course> list = userService.getCourse(privateCourse);
+        List<CustomCourse> list = userService.getCourse(privateCourse);
         if(null!=list&&list.size()!=0){
             return Result.success(list);
         }else{
@@ -88,7 +87,6 @@ public class UserController {
             IOException {
         CourseRecord courseRecord=new ObjectMapper().readValue(
                 request.getInputStream(), CourseRecord.class);
-
        return courseRecordService.orderCourse(courseRecord);
     }
     /*
@@ -115,6 +113,9 @@ public class UserController {
        }
     }
 
+    /*
+    *
+    * */
 
 
 }

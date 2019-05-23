@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pers.aiyin.fitness.mapper.CustomCardMapper">
+    <resultMap id="BaseResultMap" type="com.pers.aiyin.fitness.response.CustomCard">
+        <id column="card_id" jdbcType="INTEGER" property="cardId" />
+        <result column="stu_id" jdbcType="INTEGER" property="stuId" />
+        <result column="card_name" jdbcType="VARCHAR" property="cardName" />
+        <result column="card_type" jdbcType="TINYINT" property="cardType" />
+        <result column="price" jdbcType="DOUBLE" property="price" />
+        <result column="is_valid" jdbcType="TINYINT" property="isValid" />
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    </resultMap>
+    <select id="getByStuId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select card_id,card_name,card_type,price
+        from clubcard left join student on clubcard.card_id=student.card_id
+        where student.stu_id = #{stuId}
+    </select>
+</mapper>
