@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 /*
 *
@@ -87,6 +88,7 @@ public class UserController {
             IOException {
         CourseRecord courseRecord=new ObjectMapper().readValue(
                 request.getInputStream(), CourseRecord.class);
+        courseRecord.setScdate(new Date());
        return courseRecordService.orderCourse(courseRecord);
     }
     /*
