@@ -99,16 +99,16 @@ export default  class CourseScreen extends Component{
 
     }
 
-    renderItems(){
-        const dataList=this.state.dataList;
+    renderItems() {
+        const dataList = this.state.dataList;
         let replys = [];
-        for(let i=0;i<dataList.length;i++){
-            replys.push( <ListItem itemDivider>
+        for (let i = 0; i < dataList.length; i++) {
+            replys.push(<ListItem itemDivider key={dataList[i].yearMonth}>
                 <Text>{dataList[i].yearMonth}</Text>
             </ListItem>)
-            for(let j=0;j<dataList[i].listCourse.length;j++){
+            for (let j = 0; j < dataList[i].listCourse.length; j++) {
                 replys.push(
-                    <ListItem>
+                    <ListItem key={dataList[i].listCourse[j].courseId}>
                         <Body>
                             <Text>{dataList[i].listCourse[j].monthDate}</Text>
                             <Text>{dataList[i].listCourse[j].courseName}({dataList[i].listCourse[j].timeStartStr}-{dataList[i].listCourse[j].timeEndStr})</Text>
@@ -117,7 +117,7 @@ export default  class CourseScreen extends Component{
                             <Text>消耗课时:1课时</Text>
                         </Body>
                         <Right>
-                            <Button danger onPress={this.cancelCourse.bind(this,dataList[i].listCourse[j].courseId)}>
+                            <Button danger onPress={this.cancelCourse.bind(this, dataList[i].listCourse[j].courseId)}>
                                 <Text>退课</Text>
                             </Button>
                         </Right>
@@ -127,6 +127,37 @@ export default  class CourseScreen extends Component{
         }
         return replys;
     }
+  /*  renderItems(){
+        const dataList = this.state.dataList;
+        let replys = [];
+        dataList.map(function(items,index){
+            replys.push(<ListItem itemDivider key={items.yearMonth}>
+                <Text key={items.yearMonth}>{items.yearMonth}</Text>
+            </ListItem>)
+            items.listCourse.map(function(item,number){
+                    replys.push(
+                        <ListItem key={item.courseId}>
+                            <Body>
+                                <Text>{item.monthDate}</Text>
+                                <Text>{item.courseName}({item.timeStartStr}-{item.timeEndStr})</Text>
+                                <Text>上课老师:{item.coachName}</Text>
+                                <Text>教室:{item.roomName}</Text>
+                                <Text>消耗课时:1课时</Text>
+                            </Body>
+                            <Right>
+                                <Button danger>
+                                    <Text>退课</Text>
+                                </Button>
+                            </Right>
+                        </ListItem>
+                    )
+                })
+
+
+            }
+        )
+        return replys;
+    }*/
 
     render() {
         if (!this.state.dataList) {
@@ -166,7 +197,6 @@ export default  class CourseScreen extends Component{
                         <List>
                             {this.renderItems()}
                         </List>
-
                     </Content>
                 </Container>
 

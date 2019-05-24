@@ -22,13 +22,15 @@ import CourseScreen from './src/component/CourseScreen'
 import UserInfo from './src/component/UserInfo'
 import CourseHour from './src/component/CourseHour'
 import ClubCard from './src/component/ClubCard'
-import StudentActivity from './src/component/StudentActivity'
-import CoachCourse from './src/component/CoachCourse'
-import AddCourse from './src/component/AddCourse'
-import CoachIndex from './src/component/CoachIndex'
+import StudentActivity from './src/coachDir/StudentActivity'
+import CoachCourse from './src/coachDir/CoachCourse'
+import AddCourse from './src/coachDir/AddCourse'
+import CoachIndex from './src/coachDir/CoachIndex'
 import CourseSignIn from './src/component/CourseSignIn'
 import ModifyScreen from './src/component/ModifyScreen'
 import AddWeight from  './src/component/AddWeight'
+import CoachInfo from './src/coachDir/CoachInfo'
+import UpdatePassword from './src/coachDir/UpdatePassword'
 
  const MainStudent = createBottomTabNavigator({
     Home: {
@@ -114,7 +116,7 @@ const MainCoach = createBottomTabNavigator({
     StudentActivity: {
         screen:StudentActivity,
         navigationOptions: {
-            tabBarLabel: '学员动态',
+            tabBarLabel: '数据',
             tabBarIcon: ({tintColor, focused}) => (
                 <Icons
                     name={focused ? 'egg' : 'egg-easter'}
@@ -228,6 +230,12 @@ export default class App extends Component{
               },
               AddWeight: {
                   screen:AddWeight
+              },
+              CoachInfo :{
+                  screen:CoachInfo
+              },
+              UpdatePassword :{
+                  screen:UpdatePassword
               }
           },
           {initialRouteName: isLoggedIn ?  this.state.main: 'UserLogin' ,
