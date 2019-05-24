@@ -25,4 +25,6 @@ public class CustomCourseRecord {
     private Integer coachId;
 
     private String coachName;
+
+    private String monthDate;
 }

@@ -10,7 +10,6 @@ import {
     Item,
     Picker,
     Input, DatePicker,
-
 } from 'native-base';
 import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid} from "react-native";

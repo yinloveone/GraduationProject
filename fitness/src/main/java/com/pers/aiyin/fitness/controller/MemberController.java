@@ -57,7 +57,7 @@ public class MemberController {
             IOException {
         Student student=new ObjectMapper().readValue(
                 request.getInputStream(),Student.class);
-        return memberService.updateStudent(student);
+        return memberService.modifyStudent(student);
     }
 
     @PostMapping("/member/deleteStudent/{stuId}")

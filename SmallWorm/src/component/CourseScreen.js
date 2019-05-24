@@ -80,19 +80,22 @@ export default  class CourseScreen extends Component{
         StorageUtil.get('stuId', (error, object) => {
             if (!error && object && object.stuId) {
                 stuId = object.stuId;
-            }
-        });
+
         const courseRecord = {
             courseId:courseId,
-            stuId:stuId
+            stuId:object.stuId
         }
         HttpUtil.post(url,courseRecord).then(result=>{
-            if(result.code === 0){
-                ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+            if(result.code===0){
+                this.getCourseOrder();
             }
+            ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+
         }).catch(error=>{
             console.log(error)
         })
+            }
+        });
 
     }
 
@@ -107,8 +110,8 @@ export default  class CourseScreen extends Component{
                 replys.push(
                     <ListItem>
                         <Body>
-                            <Text>5月15日</Text>
-                        <Text>{dataList[i].listCourse[j].courseName}(16:00-17:00)</Text>
+                            <Text>{dataList[i].listCourse[j].monthDate}</Text>
+                            <Text>{dataList[i].listCourse[j].courseName}({dataList[i].listCourse[j].timeStartStr}-{dataList[i].listCourse[j].timeEndStr})</Text>
                             <Text>上课老师:{dataList[i].listCourse[j].coachName}</Text>
                             <Text>教室:{dataList[i].listCourse[j].roomName}</Text>
                             <Text>消耗课时:1课时</Text>

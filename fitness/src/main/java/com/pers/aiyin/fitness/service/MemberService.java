@@ -16,4 +16,8 @@ public interface MemberService {
     int deleteStudent(Integer stuId);
 
     Result updateStudent(Student student);
+
+    Result modifyStudent(Student student);
+
+
 }

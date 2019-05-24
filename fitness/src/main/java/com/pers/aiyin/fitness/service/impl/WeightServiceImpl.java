@@ -1,6 +1,7 @@
 package com.pers.aiyin.fitness.service.impl;
 
 import com.pers.aiyin.fitness.entity.WeightRecord;
+import com.pers.aiyin.fitness.entity.WeightRecordExample;
 import com.pers.aiyin.fitness.mapper.WeightMapper;
 import com.pers.aiyin.fitness.mapper.WeightRecordMapper;
 import com.pers.aiyin.fitness.response.CustomWeightRecord;
@@ -36,11 +37,21 @@ public class WeightServiceImpl implements WeightService {
     @Override
     public Result addWeight(WeightRecord weightRecord){
         weightRecord.setRecordTime(new Date());
-        int result = weightRecordMapper.insertSelective(weightRecord);
-        if(result<1){
-            return Result.success();
-        }else{
-            return Result.failure(ResponseCode.FAIL);
+        WeightRecordExample example=new WeightRecordExample();
+        WeightRecordExample.Criteria criteria=example.createCriteria();
+        criteria.andStuIdEqualTo(weightRecord.getStuId());
+        criteria.andRecordTimeEqualTo(weightRecord.getRecordTime());
+        List<WeightRecord> list=weightRecordMapper.selectByExample(example);
+        if(null!=list&&list.size()>0){
+            return new Result(1,"今天已经记录过体重");
+        }else {
+            int result = weightRecordMapper.insertSelective(weightRecord);
+
+            if (result < 1) {
+                return Result.failure(ResponseCode.FAIL);
+            } else {
+                return Result.success();
+            }
         }
 
     }

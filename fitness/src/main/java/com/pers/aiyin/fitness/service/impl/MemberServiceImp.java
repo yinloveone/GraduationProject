@@ -67,6 +67,16 @@ public class MemberServiceImp implements MemberService {
     }
 
     @Override
+    public Result modifyStudent(Student student){
+        int result = studentMapper.updateByPrimaryKeySelective(student);
+        if (result != -1) {
+            return Result.success();
+        } else {
+            return Result.failure(ResponseCode.FAIL);
+        }
+    }
+
+    @Override
     public CustomStudent getStudent(Integer stuId){
         return customStudentMapper.getStudent(stuId);
     }

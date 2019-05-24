@@ -27,6 +27,8 @@ import CoachCourse from './src/component/CoachCourse'
 import AddCourse from './src/component/AddCourse'
 import CoachIndex from './src/component/CoachIndex'
 import CourseSignIn from './src/component/CourseSignIn'
+import ModifyScreen from './src/component/ModifyScreen'
+import AddWeight from  './src/component/AddWeight'
 
  const MainStudent = createBottomTabNavigator({
     Home: {
@@ -220,6 +222,12 @@ export default class App extends Component{
               },
               CourseSignIn: {
                   screen:CourseSignIn
+              },
+              ModifyScreen: {
+                  screen:ModifyScreen
+              },
+              AddWeight: {
+                  screen:AddWeight
               }
           },
           {initialRouteName: isLoggedIn ?  this.state.main: 'UserLogin' ,
