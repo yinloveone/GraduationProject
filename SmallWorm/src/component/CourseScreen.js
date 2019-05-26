@@ -114,7 +114,6 @@ export default  class CourseScreen extends Component{
                             <Text>{dataList[i].listCourse[j].courseName}({dataList[i].listCourse[j].timeStartStr}-{dataList[i].listCourse[j].timeEndStr})</Text>
                             <Text>上课老师:{dataList[i].listCourse[j].coachName}</Text>
                             <Text>教室:{dataList[i].listCourse[j].roomName}</Text>
-                            <Text>消耗课时:1课时</Text>
                         </Body>
                         <Right>
                             <Button danger onPress={this.cancelCourse.bind(this, dataList[i].listCourse[j].courseId)}>

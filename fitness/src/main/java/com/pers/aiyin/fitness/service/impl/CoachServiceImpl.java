@@ -5,6 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.pers.aiyin.fitness.entity.Coach;
 import com.pers.aiyin.fitness.entity.CoachExample;
 import com.pers.aiyin.fitness.mapper.CoachMapper;
+import com.pers.aiyin.fitness.mapper.CustomCoachMapper;
+import com.pers.aiyin.fitness.response.CustomStudent;
 import com.pers.aiyin.fitness.service.CoachService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;
@@ -18,6 +20,9 @@ public class CoachServiceImpl implements CoachService {
 
     @Autowired
     private CoachMapper coachMapper;
+
+    @Autowired
+    private CustomCoachMapper customCoachMapper;
 
     @Override
     public PageInfo<Coach> getCoachList(int pageCurrent, int pageSize,Coach coach){
@@ -94,6 +99,16 @@ public class CoachServiceImpl implements CoachService {
 
         }else{
             return new Result(404,"用户名不存在");
+        }
+    }
+
+    @Override
+    public Result getStudentList(Integer coachId){
+        List<CustomStudent> list = customCoachMapper.StuListByCoachId(coachId);
+        if(null!=list&&list.size()>0){
+            return Result.success(list);
+        }else{
+            return Result.failure(ResponseCode.FAIL);
         }
     }
 

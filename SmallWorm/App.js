@@ -26,11 +26,13 @@ import StudentActivity from './src/coachDir/StudentActivity'
 import CoachCourse from './src/coachDir/CoachCourse'
 import AddCourse from './src/coachDir/AddCourse'
 import CoachIndex from './src/coachDir/CoachIndex'
-import CourseSignIn from './src/component/CourseSignIn'
+import CourseSignIn from './src/coachDir/CourseSignIn'
 import ModifyScreen from './src/component/ModifyScreen'
 import AddWeight from  './src/component/AddWeight'
 import CoachInfo from './src/coachDir/CoachInfo'
 import UpdatePassword from './src/coachDir/UpdatePassword'
+import StudentReply from './src/coachDir/StudentReply'
+import CourseManage from './src/coachDir/CourseManage'
 
  const MainStudent = createBottomTabNavigator({
     Home: {
@@ -87,10 +89,10 @@ import UpdatePassword from './src/coachDir/UpdatePassword'
     }
 });
 const MainCoach = createBottomTabNavigator({
-    CoachCourse: {
-        screen:  CoachCourse,
+    CourseManage: {
+        screen:  CourseManage,
         navigationOptions: {
-            tabBarLabel: '课程表',
+            tabBarLabel: '课程管理',
             tabBarIcon: ({tintColor, focused}) => (
                 <Icons
                     name={focused ? 'account' : 'account-outline'}
@@ -100,10 +102,10 @@ const MainCoach = createBottomTabNavigator({
             ),
         }
     },
-    AddCourse: {
-        screen:AddCourse,
+    StudentReply: {
+        screen:StudentReply,
         navigationOptions: {
-            tabBarLabel: '上传课程',
+            tabBarLabel: '反馈',
             tabBarIcon: ({tintColor, focused}) => (
                 <Icons
                     name={focused ? 'account-group' : 'account-group-outline'}
@@ -113,19 +115,7 @@ const MainCoach = createBottomTabNavigator({
             ),
         }
     },
-    StudentActivity: {
-        screen:StudentActivity,
-        navigationOptions: {
-            tabBarLabel: '数据',
-            tabBarIcon: ({tintColor, focused}) => (
-                <Icons
-                    name={focused ? 'egg' : 'egg-easter'}
-                    size={26}
-                    style={{color: tintColor}}
-                />
-            ),
-        }
-    },
+
     CoachIndex: {
         screen:CoachIndex,
         navigationOptions: {
@@ -236,7 +226,17 @@ export default class App extends Component{
               },
               UpdatePassword :{
                   screen:UpdatePassword
+              },
+              StudentActivity :{
+                  screen:StudentActivity
+              },
+              CoachCourse: {
+                  screen:CoachCourse
+              },
+              AddCourse:{
+                  screen:AddCourse
               }
+
           },
           {initialRouteName: isLoggedIn ?  this.state.main: 'UserLogin' ,
               headerMode: 'none'}

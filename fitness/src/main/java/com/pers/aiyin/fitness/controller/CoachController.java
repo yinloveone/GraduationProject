@@ -9,10 +9,7 @@ import com.pers.aiyin.fitness.service.CoachService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -78,6 +75,10 @@ public class CoachController {
             IOException {
         Coach coach=new ObjectMapper().readValue(request.getInputStream(), Coach.class);
         return coachService.login(coach);
+    }
+    @GetMapping("/coach/getStudent/{coachId}")
+    public Result getStudentList(@PathVariable("coachId") Integer coachId){
+        return coachService.getStudentList(coachId);
     }
 
 

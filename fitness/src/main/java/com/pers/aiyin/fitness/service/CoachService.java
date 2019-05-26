@@ -17,4 +17,6 @@ public interface CoachService {
 
     Result login(Coach coach);
 
+    Result getStudentList(Integer coachId);
+
 }

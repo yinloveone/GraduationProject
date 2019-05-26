@@ -6,8 +6,10 @@ import com.pers.aiyin.fitness.mapper.CourseMapper;
 import com.pers.aiyin.fitness.mapper.CourseRecordMapper;
 import com.pers.aiyin.fitness.mapper.CustomCourseRecordMapper;
 import com.pers.aiyin.fitness.response.CourseRecordList;
+import com.pers.aiyin.fitness.response.CustomCourseR;
 import com.pers.aiyin.fitness.response.CustomCourseRecord;
 import com.pers.aiyin.fitness.service.CourseRecordService;
+import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -111,6 +113,29 @@ public class CourseRecordServiceImpl implements CourseRecordService {
 
         }
     }
+    @Override
+    public Result getSelectStudent(Integer courseId){
+        List<CustomCourseR> list = customCourseRecordMapper.getSelectStudent(courseId);
+        if(null!=list&&list.size()>0){
+            return Result.success(list);
+        }
+        return Result.failure(ResponseCode.FAIL);
+    }
+    @Override
+    public Result studentIn(CourseRecord courseRecord){
+        int updateCount = courseRecordMapper.updateByPrimaryKeySelective(courseRecord);
+        if(updateCount>0)
+            return new Result(0,"签到成功");
+        else
+            return new Result(500,"发生意外错误,请联系管理员");
+    }
 
-
+    @Override
+    public Result submitScore(CourseRecord courseRecord){
+        int updateCount = courseRecordMapper.updateByPrimaryKeySelective(courseRecord);
+        if(updateCount>0)
+            return new Result(0,"打分成功");
+        else
+            return new Result(500,"发生意外错误,请联系管理员");
+    }
 }

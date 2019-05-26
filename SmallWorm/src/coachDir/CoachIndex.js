@@ -76,11 +76,11 @@ export default class CoachIndex extends Component{
                         </TouchableHighlight>
                         <View style={{width: DeviceWidth, height: 20}}/>
                         <ListItem text={"我的课表"} icon={'md-clipboard'} handleClick={() => {
-                            this.turnOnPage('CourseScreen')
+                            this.turnOnPage('CoachCourse')
                         }}/>
                         <ListItemDivider/>
                         <ListItem text={"我的学员"} icon={'md-reorder'} handleClick={() => {
-                            this.turnOnPage('CourseHour')
+                            this.turnOnPage('StudentActivity')
                         }}/>
                         <ListItemDivider/>
                         <View style={{width: DeviceWidth, height: 20}}/>

@@ -1,5 +1,7 @@
 package com.pers.aiyin.fitness.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pers.aiyin.fitness.entity.CourseRecord;
 import com.pers.aiyin.fitness.response.CourseRecordList;
 import com.pers.aiyin.fitness.response.CustomCourseRecord;
 import com.pers.aiyin.fitness.service.CourseRecordService;
@@ -7,6 +9,8 @@ import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.List;
 
 /*
@@ -45,6 +49,35 @@ public class CourseRecordController {
         }else{
             return new Result(1,"没有课表记录");
         }
+    }
+
+    /*
+    * 根据课程Id获取选课的学员
+    * */
+
+    @GetMapping("/courseRecord/getSelectStudent/{courseId}")
+    public Result getSelectStudent(@PathVariable("courseId") Integer courseId){
+        return courseRecordService.getSelectStudent(courseId);
+    }
+
+    /*
+    * 学员签到
+    * */
+    @PostMapping("/courseRecord/StudentIn")
+    public Result studentIn(HttpServletRequest request) throws
+            IOException {
+        CourseRecord record=new ObjectMapper().readValue(request.getInputStream(),CourseRecord.class);
+        return courseRecordService.studentIn(record);
+    }
+
+    /*
+    * 课程打分
+    * */
+    @PostMapping("/courseRecord/submitScore")
+    public Result submitScore(HttpServletRequest request) throws
+            IOException {
+        CourseRecord record=new ObjectMapper().readValue(request.getInputStream(),CourseRecord.class);
+        return courseRecordService.submitScore(record);
     }
 
 }

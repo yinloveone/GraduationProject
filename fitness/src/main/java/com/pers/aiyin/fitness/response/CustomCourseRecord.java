@@ -18,6 +18,10 @@ public class CustomCourseRecord {
 
     private Date courseTimeEnd;
 
+    private String timeStartStr;
+
+    private String timeEndStr;
+
     private Integer roomId;
 
     private String roomName;

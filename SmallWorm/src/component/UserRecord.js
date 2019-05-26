@@ -70,7 +70,7 @@ export default class UserRecord extends Component {
                     <Body><Title>我的体重</Title></Body>
                     <Right>
                         <Button transparent onPress={() => this.turnOnPage('AddWeight')}>
-                            <AntDesign name='plus' size={16} style={{color: 'white'}}/>
+                            <AntDesign name='plus' style={{color: 'white'}}/>
                         </Button>
 
                     </Right>
