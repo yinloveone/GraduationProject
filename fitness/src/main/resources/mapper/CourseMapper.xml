@@ -7,9 +7,7 @@
     <result column="course_time_start" jdbcType="TIMESTAMP" property="courseTimeStart" />
     <result column="course_time_end" jdbcType="TIMESTAMP" property="courseTimeEnd" />
     <result column="room_id" jdbcType="INTEGER" property="roomId" />
-    <result column="room_name" jdbcType="VARCHAR" property="roomName" />
     <result column="coach_id" jdbcType="INTEGER" property="coachId" />
-    <result column="coach_name" jdbcType="VARCHAR" property="coachName" />
     <result column="course_type" jdbcType="VARCHAR" property="courseType" />
     <result column="course_capacity" jdbcType="INTEGER" property="courseCapacity" />
     <result column="course_surplus" jdbcType="INTEGER" property="courseSurplus" />
@@ -75,8 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    course_id, course_name, course_time_start, course_time_end, room_id, room_name, coach_id, 
-    coach_name, course_type, course_capacity, course_surplus, is_valid, is_delete
+    course_id, course_name, course_time_start, course_time_end, room_id, coach_id, course_type, 
+    course_capacity, course_surplus, is_valid, is_delete
   </sql>
   <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.CourseExample" resultMap="BaseResultMap">
     select
@@ -111,15 +109,13 @@
   </delete>
   <insert id="insert" parameterType="com.pers.aiyin.fitness.entity.Course">
     insert into course (course_id, course_name, course_time_start, 
-      course_time_end, room_id, room_name, 
-      coach_id, coach_name, course_type, 
-      course_capacity, course_surplus, is_valid, 
-      is_delete)
+      course_time_end, room_id, coach_id, 
+      course_type, course_capacity, course_surplus, 
+      is_valid, is_delete)
     values (#{courseId,jdbcType=INTEGER}, #{courseName,jdbcType=VARCHAR}, #{courseTimeStart,jdbcType=TIMESTAMP}, 
-      #{courseTimeEnd,jdbcType=TIMESTAMP}, #{roomId,jdbcType=INTEGER}, #{roomName,jdbcType=VARCHAR}, 
-      #{coachId,jdbcType=INTEGER}, #{coachName,jdbcType=VARCHAR}, #{courseType,jdbcType=VARCHAR}, 
-      #{courseCapacity,jdbcType=INTEGER}, #{courseSurplus,jdbcType=INTEGER}, #{isValid,jdbcType=TINYINT}, 
-      #{isDelete,jdbcType=TINYINT})
+      #{courseTimeEnd,jdbcType=TIMESTAMP}, #{roomId,jdbcType=INTEGER}, #{coachId,jdbcType=INTEGER}, 
+      #{courseType,jdbcType=VARCHAR}, #{courseCapacity,jdbcType=INTEGER}, #{courseSurplus,jdbcType=INTEGER}, 
+      #{isValid,jdbcType=TINYINT}, #{isDelete,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.Course">
     insert into course
@@ -139,14 +135,8 @@
       <if test="roomId != null">
         room_id,
       </if>
-      <if test="roomName != null">
-        room_name,
-      </if>
       <if test="coachId != null">
         coach_id,
-      </if>
-      <if test="coachName != null">
-        coach_name,
       </if>
       <if test="courseType != null">
         course_type,
@@ -180,14 +170,8 @@
       <if test="roomId != null">
         #{roomId,jdbcType=INTEGER},
       </if>
-      <if test="roomName != null">
-        #{roomName,jdbcType=VARCHAR},
-      </if>
       <if test="coachId != null">
         #{coachId,jdbcType=INTEGER},
-      </if>
-      <if test="coachName != null">
-        #{coachName,jdbcType=VARCHAR},
       </if>
       <if test="courseType != null">
         #{courseType,jdbcType=VARCHAR},
@@ -230,14 +214,8 @@
       <if test="record.roomId != null">
         room_id = #{record.roomId,jdbcType=INTEGER},
       </if>
-      <if test="record.roomName != null">
-        room_name = #{record.roomName,jdbcType=VARCHAR},
-      </if>
       <if test="record.coachId != null">
         coach_id = #{record.coachId,jdbcType=INTEGER},
-      </if>
-      <if test="record.coachName != null">
-        coach_name = #{record.coachName,jdbcType=VARCHAR},
       </if>
       <if test="record.courseType != null">
         course_type = #{record.courseType,jdbcType=VARCHAR},
@@ -266,9 +244,7 @@
       course_time_start = #{record.courseTimeStart,jdbcType=TIMESTAMP},
       course_time_end = #{record.courseTimeEnd,jdbcType=TIMESTAMP},
       room_id = #{record.roomId,jdbcType=INTEGER},
-      room_name = #{record.roomName,jdbcType=VARCHAR},
       coach_id = #{record.coachId,jdbcType=INTEGER},
-      coach_name = #{record.coachName,jdbcType=VARCHAR},
       course_type = #{record.courseType,jdbcType=VARCHAR},
       course_capacity = #{record.courseCapacity,jdbcType=INTEGER},
       course_surplus = #{record.courseSurplus,jdbcType=INTEGER},
@@ -293,14 +269,8 @@
       <if test="roomId != null">
         room_id = #{roomId,jdbcType=INTEGER},
       </if>
-      <if test="roomName != null">
-        room_name = #{roomName,jdbcType=VARCHAR},
-      </if>
       <if test="coachId != null">
         coach_id = #{coachId,jdbcType=INTEGER},
-      </if>
-      <if test="coachName != null">
-        coach_name = #{coachName,jdbcType=VARCHAR},
       </if>
       <if test="courseType != null">
         course_type = #{courseType,jdbcType=VARCHAR},
@@ -326,9 +296,7 @@
       course_time_start = #{courseTimeStart,jdbcType=TIMESTAMP},
       course_time_end = #{courseTimeEnd,jdbcType=TIMESTAMP},
       room_id = #{roomId,jdbcType=INTEGER},
-      room_name = #{roomName,jdbcType=VARCHAR},
       coach_id = #{coachId,jdbcType=INTEGER},
-      coach_name = #{coachName,jdbcType=VARCHAR},
       course_type = #{courseType,jdbcType=VARCHAR},
       course_capacity = #{courseCapacity,jdbcType=INTEGER},
       course_surplus = #{courseSurplus,jdbcType=INTEGER},

@@ -29,4 +29,6 @@ public class CustomStudent {
     private Integer cardId;
 
     private String cardName;
+
+    private String studentPortrait;
 }

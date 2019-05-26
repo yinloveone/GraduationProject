@@ -72,7 +72,7 @@
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true"/>-->
-        <table tableName="classroom" domainObjectName="ClassRoom"
+        <table tableName="course" domainObjectName="Course"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true"/>

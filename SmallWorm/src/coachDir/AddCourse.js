@@ -1,11 +1,13 @@
 import React,{ Component } from 'react'
 import {Body, Button, Container, Content, Header, Icon, Left, Form, Text, Title,
-     Label,Input,Right,Subtitle,Item, Picker,DatePicker
+     Label,Input,Right,Subtitle,Item, Picker
 
 } from "native-base";
 import {Grid,Row,Col} from 'react-native-easy-grid'
 import {Dimensions, StyleSheet} from "react-native";
-const DeviceWidth = Dimensions.get('window').width
+import DatePicker from 'react-native-datepicker'
+import StorageUtil from "../utils/StorageUtil";
+import HttpUtil from "../utils/HttpUtil";
 export default class AddCourse extends Component{
     constructor(props){
         super(props)
@@ -17,17 +19,19 @@ export default class AddCourse extends Component{
             courseTimeStart:'',
             errorTimeStart:'',
             courseTimeEnd:'',
-            errorTimeEnd:''
+            errorTimeEnd:'',
+            courseTimeCount:1
         }
-        this.setDate = this.setDate.bind(this);
     }
     onValueChange2(value: string) {
         this.setState({
             roomName: value
         });
     }
-    setDate(newDate) {
-        this.setState({ courseTimeStart: newDate });
+    onValueChange(value) {
+        this.setState({
+            courseTimeCount: value
+        });
     }
     handleChange = ()=>{
         if (this.state.courseName === '') {
@@ -39,6 +43,32 @@ export default class AddCourse extends Component{
                 errorCourseName: ''
             })
         }
+    }
+    submitCourse = () =>{
+        let theTime=new Date(this.state.courseTimeStart).getTime();
+        let endTime = theTime + (this.state.courseTimeCount*45*60*1000)
+        let end=new Date(endTime);
+        StorageUtil.get('coachId', (error, object) => {
+            if (!error && object && object.coachId) {
+                const course={
+                    courseName:this.state.courseName,
+                    roomId:this.state.roomName,
+                    courseTimeStart:theTime,
+                    courseTimeEnd:end,
+                    coachId:object.coachId,
+                    courseCapacity:1,
+                    courseSurplus:1
+                }
+                HttpUtil.post(url,course).then(result=>{
+                    if(result.code==0){
+
+                    }else{
+
+                    }
+                }).catch(error=>{
+                    console.log(error)
+                })
+            }})
     }
     render(){
         return(
@@ -54,7 +84,7 @@ export default class AddCourse extends Component{
                         <Subtitle>添加课程</Subtitle>
                     </Body>
                     <Right>
-                        <Button transparent>
+                        <Button transparent onPress={this.submitCourse}>
                             <Text>
                                 提交
                             </Text>
@@ -69,12 +99,24 @@ export default class AddCourse extends Component{
                             <Label>课程名称:</Label>
                             </Col>
                             <Col style={styles.touchableNext}>
-                        <Item rounded>
-                            <Input  />
+                        <Item regular>
+                            <Input  onChangeText={courseName =>
+                                this.setState({ courseName }, () => {
+                                    if (this.state.courseName === '') {
+                                        this.setState({
+                                            errorCourseName: '请输入课程名称'
+                                        })
+                                    } else if (this.state.courseName !== '') {
+                                        this.setState({
+                                            errorCourseName: ''
+                                        })
+                                    }
+                                })
+                            } value={this.state.courseName}/>
                         </Item>
                             </Col>
                         </Row>
-                        <Row style={{width:'100%',marginBottom:20}}>
+                        <Row style={{width:'100%'}}>
                             <Text style={{ color: 'red', fontSize: 12 }}>{this.state.errorCourseName}</Text>
                         </Row>
                         <Row style={styles.touchableOp}>
@@ -83,7 +125,7 @@ export default class AddCourse extends Component{
                                 <Label>教室:</Label>
                             </Col>
                             <Col style={styles.touchableNext}>
-                                <Item rounded>
+                                <Item regular>
                                     <Picker
                                         mode="dropdown"
                                         iosIcon={<Icon name="arrow-down" />}
@@ -107,35 +149,56 @@ export default class AddCourse extends Component{
                                 <Label>上课时间:</Label>
                             </Col>
                             <Col style={styles.touchableNext}>
-                                <Item rounded>
-
                                     <DatePicker
-                                        defaultDate={new Date()}
-                                        locale={"en"}
-                                        timeZoneOffsetInMinutes={undefined}
-                                        modalTransparent={false}
-                                        animationType={"fade"}
-                                        androidMode={"default"}
-                                        placeHolderText="Select date"
-                                        textStyle={{ color: "green" }}
-                                        placeHolderTextStyle={{ color: "#d3d3d3" }}
-                                        onDateChange={this.setDate}
-                                        disabled={false}
+                                        style={{width: '100%'}}
+                                        date={this.state.courseTimeStart}
+                                        mode="datetime"
+                                        maximumDate={new Date()}
+                                        format="YYYY-MM-DD HH:mm"
+                                        confirmBtnText="确定"
+                                        cancelBtnText="取消"
+                                        showIcon={false}
+                                        onDateChange={(courseTimeStart) =>  this.setState({courseTimeStart}, () => {
+                                            if (this.state.courseTimeStart === '') {
+                                                this.setState({
+                                                    errorTimeStart: '请输入上课时间'
+                                                })
+                                            } else if (this.state.courseTimeStart !== '') {
+                                                this.setState({
+                                                    errorTimeStart: ''
+                                                })
+                                            }
+                                        })}
                                     />
-                                </Item>
                             </Col>
+                        </Row>
+                        <Row style={{width:'100%'}}>
+                            <Text style={{ color: 'red', fontSize: 12 }}>{this.state.courseTimeStart}</Text>
                         </Row>
                         <Row style={styles.touchableOp}>
                             <Col style={styles.touchablePre}>
-                                <Label>下课时间:</Label>
+                                <Label>课程时长:</Label>
                             </Col>
                             <Col style={styles.touchableNext}>
-                                <Item rounded>
-                                    <Input />
+                                <Item regular>
+                                    <Picker
+                                        mode="dropdown"
+                                        iosIcon={<Icon name="arrow-down" />}
+                                        style={{ width: undefined }}
+                                        placeholder="请选择教室"
+                                        placeholderStyle={{ color: "#bfc6ea" }}
+                                        placeholderIconColor="#007aff"
+                                        selectedValue={this.state.courseTimeCount}
+                                        onValueChange={this.onValueChange.bind(this)}>
+                                        <Picker.Item label="45分钟" value="1" />
+                                        <Picker.Item label="90分钟" value="2" />
+                                    </Picker>
                                 </Item>
                             </Col>
                         </Row>
-
+                        <Row style={{width:'100%'}}>
+                            <Text style={{ color: 'red', fontSize: 12 }}>{this.state.courseTimeEnd}</Text>
+                        </Row>
                     </Form>
                 </Content>
             </Container>

@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.pers.aiyin.fitness.entity.ClassRoom;
 import com.pers.aiyin.fitness.entity.Coach;
 import com.pers.aiyin.fitness.entity.Course;
+import com.pers.aiyin.fitness.response.CustomCourse;
 import com.pers.aiyin.fitness.service.CourseService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;
@@ -27,9 +28,9 @@ public class CourseController {
     private CourseService courseService;
 
     @PostMapping("/course/courseList")
-    public String getCourseList(Integer rows, Integer page,Course course){
+    public String getCourseList(Integer rows, Integer page, CustomCourse course){
         Map<String,Object> resultMap=new HashMap<>();
-        PageInfo<Course> pageInfo = courseService.getCourseList(page,rows,course);
+        PageInfo<CustomCourse> pageInfo = courseService.getCourseList(page,rows,course);
         resultMap.put("rows",pageInfo.getList());
         resultMap.put("total",pageInfo.getList().size());
         return new Gson().toJson(resultMap);

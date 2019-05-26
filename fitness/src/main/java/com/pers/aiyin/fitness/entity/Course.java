@@ -14,11 +14,7 @@ public class Course implements Serializable {
 
     private Integer roomId;
 
-    private String roomName;
-
     private Integer coachId;
-
-    private String coachName;
 
     private String courseType;
 
@@ -72,28 +68,12 @@ public class Course implements Serializable {
         this.roomId = roomId;
     }
 
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public void setRoomName(String roomName) {
-        this.roomName = roomName == null ? null : roomName.trim();
-    }
-
     public Integer getCoachId() {
         return coachId;
     }
 
     public void setCoachId(Integer coachId) {
         this.coachId = coachId;
-    }
-
-    public String getCoachName() {
-        return coachName;
-    }
-
-    public void setCoachName(String coachName) {
-        this.coachName = coachName == null ? null : coachName.trim();
     }
 
     public String getCourseType() {

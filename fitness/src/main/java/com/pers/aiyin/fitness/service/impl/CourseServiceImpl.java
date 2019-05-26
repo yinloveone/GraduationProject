@@ -7,7 +7,9 @@ import com.pers.aiyin.fitness.entity.Coach;
 import com.pers.aiyin.fitness.entity.Course;
 import com.pers.aiyin.fitness.entity.CourseExample;
 import com.pers.aiyin.fitness.mapper.CourseMapper;
+import com.pers.aiyin.fitness.mapper.CustomCourseRecordMapper;
 import com.pers.aiyin.fitness.mapper.OptionListMapper;
+import com.pers.aiyin.fitness.response.CustomCourse;
 import com.pers.aiyin.fitness.service.CourseService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;
@@ -25,26 +27,15 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private OptionListMapper optionListMapper;
 
-    public PageInfo<Course> getCourseList(int pageCurrent, int pageSize,Course course){
-        CourseExample courseExample = new CourseExample();
-        CourseExample.Criteria criteria=courseExample.createCriteria();
-        if(null!=course.getCoachName()&&!"".equals(course.getCoachName())){
-            criteria.andCoachNameLike("%"+course.getCoachName()+"%");
-        }
-        if(null!=course.getCourseName()&&!"".equals(course.getCourseName())){
-            criteria.andCourseNameLike("%"+course.getCourseName()+"%");
-        }
-        if(null!=course.getRoomName()&&!"".equals(course.getRoomName())){
-            criteria.andRoomNameLike("%"+course.getRoomName()+"%");
-        }
-        if(null!=course.getCourseTimeStart()){
-            criteria.andCourseTimeStartEqualTo(course.getCourseTimeStart());
-        }
-        criteria.andIsDeleteEqualTo(new Byte("0"));
+    @Autowired
+    private CustomCourseRecordMapper customCourseRecordMapper;
+
+    @Override
+    public PageInfo<CustomCourse> getCourseList(int pageCurrent, int pageSize,CustomCourse course){
 
         PageHelper.startPage(pageCurrent,pageSize);
-        List<Course> list = courseMapper.selectByExample(courseExample);
-        PageInfo<Course> pageInfo =new PageInfo<>(list);
+        List<CustomCourse> list = customCourseRecordMapper.getCourseList(course);
+        PageInfo<CustomCourse> pageInfo =new PageInfo<>(list);
         return pageInfo;
     }
     /*

@@ -21,12 +21,14 @@
 
     <select id="getCourse" parameterType="com.pers.aiyin.fitness.response.PrivateCourse" resultMap="BaseResultMap">
         select course_id,course_name,course_time_start,course_time_end,
-        room_id,room_name,coach_id,coach_name,course_type,course_capacity,
+        course.room_id,room_name,course.coach_id,coach_name,course_type,course_capacity,
         course_surplus,
         DATE_FORMAT(course_time_start,'%Y-%m-%d') as curr_date,
         DATE_FORMAT(course_time_start,'%H:%i') as time_start_str,
         DATE_FORMAT(course_time_end,'%H:%i') as time_end_str
         from course
+        left join classroom cr on cr.room_id=course.room_id
+        left join coach on coach.coach_id=course.coach_id
         where course_type=1
         <if test="coachName!=null and coachName!= ''">
         AND  coach_name like  CONCAT('%',#{coachName},'%')
