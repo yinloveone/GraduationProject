@@ -1,5 +1,6 @@
 package com.pers.aiyin.fitness.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.pers.aiyin.fitness.entity.ClassRoom;
@@ -12,13 +13,15 @@ import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /*
-* 课程管理
-* */
+ * 课程管理
+ * */
 
 @RestController
 @RequestMapping("api")
@@ -41,7 +44,14 @@ public class CourseController {
         return courseService.addCourse(course);
     }
 
-    @PostMapping("/course/getCourse/{courseId}")
+    @PostMapping("/course/addPrivateCourse")
+    public Result addPrivateCourse(HttpServletRequest request) throws
+            IOException {
+        Course course=new ObjectMapper().readValue(request.getInputStream(),Course.class);
+        return courseService.addCourse(course);
+    }
+
+    @GetMapping("/course/getCourse/{courseId}")
     public Result getCourse(@PathVariable("courseId") Integer courseId){
         Course course = courseService.getCourse(courseId);
         if(null!=course){
@@ -93,4 +103,22 @@ public class CourseController {
             return  Result.failure(ResponseCode.FAIL);
         }
     }
+
+    @PostMapping("/course/updatePrivateCourse")
+    public Result updatePrivateCourse(HttpServletRequest request) throws
+            IOException {
+        Course course=new ObjectMapper().readValue(request.getInputStream(),Course.class);
+        int result = courseService.updateCourse(course);
+        if(result!=-1){
+            return Result.success();
+        }else {
+            return  Result.failure(ResponseCode.FAIL);
+        }
+    }
+
+    @GetMapping("/course/getPrivateList/{coachId}")
+    public Result getPrivateList(@PathVariable("coachId") Integer coachId){
+        return courseService.getPrivateList(coachId);
+    }
+
 }

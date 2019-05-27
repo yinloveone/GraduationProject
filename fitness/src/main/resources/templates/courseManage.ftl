@@ -463,9 +463,10 @@
         var course = {
             courseName: $('#addName').val(),
             coachId:$('#addCoach').val(),
-            coachName:$("#addCoach").find("option:selected").text(),
-            roomId: $('#addRoom').val(),
-            roomName:$("#addRoom").find("option:selected").text(),
+            roomId: 1,
+            courseCapacity:45,
+            courseSurplus:45,
+            courseType:1,
             courseTimeStart:$('#courseTimeStart').val(),
             courseTimeEnd:$('#courseTimeStart').val(),
         }

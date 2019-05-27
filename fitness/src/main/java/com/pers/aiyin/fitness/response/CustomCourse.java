@@ -20,6 +20,8 @@ public class CustomCourse {
 
     private String timeEndStr;
 
+    private String formatDate;
+
     private Integer roomId;
 
     private String roomName;

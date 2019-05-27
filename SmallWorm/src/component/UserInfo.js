@@ -17,6 +17,7 @@ const sankhadeep = require("../../img/header.jpg");
 import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid} from "react-native";
 import StorageUtil from "../utils/StorageUtil";
+import {Grid, Row} from "react-native-easy-grid";
 export default class UserInfo extends Component{
     constructor(props){
         super(props);
@@ -148,6 +149,17 @@ export default class UserInfo extends Component{
                                 </Right>
                             </ListItem>
                         </List>
+                    <Grid style={{marginTop: 50}}>
+                        <Row
+                            style={{width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+                            <Button rounded onPress={() => {
+                                this.turnOnPage('UpdateStuPassword')
+                            }}>
+                                <Icon name='cog'/>
+                                <Text>修改密码</Text>
+                            </Button>
+                        </Row>
+                    </Grid>
                 </Content>
             </Container>
         )

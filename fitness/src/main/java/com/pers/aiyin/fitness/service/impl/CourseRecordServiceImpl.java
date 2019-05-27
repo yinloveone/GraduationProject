@@ -61,15 +61,20 @@ public class CourseRecordServiceImpl implements CourseRecordService {
                course.setCourseSurplus(course.getCourseSurplus()-1);
                int updateCount = courseMapper.updateByPrimaryKeySelective(course);
 
-               if(course.getCourseType().equals("COACH")){
+               if(course.getCourseType().equals("2")){
                    //更新课时
                    CourseHourExample hourExample = new CourseHourExample();
                    CourseHourExample.Criteria criteria1 = hourExample.createCriteria();
                    criteria1.andStuIdEqualTo(courseRecord.getStuId());
                    criteria1.andCoachIdEqualTo(course.getCoachId());
                    List<CourseHour> courseHour=courseHourMapper.selectByExample(hourExample);
-                   courseHour.get(0).setHourCount(courseHour.get(0).getHourCount()-1);
-                   courseHourMapper.updateByPrimaryKeySelective(courseHour.get(0));
+                   if(null!=courseHour&&courseHour.size()>0) {
+                       if(courseHour.get(0).getHourCount()<1){
+                           return new Result(1,"课时不够");
+                       }
+                       courseHour.get(0).setHourCount(courseHour.get(0).getHourCount() - 1);
+                       courseHourMapper.updateByPrimaryKeySelective(courseHour.get(0));
+                   }
 
                }
                if(count>0&&updateCount>0)
@@ -86,7 +91,7 @@ public class CourseRecordServiceImpl implements CourseRecordService {
             return new Result(400, "课程不存在");
         }else{
 
-            if(course.getCourseType().equals("COACH")){
+            if(course.getCourseType().equals("2")){
                 Date date = new Date();
                 Calendar c = Calendar.getInstance();
                 c.setTime(date);
@@ -104,12 +109,16 @@ public class CourseRecordServiceImpl implements CourseRecordService {
                 }
             }
             int count = courseRecordMapper.deleteByPrimaryKey(courseRecord.getCourseRecordId());
-            course.setCourseSurplus(course.getCourseSurplus()+1);
-            int updateCount = courseMapper.updateByPrimaryKeySelective(course);
-            if(count>0&&updateCount>0)
-                return new Result(200,"取消成功");
-            else
-                return new Result(500,"发生意外错误,请联系管理员");
+            if(count>0) {
+                course.setCourseSurplus(course.getCourseSurplus() + 1);
+                int updateCount = courseMapper.updateByPrimaryKeySelective(course);
+                if (updateCount > 0)
+                    return new Result(200, "取消成功");
+                else
+                    return new Result(500, "发生意外错误,请联系管理员");
+            }else{
+                return new Result(500, "发生意外错误,请联系管理员");
+            }
 
         }
     }

@@ -35,7 +35,7 @@ public class PrivateCourseServiceImpl implements PrivateCourseService {
             Date endDate = Date.from(endOfDay.atZone(ZoneId.systemDefault()).toInstant());
             map.put("beginDate", beginDate);
             map.put("endDate", endDate);
-            map.put("courseType", "COACH");
+            map.put("courseType", "2");
             map.put("idList", listId);
             List<PrivateCourse> list = privateCourseMapper.getPrivateCourse(map);
             if (null!=list&&list.size()>0){

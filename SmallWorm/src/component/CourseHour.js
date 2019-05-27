@@ -60,18 +60,16 @@ export default class CourseHour extends Component{
         let list=this.state.datas;
         for(let i=0;i<list.length;i++){
             resultList.push(
-                <CardItem header>
-                    <Text>{list[i].hourName}</Text>
-                </CardItem>
-            )
-            resultList.push(
+                <Card key={list[i].hourId}>
                 <CardItem>
                 <Body>
-                    <Text>{list[i].coachName}</Text>
-                    <Text>{list[i].hourCount}</Text>
-                    <Text>有效期限：无限</Text>
+                    <Text style={{fontSize:18}}>{list[i].hourName}</Text>
+                    <Text>教练:{list[i].coachName}</Text>
+                    <Text>课时剩余:{list[i].hourCount}</Text>
+                    <Text>有效期限:无限</Text>
                 </Body>
-            </CardItem>)
+            </CardItem>
+                </Card>)
 
         }
         return resultList;
@@ -113,22 +111,9 @@ export default class CourseHour extends Component{
                         <Right/>
                     </Header>
                     <Content>
-                       {/* <Card dataArray={datas}
-                              renderRow={data =>
-                                  <CardItem>
-                                      <Body>
-                                      <Text>{data.hourName}</Text>
-                                          <Text>{data.coachName}</Text>
-                                          <Text>{data.hourCount}</Text>
-                                          <Text>有效期限：无限</Text>
-                                      </Body>
-                                  </CardItem>}
-                        />*/}
-                        <Card>
                             {
                                 this.cardItemList()
                             }
-                        </Card>
                     </Content>
                 </Container>
             )

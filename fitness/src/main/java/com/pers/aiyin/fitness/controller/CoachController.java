@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.pers.aiyin.fitness.entity.Coach;
+import com.pers.aiyin.fitness.response.CustomCoach;
 import com.pers.aiyin.fitness.response.PrivateCourse;
 import com.pers.aiyin.fitness.service.CoachService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
@@ -13,13 +14,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 /*
-* 教练管理
-*
-* */
+ * 教练管理
+ *
+ * */
 
 @RestController
 @RequestMapping("api")
@@ -41,18 +43,50 @@ public class CoachController {
     public Result addCoach(Coach coach){
         return coachService.addCoach(coach);
     }
-    @PostMapping("/coach/getCoach/{coachId}")
+
+    @GetMapping("/coach/getCoach/{coachId}")
     public Result getCoach(@PathVariable("coachId") Integer coachId){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Coach coach = coachService.getCoach(coachId);
         if(null!=coach){
-            return Result.success(coach);
+            CustomCoach customCoach = new CustomCoach();
+            customCoach.setCoachName(coach.getCoachName());
+            customCoach.setCoachId(coach.getCoachId());
+            customCoach.setBirthdayStr(sdf.format(coach.getBirthday()));
+            customCoach.setPhone(coach.getPhone());
+            if(coach.getGrade()==1){
+                customCoach.setGradeStr("初级");
+            }else if(coach.getGrade()==2){
+                customCoach.setGradeStr("中级");
+            }else{
+                customCoach.setGradeStr("高级");
+            }
+            if(coach.getSex()==1){
+                customCoach.setSex("女");
+            }else{
+                customCoach.setSex("男");
+            }
+            return Result.success(customCoach);
         }
         return Result.failure(ResponseCode.FAIL);
     }
 
+
     @PostMapping("/coach/deleteCoach/{coachId}")
     public Result deleteCoach(@PathVariable("coachId") Integer coachId){
         int result = coachService.deleteCoach(coachId);
+        if(result!=-1){
+            return Result.success();
+        }else {
+            return  Result.failure(ResponseCode.FAIL);
+        }
+    }
+
+    @PostMapping("/coach/updatePassword")
+    public Result updatePassword(HttpServletRequest request) throws
+            IOException {
+        Coach coach=new ObjectMapper().readValue(request.getInputStream(), Coach.class);
+        int result = coachService.updateCoach(coach);
         if(result!=-1){
             return Result.success();
         }else {

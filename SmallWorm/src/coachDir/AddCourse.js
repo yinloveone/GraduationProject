@@ -3,11 +3,13 @@ import {Body, Button, Container, Content, Header, Icon, Left, Form, Text, Title,
      Label,Input,Right,Subtitle,Item, Picker
 
 } from "native-base";
-import {Grid,Row,Col} from 'react-native-easy-grid'
-import {Dimensions, StyleSheet} from "react-native";
+import {Row,Col} from 'react-native-easy-grid'
 import DatePicker from 'react-native-datepicker'
 import StorageUtil from "../utils/StorageUtil";
 import HttpUtil from "../utils/HttpUtil";
+import {StyleSheet, ToastAndroid} from "react-native"
+
+
 export default class AddCourse extends Component{
     constructor(props){
         super(props)
@@ -33,39 +35,33 @@ export default class AddCourse extends Component{
             courseTimeCount: value
         });
     }
-    handleChange = ()=>{
-        if (this.state.courseName === '') {
-            this.setState({
-                errorCourseName: '请输入课程名称'
-            })
-        } else if (this.state.courseName !== '') {
-            this.setState({
-                errorCourseName: ''
-            })
-        }
-    }
     submitCourse = () =>{
         let theTime=new Date(this.state.courseTimeStart).getTime();
         let endTime = theTime + (this.state.courseTimeCount*45*60*1000)
         let end=new Date(endTime);
         StorageUtil.get('coachId', (error, object) => {
             if (!error && object && object.coachId) {
-                const course={
+               const course={
                     courseName:this.state.courseName,
                     roomId:this.state.roomName,
                     courseTimeStart:theTime,
                     courseTimeEnd:end,
                     coachId:object.coachId,
                     courseCapacity:1,
-                    courseSurplus:1
+                    courseSurplus:1,
+                    courseType:2
                 }
+                const url="http://47.100.239.1:8080/api/course/addPrivateCourse"
                 HttpUtil.post(url,course).then(result=>{
-                    if(result.code==0){
-
+                    if(result.code===0){
+                        ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+                        this.props.navigation.goBack()
                     }else{
-
+                        ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                     }
-                }).catch(error=>{
+                    console.log(result.msg)
+
+                }).catch(error => {
                     console.log(error)
                 })
             }})

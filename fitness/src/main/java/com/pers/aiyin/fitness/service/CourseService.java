@@ -24,4 +24,6 @@ public interface CourseService {
     List<Coach> getCoachList();
 
     List<ClassRoom> getRoomList();
+
+    Result getPrivateList(Integer coachId);
 }

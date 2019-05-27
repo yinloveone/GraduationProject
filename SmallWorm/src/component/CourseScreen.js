@@ -74,7 +74,7 @@ export default  class CourseScreen extends Component{
                     }
                 })
     }
-    cancelCourse(courseId,e){
+    cancelCourse(courseRecordId,courseId,e){
         const url='http://47.100.239.1:8080/api/user/cancelOrder'
         let stuId=0;
         StorageUtil.get('stuId', (error, object) => {
@@ -83,7 +83,8 @@ export default  class CourseScreen extends Component{
 
         const courseRecord = {
             courseId:courseId,
-            stuId:object.stuId
+            stuId:object.stuId,
+            courseRecordId:courseRecordId
         }
         HttpUtil.post(url,courseRecord).then(result=>{
             if(result.code===0){
@@ -116,7 +117,7 @@ export default  class CourseScreen extends Component{
                             <Text>教室:{dataList[i].listCourse[j].roomName}</Text>
                         </Body>
                         <Right>
-                            <Button danger onPress={this.cancelCourse.bind(this, dataList[i].listCourse[j].courseId)}>
+                            <Button danger onPress={this.cancelCourse.bind(this, dataList[i].listCourse[j].courseId,dataList[i].listCourse[j].courseRecordId)}>
                                 <Text>退课</Text>
                             </Button>
                         </Right>
@@ -126,37 +127,6 @@ export default  class CourseScreen extends Component{
         }
         return replys;
     }
-  /*  renderItems(){
-        const dataList = this.state.dataList;
-        let replys = [];
-        dataList.map(function(items,index){
-            replys.push(<ListItem itemDivider key={items.yearMonth}>
-                <Text key={items.yearMonth}>{items.yearMonth}</Text>
-            </ListItem>)
-            items.listCourse.map(function(item,number){
-                    replys.push(
-                        <ListItem key={item.courseId}>
-                            <Body>
-                                <Text>{item.monthDate}</Text>
-                                <Text>{item.courseName}({item.timeStartStr}-{item.timeEndStr})</Text>
-                                <Text>上课老师:{item.coachName}</Text>
-                                <Text>教室:{item.roomName}</Text>
-                                <Text>消耗课时:1课时</Text>
-                            </Body>
-                            <Right>
-                                <Button danger>
-                                    <Text>退课</Text>
-                                </Button>
-                            </Right>
-                        </ListItem>
-                    )
-                })
-
-
-            }
-        )
-        return replys;
-    }*/
 
     render() {
         if (!this.state.dataList) {

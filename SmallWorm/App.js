@@ -33,6 +33,8 @@ import CoachInfo from './src/coachDir/CoachInfo'
 import UpdatePassword from './src/coachDir/UpdatePassword'
 import StudentReply from './src/coachDir/StudentReply'
 import CourseManage from './src/coachDir/CourseManage'
+import UpdateCourse from './src/coachDir/UpdateCourse'
+import UpdateStuPassword from './src/component/UpdateStuPassword'
 
  const MainStudent = createBottomTabNavigator({
     Home: {
@@ -233,8 +235,14 @@ export default class App extends Component{
               CoachCourse: {
                   screen:CoachCourse
               },
-              AddCourse:{
+              AddCourse: {
                   screen:AddCourse
+              },
+              UpdateCourse: {
+                  screen:UpdateCourse
+              },
+              UpdateStuPassword: {
+                  screen:UpdateStuPassword
               }
 
           },

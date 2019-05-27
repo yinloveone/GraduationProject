@@ -13,6 +13,24 @@
         <result column="time_start_str" jdbcType="VARCHAR" property="timeStartStr" />
         <result column="time_end_str" jdbcType="VARCHAR" property="timeEndStr" />
     </resultMap>
+    <resultMap id="BaseResultMap2" type="com.pers.aiyin.fitness.response.CustomCourse">
+        <id column="course_id" jdbcType="INTEGER" property="courseId" />
+        <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+        <result column="course_time_start" jdbcType="TIMESTAMP" property="courseTimeStart" />
+        <result column="course_time_end" jdbcType="TIMESTAMP" property="courseTimeEnd" />
+        <result column="room_id" jdbcType="INTEGER" property="roomId" />
+        <result column="room_name" jdbcType="VARCHAR" property="roomName"/>
+        <result column="coach_id" jdbcType="INTEGER" property="coachId" />
+        <result column="coachName" jdbcType="VARCHAR" property="coachName"/>
+        <result column="course_type" jdbcType="VARCHAR" property="courseType" />
+        <result column="course_capacity" jdbcType="INTEGER" property="courseCapacity" />
+        <result column="course_surplus" jdbcType="INTEGER" property="courseSurplus" />
+        <result column="is_valid" jdbcType="TINYINT" property="isValid" />
+        <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+        <result column="time_start_str" jdbcType="VARCHAR" property="timeStartStr" />
+        <result column="time_end_str" jdbcType="VARCHAR" property="timeEndStr" />
+        <result column="format_date" jdbcType="VARCHAR" property="formatDate" />
+    </resultMap>
     <select id="getPrivateCourse" parameterType="java.util.Map" resultMap="BaseResultMap">
         select course_id,course_name,course_time_start,course_time_end,
         course.coach_id,coach.coach_name,grade,
@@ -27,16 +45,29 @@
         <if test="endDate != null">
             AND course_time_start <![CDATA[<=]]> #{endDate}
         </if>
-        AND coachId IN
-        <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
-            #{idList}
+        AND course.coach_id IN
+        <foreach collection="idList" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
         </foreach>
     </select>
 
-    <select id="getCoachId" parameterType="java.lang.Integer" resultType="java.util.List">
+    <select id="getCoachId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         select coach_id
         from coursehour
         where stu_id=#{stuId} and hour_count>0
+    </select>
+
+    <select id="getPrivateList" parameterType="java.util.Map" resultMap="BaseResultMap2">
+        select course_id,course_name,course_time_start,course_time_end,
+        coach_id,course.room_id,room_name,
+        DATE_FORMAT(course_time_start,'%Y-%m-%d') as format_date,
+        DATE_FORMAT(course_time_start,'%H:%i') as time_start_str,
+        DATE_FORMAT(course_time_end,'%H:%i') as time_end_str
+        from course left join classroom on course.room_id=classroom.room_id
+        WHERE  course_type=2 and coach_id=#{coachId}
+        <if test="courseTime != null">
+            AND course_time_start <![CDATA[>=]]> #{courseTime}
+        </if>
     </select>
 
 </mapper>

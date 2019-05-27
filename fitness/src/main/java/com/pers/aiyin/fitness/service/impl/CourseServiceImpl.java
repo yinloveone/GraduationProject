@@ -9,6 +9,7 @@ import com.pers.aiyin.fitness.entity.CourseExample;
 import com.pers.aiyin.fitness.mapper.CourseMapper;
 import com.pers.aiyin.fitness.mapper.CustomCourseRecordMapper;
 import com.pers.aiyin.fitness.mapper.OptionListMapper;
+import com.pers.aiyin.fitness.mapper.PrivateCourseMapper;
 import com.pers.aiyin.fitness.response.CustomCourse;
 import com.pers.aiyin.fitness.service.CourseService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
@@ -16,7 +17,7 @@ import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -29,6 +30,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private CustomCourseRecordMapper customCourseRecordMapper;
+
+    @Autowired
+    private PrivateCourseMapper privateCourseMapper;
 
     @Override
     public PageInfo<CustomCourse> getCourseList(int pageCurrent, int pageSize,CustomCourse course){
@@ -46,16 +50,18 @@ public class CourseServiceImpl implements CourseService {
         CourseExample.Criteria c=courseExample.createCriteria();
         c.andCoachIdEqualTo(course.getCoachId());
         c.andCourseTimeStartLessThanOrEqualTo(course.getCourseTimeStart());
-        c.andCourseTimeStartGreaterThanOrEqualTo(course.getCourseTimeStart());
+        c.andCourseTimeEndGreaterThanOrEqualTo(course.getCourseTimeStart());
+
         CourseExample.Criteria c1=courseExample.createCriteria();
         c1.andCoachIdEqualTo(course.getCoachId());
         c1.andCourseTimeStartLessThanOrEqualTo(course.getCourseTimeEnd());
-        c1.andCourseTimeStartGreaterThanOrEqualTo(course.getCourseTimeEnd());
+        c1.andCourseTimeEndGreaterThanOrEqualTo(course.getCourseTimeEnd());
         courseExample.or(c);
         courseExample.or(c1);
 
         List<Course> list = courseMapper.selectByExample(courseExample);
-        if(list!=null||list.size()>0){
+        if(list!=null&&list.size()>0){
+            System.out.println("*************"+list.size());
             return new Result(1,"教练时间有冲突");
         }else{
             courseExample = new CourseExample();
@@ -70,7 +76,7 @@ public class CourseServiceImpl implements CourseService {
             courseExample.or(c2);
             courseExample.or(c3);
             List<Course> list1 = courseMapper.selectByExample(courseExample);
-            if(list1!=null||list1.size()>0){
+            if(list1!=null&&list1.size()>0){
                 return new Result(1,"教室被占用！");
             }else{
                int result = courseMapper.insertSelective(course);
@@ -105,6 +111,21 @@ public class CourseServiceImpl implements CourseService {
 
 
     public List<ClassRoom> getRoomList(){
-    return optionListMapper.getRoomList();
+      return optionListMapper.getRoomList();
+    }
+    public Result getPrivateList(Integer coachId){
+        Map<String,Object> map = new HashMap<>();
+        map.put("coachId",coachId);
+        Calendar now = Calendar.getInstance();
+        now.setTime(new Date());
+        now.set(Calendar.DATE, now.get(Calendar.DATE) + 2);
+        map.put("courseTime",now.getTime());
+        List<CustomCourse> list=privateCourseMapper.getPrivateList(map);
+        if(null!=list&&list.size()>0){
+            return Result.success(list);
+        }else{
+            return Result.failure(ResponseCode.FAIL);
+        }
+
     }
 }

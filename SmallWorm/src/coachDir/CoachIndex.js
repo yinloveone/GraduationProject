@@ -16,24 +16,27 @@ import ListItemDivider from '../views/ListItemDivider';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import StorageUtil from '../utils/StorageUtil'
 import navigationUtil from "../utils/navigationUtil";
-import HttpUtil from "../utils/HttpUtil";
 const DeviceWidth = Dimensions.get('window').width;
 
 
 export default class CoachIndex extends Component{
-  /*  constructor(props){
+  constructor(props){
         super(props);
         this.state = {
-            userInfo:null,
+            userName:null,
         }
     }
     componentDidMount(){
-        this.getUserInfo();
+        StorageUtil.get('userName', (error, object) => {
+            if (!error && object && object.userName) {
+                this.setState({
+                    userName:object.userName
+                })
+            }
+        })
     }
-    /!*
-   * 获取用户基本信息
-   * *!/
-    getUserInfo = () =>{
+
+   /* getUserInfo = () =>{
 
         StorageUtil.get('stuId', (error, object) => {
             if (!error && object && object.stuId) {
@@ -56,7 +59,13 @@ export default class CoachIndex extends Component{
 
     render(){
         let avatar = require('../../img/6.png');
-
+        if(!this.state.userName){
+            return (
+                <View style={styles.container}>
+                    <Text>Loading...</Text>
+                </View>
+            )
+        }else {
             return (
                 <View style={styles.container}>
                     <View style={styles.divider}/>
@@ -67,7 +76,7 @@ export default class CoachIndex extends Component{
                             <View style={styles.meInfoContainer}>
                                 <Image style={styles.meInfoAvatar} source={avatar}/>
                                 <View style={styles.meInfoContainer}>
-                                    <Text style={styles.meInfoNickName}>李教练</Text>
+                                    <Text style={styles.meInfoNickName}>{this.state.userName}</Text>
                                 </View>
                                 <View style={{position: 'absolute', right: 5}}>
                                     <AntDesign name="right" size={16}/>
@@ -91,6 +100,7 @@ export default class CoachIndex extends Component{
                     <View style={styles.divider}/>
                 </View>
             )
+        }
     }
 
     turnOnPage(pageName) {

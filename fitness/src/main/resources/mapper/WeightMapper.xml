@@ -11,7 +11,7 @@
 
     <select id="getWeightList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select wei_record_id,weight,record_time,stu_id,
-        DATE_FORMAT(record_time,'%Y-%d-%m') as record_time_str
+        DATE_FORMAT(record_time,'%Y-%m-%d') as record_time_str
         from weightrecord where stu_id=#{stuId}
     </select>
 </mapper>

@@ -7,7 +7,7 @@ import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid} from "react-native";
 import navigationUtil from "../utils/navigationUtil";
 
-export default class UpdatePassword extends Component{
+export default class UpdateStuPassword extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -54,14 +54,14 @@ export default class UpdatePassword extends Component{
         StorageUtil.get('password', (error, object) => {
             if (!error && object && object.password) {
                 if(this.state.prmiPassword===object.password) {
-                    StorageUtil.get('coachId', (error, object) => {
-                        if (!error && object && object.coachId) {
-                            const coach={
-                                coachId:object.coachId,
+                    StorageUtil.get('stuId', (error, object) => {
+                        if (!error && object && object.stuId) {
+                            const student={
+                                stuId:object.stuId,
                                 password:this.state.newPassword
                             }
-                            const url="http://47.100.239.1:8080/api/coach/updatePassword"
-                            HttpUtil.post(url,coach).then(result=>{
+                            const url='http://47.100.239.1:8080/api/member/modifyStudent';
+                            HttpUtil.post(url,student).then(result=>{
                                 if(result.code===0){
                                     ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                                     StorageUtil.set('hasLogin', {'hasLogin': 'FALSE'});
@@ -121,57 +121,57 @@ export default class UpdatePassword extends Component{
                             <Text style={{ color: 'red', fontSize: 12 }}>{this.state.errorPass}</Text>
                         </Row>
                         <Row style={{width:'100%',marginBottom:20}}>
-                    <Item  style={{width:'100%'}}>
-                        <Label>新密码</Label>
-                        <Input  onChangeText={newPassword =>
-                            this.setState({ newPassword }, () => {
-                                if (this.state.newPassword === '') {
-                                    this.setState({
-                                        errorPass1: '请输入新密码'
-                                    })
-                                } else if (this.state.newPassword !== '') {
-                                    this.setState({
-                                        errorPass1: ''
+                            <Item  style={{width:'100%'}}>
+                                <Label>新密码</Label>
+                                <Input  onChangeText={newPassword =>
+                                    this.setState({ newPassword }, () => {
+                                        if (this.state.newPassword === '') {
+                                            this.setState({
+                                                errorPass1: '请输入新密码'
+                                            })
+                                        } else if (this.state.newPassword !== '') {
+                                            this.setState({
+                                                errorPass1: ''
+                                            })
+                                        }
+                                        if (this.state.newPassword !== this.state.comPassword) {
+                                            this.setState({
+                                                errorPass2: '密码不一致'
+                                            })
+                                        } else if (this.state.newPassword === this.state.comPassword) {
+                                            this.setState({
+                                                errorPass2: ''
+                                            })
+                                        }
                                     })
                                 }
-                                if (this.state.newPassword !== this.state.comPassword) {
-                                    this.setState({
-                                        errorPass2: '密码不一致'
-                                    })
-                                } else if (this.state.newPassword === this.state.comPassword) {
-                                    this.setState({
-                                        errorPass2: ''
-                                    })
-                                }
-                            })
-                        }
-                                secureTextEntry={true}
-                                value={this.state.newPassword}/>
-                    </Item>
+                                        secureTextEntry={true}
+                                        value={this.state.newPassword}/>
+                            </Item>
                         </Row>
                         <Row style={{width:'100%',marginBottom:20}}>
                             <Text style={{ color: 'red', fontSize: 12 }}>{this.state.errorPass1}</Text>
                         </Row>
                         <Row style={{width:'100%',marginBottom:20}}>
-                    <Item  style={{width:'100%'}}>
-                        <Label>确认密码</Label>
-                        <Input onChangeText={comPassword =>
-                            this.setState({ comPassword }, () => {
-                                if (this.state.newPassword !== this.state.comPassword) {
-                                    this.setState({
-                                        errorPass2: '密码不一致'
-                                    })
-                                } else if (this.state.newPassword === this.state.comPassword) {
-                                    this.setState({
-                                        errorPass2: ''
+                            <Item  style={{width:'100%'}}>
+                                <Label>确认密码</Label>
+                                <Input onChangeText={comPassword =>
+                                    this.setState({ comPassword }, () => {
+                                        if (this.state.newPassword !== this.state.comPassword) {
+                                            this.setState({
+                                                errorPass2: '密码不一致'
+                                            })
+                                        } else if (this.state.newPassword === this.state.comPassword) {
+                                            this.setState({
+                                                errorPass2: ''
+                                            })
+                                        }
                                     })
                                 }
-                            })
-                        }
-                               secureTextEntry={true}
-                               onChange={this.handleChange}
-                               value={this.state.comPassword}/>
-                    </Item>
+                                       secureTextEntry={true}
+                                       onChange={this.handleChange}
+                                       value={this.state.comPassword}/>
+                            </Item>
                         </Row>
                         <Row style={{width:'100%',marginBottom:20}}>
                             <Text style={{ color: 'red', fontSize: 12 }}>{this.state.errorPass2}</Text>

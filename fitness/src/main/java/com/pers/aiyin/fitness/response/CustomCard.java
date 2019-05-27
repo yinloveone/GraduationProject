@@ -10,7 +10,13 @@ public class CustomCard {
 
     private String cardName;
 
+    private String stuName;
+
     private Byte cardType;
 
     private Double price;
+
+    private String restDateStr;
+
+    private String dueDateStr;
 }

@@ -79,7 +79,7 @@ public class CoachServiceImpl implements CoachService {
 
     @Override
     public int updateCoach(Coach coach){
-        return coachMapper.updateByPrimaryKey(coach);
+        return coachMapper.updateByPrimaryKeySelective(coach);
     }
 
     @Override

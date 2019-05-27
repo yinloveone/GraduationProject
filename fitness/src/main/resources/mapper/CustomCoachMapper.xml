@@ -17,7 +17,7 @@
         <result column="student_portrait" jdbcType="VARCHAR" property="studentPortrait" />
     </resultMap>
     <select id="StuListByCoachId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select student.stu_id,stu_name,sex,phone,email,student_portrait
+        select student.stu_id,student.stu_name,sex,phone,email,student_portrait
         from student left join coursehour on student.stu_id=coursehour.stu_id
         where coursehour.coach_id=#{coachId}
     </select>
