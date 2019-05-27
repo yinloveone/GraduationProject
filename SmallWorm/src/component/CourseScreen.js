@@ -117,9 +117,13 @@ export default  class CourseScreen extends Component{
                             <Text>教室:{dataList[i].listCourse[j].roomName}</Text>
                         </Body>
                         <Right>
-                            <Button danger onPress={this.cancelCourse.bind(this, dataList[i].listCourse[j].courseId,dataList[i].listCourse[j].courseRecordId)}>
-                                <Text>退课</Text>
-                            </Button>
+                            {
+                                dataList[i].listCourse[j].courseTimeEnd<new Date().getTime()?<Button><Text>评分</Text></Button>:
+                                    <Button danger onPress={this.cancelCourse.bind(this, dataList[i].listCourse[j].courseId,dataList[i].listCourse[j].courseRecordId)}>
+                                        <Text>退课</Text>
+                                    </Button>
+                            }
+
                         </Right>
                     </ListItem>
                 )

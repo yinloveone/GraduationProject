@@ -10,15 +10,17 @@
     <link href="${path}/css/base.css" rel="stylesheet">
     <link href="${path}/css/bootstrap-table.min.css" rel="stylesheet">
     <link href="${path}/css/tempusdominus-bootstrap-4.css" rel="stylesheet">
+    <link href="${path}/css/jquery-confirm.min.css" rel="stylesheet">
     <script src="${path}/js/jquery-3.3.1.js"></script>
     <script src="${path}/js/popper.min.js"></script>
-    <script src="${path}/js/moment-with-locales.min.js"></script>
-    <script src="${path}/js/moment-timezone-with-data-2012-2022.min.js"></script>
     <script src="${path}/js/bootstrap-table.min.js"></script>
     <script src="${path}/js/bootstrap-table-zh-CN.js"></script>
     <script src="${path}/js/bootstrap.min.js"></script>
+    <script src="${path}/js/moment-with-locales.min.js"></script>
+    <script src="${path}/js/moment-timezone-with-data-2012-2022.min.js"></script>
     <script src="${path}/js/tempusdominus-bootstrap-4.js"></script>
     <script src="${path}/js/base.js"></script>
+    <script src="${path}/js/jquery-confirm.min.js"></script>
 </head>
 <body id="page-top">
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -325,12 +327,12 @@
             data:updateStudent,
             dataType:"json",
             success: function (data){
-                alert(data.msg);
+                $.alert(data.msg);
                 $('#changeModel').modal('hide');
                 $('#tb_roles').bootstrapTable('refresh')
             },
             error:function(){
-                alert("请求失败");
+                $.alert("请求失败");
                 $('#changeModel').modal('hide');
             },
         })
@@ -358,12 +360,12 @@
             data:student,
             dataType:"json",
             success: function (data){
-                alert(data.msg);
+                $.alert(data.msg);
                 $('#myModal').modal('hide');
                 $('#tb_roles').bootstrapTable('refresh')
              },
             error:function(){
-               alert("请求失败");
+               $.alert("请求失败");
                 $('#myModal').modal('hide');
             },
     })
@@ -389,3 +391,21 @@
 
 
 </script>
+<style>
+    .dropdown-toggle{
+        background-color:#007bff;
+        border-color:#007bff;
+    }
+    .dropdown-toggle:hover{
+        background-color:#007bff;
+    }
+    .dropdown-toggle:focus{
+        background-color:#007bff;
+    }
+    .dropdown-toggle:active{
+        background-color:#007bff;
+    }
+    .btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle{
+        background-color:#007bff;
+    }
+</style>

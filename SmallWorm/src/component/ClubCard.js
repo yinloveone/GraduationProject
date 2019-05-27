@@ -97,7 +97,7 @@ export default class ClubCard extends Component{
                                 </Col>
                                 <Col style={{width: '52%'}}>
                                     <View style={styles.cardHeader}>
-                                        <Text style={styles.cardHeaderText}>小尹</Text>
+                                        <Text style={styles.cardHeaderText}>{this.state.cardInfo[0].stuName}</Text>
                                     </View>
                                     <View style={{flexDirection: 'row'}}>
                                         <Text style={{

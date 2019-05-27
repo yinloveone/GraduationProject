@@ -49,8 +49,14 @@ public class ClubCardServiceImpl implements ClubCardService {
         return Result.success();
     }
     @Override
-    public ClubCard getClubCard(Integer cardId){
-      return clubCardMapper.selectByPrimaryKey(cardId);
+    public Result getClubCard(Integer cardId){
+        ClubCard clubCard =clubCardMapper.selectByPrimaryKey(cardId);
+        if(null!=clubCard){
+            return Result.success(clubCard);
+        }else{
+            return new Result(1,"没有会员卡");
+        }
+
     }
     @Override
     public Result deleteClubCard(ClubCard clubCard){

@@ -16,6 +16,7 @@
 
         <!-- 生成的pojo，将implements Serializable -->
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
         <!--去除注释 -->
         <commentGenerator>
             <property name="suppressAllComments" value="true"/>

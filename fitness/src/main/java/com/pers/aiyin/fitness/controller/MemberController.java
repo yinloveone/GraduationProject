@@ -31,7 +31,7 @@ public class MemberController {
         Map<String,Object> resultMap=new HashMap<>();
         PageInfo<CustomStudent> pageInfo=memberService.getStudentList(rows,page,student);
         resultMap.put("rows",pageInfo.getList());
-        resultMap.put("total",pageInfo.getList().size());
+        resultMap.put("total",pageInfo.getTotal());
         return new Gson().toJson(resultMap);
     }
 

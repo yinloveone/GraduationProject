@@ -35,7 +35,7 @@ public class CourseController {
         Map<String,Object> resultMap=new HashMap<>();
         PageInfo<CustomCourse> pageInfo = courseService.getCourseList(page,rows,course);
         resultMap.put("rows",pageInfo.getList());
-        resultMap.put("total",pageInfo.getList().size());
+        resultMap.put("total",pageInfo.getTotal());
         return new Gson().toJson(resultMap);
     }
 

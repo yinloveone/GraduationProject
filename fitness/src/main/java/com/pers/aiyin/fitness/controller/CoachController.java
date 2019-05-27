@@ -35,7 +35,7 @@ public class CoachController {
         Map<String,Object> resultMap=new HashMap<>();
         PageInfo<Coach> pageInfo = coachService.getCoachList(page,rows,coach);
         resultMap.put("rows",pageInfo.getList());
-        resultMap.put("total",pageInfo.getList().size());
+        resultMap.put("total",pageInfo.getTotal());
         return new Gson().toJson(resultMap);
     }
 
@@ -51,6 +51,7 @@ public class CoachController {
         if(null!=coach){
             CustomCoach customCoach = new CustomCoach();
             customCoach.setCoachName(coach.getCoachName());
+            customCoach.setGrade(coach.getGrade());
             customCoach.setCoachId(coach.getCoachId());
             customCoach.setBirthdayStr(sdf.format(coach.getBirthday()));
             customCoach.setPhone(coach.getPhone());

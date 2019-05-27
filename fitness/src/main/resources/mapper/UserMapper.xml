@@ -29,7 +29,7 @@
         from course
         left join classroom cr on cr.room_id=course.room_id
         left join coach on coach.coach_id=course.coach_id
-        where course_type=1
+        where course_type=1 and course_surplus>0
         <if test="coachName!=null and coachName!= ''">
         AND  coach_name like  CONCAT('%',#{coachName},'%')
         </if>

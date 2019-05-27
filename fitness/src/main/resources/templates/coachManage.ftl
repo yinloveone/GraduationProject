@@ -3,13 +3,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>教练管理</title>
+    <title>欢迎你</title>
     <link href="${path}/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
     <link href="${path}/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="${path}/css/sb-admin.css" rel="stylesheet">
     <link href="${path}/css/base.css" rel="stylesheet">
     <link href="${path}/css/bootstrap-table.min.css" rel="stylesheet">
     <link href="${path}/css/tempusdominus-bootstrap-4.css" rel="stylesheet">
+    <link href="${path}/css/jquery-confirm.min.css" rel="stylesheet">
     <script src="${path}/js/jquery-3.3.1.js"></script>
     <script src="${path}/js/popper.min.js"></script>
     <script src="${path}/js/bootstrap-table.min.js"></script>
@@ -19,6 +20,7 @@
     <script src="${path}/js/moment-timezone-with-data-2012-2022.min.js"></script>
     <script src="${path}/js/tempusdominus-bootstrap-4.js"></script>
     <script src="${path}/js/base.js"></script>
+    <script src="${path}/js/jquery-confirm.min.js"></script>
 </head>
 <body id="page-top">
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -145,7 +147,8 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
-                        <input type="text" class="form-control col-7 datetimepicker-input" id="coachBirthday" data-toggle="datetimepicker" data-target="#datetimepicker1">
+                        <input type="text" class="form-control col-7 datetimepicker-input"
+                               id="coachBirthday" data-toggle="datetimepicker" data-target="#coachBirthday">
                     </div>
                     <div class="form-group flex-display">
                         <label  class="col-4">性别:</label>
@@ -188,7 +191,7 @@
             <!-- 模态框主体 -->
             <div class="modal-body padding-30">
                 <form class="">
-
+                    <input type="text" style="display: none" id="coachId">
                     <div class="form-group flex-display">
                         <label class="col-4">姓名:</label>
                         <input type="text" class="form-control col-8" id="updateCoachName">
@@ -202,7 +205,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
-                        <input type="text" class="form-control col-7 datetimepicker-input" id="updateBirthday" data-toggle="datetimepicker" data-target="#datetimepicker1">
+                        <input type="text" class="form-control col-7 datetimepicker-input" id="updateBirthday" data-toggle="datetimepicker" data-target="#updateBirthday">
                     </div>
                     <div class="form-group flex-display">
                         <label  class="col-4">级别:</label>
@@ -230,7 +233,7 @@
 </html>
 <script>
     $(function(){
-        $('#datetimepicker1').datetimepicker({
+        $('#datetimepicker').datetimepicker({
             format: 'L'
         });
         InitMainTable();
@@ -333,7 +336,7 @@
         var coach={
             coachName:$('#addCoachName').val(),
             sex:$('#addCoachSex').val(),
-        birthday:$('#coachBirthday').val(),
+            birthday:$('#coachBirthday').val(),
             grade:$('#addCoachGrade').val(),
             phone:$('#addCoachPhone').val()
         }
@@ -343,13 +346,13 @@
             data:coach,
             dataType:"json",
             success: function (data){
-                alert(data.msg);
+                $.alert(data.msg);
                 $('#addCoachModal').modal('hide');
-                $('#tb_roles').bootstrapTable('refresh')
+                $('#tb_coachs').bootstrapTable('refresh')
             },
             error:function(){
-                alert("请求失败");
-                $('#myModal').modal('hide');
+                $.alert("请求失败");
+                $('#addCoachModal').modal('hide');
             },
         })
 
@@ -359,10 +362,46 @@
 
     }
     function ViewById(id) {
-
+        $('#coachId').val(id);
+        $.ajax({
+            type:'GET',
+            url:'coach/getCoach/'+id,
+            dataType:"json",
+            success: function (data){
+                $('#updateCoachName').val(data.data.coachName)
+                $('#updateCoachPhone').val(data.data.phone)
+                $('#updateBirthday').val(data.data.birthdayStr)
+                $('#updateCoachGrade').val(data.data.grade)
+                $('#updateCoachModal').modal('show')
+            },
+            error:function(){
+                $.alert("请求失败");
+            },
+        })
 
     }
     function updateCoach() {
+        var coach={
+            coachId:$('#coachId').val(),
+            coachName:$('#updateCoachName').val(),
+            grade:$('#updateCoachGrade').val(),
+            phone:$('#updateCoachPhone').val()
+        }
+        $.ajax({
+            type:'POST',
+            url:'coach/updateCoach',
+            data:coach,
+            dataType:"json",
+            success: function (data){
+                $.alert(data.msg);
+                $('#updateCoachModal').modal('hide');
+                $('#tb_coachs').bootstrapTable('refresh')
+            },
+            error:function(){
+                $.alert("请求失败");
+                $('#updateCoachModal').modal('hide');
+            },
+        })
         
     }
     function  resertForm(){
@@ -393,3 +432,21 @@
 
 
 </script>
+<style>
+    .dropdown-toggle{
+        background-color:#007bff;
+        border-color:#007bff;
+    }
+    .dropdown-toggle:hover{
+        background-color:#007bff;
+    }
+    .dropdown-toggle:focus{
+        background-color:#007bff;
+    }
+    .dropdown-toggle:active{
+        background-color:#007bff;
+    }
+    .btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle{
+        background-color:#007bff;
+    }
+</style>

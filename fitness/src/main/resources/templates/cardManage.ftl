@@ -175,6 +175,7 @@
             <!-- 模态框主体 -->
             <div class="modal-body">
                 <form>
+                    <input type="text" style="display: none" id="updateCardId">
                     <div class="form-group flex-display">
                         <label class="col-4">会员卡名字:</label>
                         <input type="text" class="form-control col-8" id="updateCardName">
@@ -289,7 +290,24 @@
         return result;
     }
     function ViewById(id){
-        $('#updateCardModal').modal('show');
+        $('#updateCardId').val(id);
+
+        $.ajax({
+            type: 'GET',
+            url: 'card/getCard/'+id,
+            dataType: "json",
+            success: function (data) {
+                $('#updateCardName').val(data.data.cardName),
+                $('#updatePrice').val(data.data.price),
+                $('#updateValid').val(data.data.isValid),
+                $('#updateCardModal').modal('show');
+
+            },
+            error: function () {
+                $.alert("请求失败");
+
+            },
+        })
     }
     function deleteById(id) {
         $.confirm({
@@ -338,10 +356,11 @@
         }
         $.ajax({
             type: 'POST',
-            url: 'course/addCard',
+            url: 'card/addCard',
             data: card,
             dataType: "json",
             success: function (data) {
+                $('#addCardModal').modal('hide');
                 $.alert(data.msg);
                 $('#tb_cards').bootstrapTable('refresh')
             },
@@ -354,16 +373,18 @@
     }
     function updateCard() {
         var card = {
+            cardId:$('#updateCardId').val(),
             cardName:$('#updateCardName').val(),
             price:$('#updatePrice').val(),
             isValid:$('#updateValid').val(),
         }
         $.ajax({
             type: 'POST',
-            url: 'course/updateCard',
+            url: 'card/updateCard',
             data: card,
             dataType: "json",
             success: function (data) {
+                $('#updateCardModal').modal('hide');
                 $.alert(data.msg);
                 $('#tb_cards').bootstrapTable('refresh')
             },
@@ -385,3 +406,21 @@
     }
 
 </script>
+<style>
+    .dropdown-toggle{
+        background-color:#007bff;
+        border-color:#007bff;
+    }
+    .dropdown-toggle:hover{
+        background-color:#007bff;
+    }
+    .dropdown-toggle:focus{
+        background-color:#007bff;
+    }
+    .dropdown-toggle:active{
+        background-color:#007bff;
+    }
+    .btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle{
+        background-color:#007bff;
+    }
+</style>

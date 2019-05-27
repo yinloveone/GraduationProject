@@ -11,6 +11,7 @@ public class CustomCoach {
     private String phone;
     private String password;
     private String gradeStr;
+    private Byte grade;
     private Date birthday;
     private String sex;
     private String birthdayStr;

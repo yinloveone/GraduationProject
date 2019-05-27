@@ -63,7 +63,7 @@ public class CourseRecordController {
     /*
     * 学员签到
     * */
-    @PostMapping("/courseRecord/StudentIn")
+    @PostMapping("/courseRecord/studentIn")
     public Result studentIn(HttpServletRequest request) throws
             IOException {
         CourseRecord record=new ObjectMapper().readValue(request.getInputStream(),CourseRecord.class);

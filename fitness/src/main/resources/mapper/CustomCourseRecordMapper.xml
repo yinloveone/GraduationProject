@@ -49,7 +49,7 @@
     <select id="getRecordByStuId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select c.course_id,course_record_id,course_name,course_time_start,course_time_end,c.room_id,cr.room_name,stu_id,c.coach_id,
             coach_name,DATE_FORMAT(course_time_start,'%Y-%m') as year_mouth,
-            DATE_FORMAT(course_time_start,'%m-%d') as month_date,
+            DATE_FORMAT(course_time_start,'%m-%d') as mouth_date,
                DATE_FORMAT(course_time_start,'%H:%i') as time_start_str,
               DATE_FORMAT(course_time_end,'%H:%i') as time_end_str
             FROM course c left join courserecord ON  c.course_id=courserecord.course_id
@@ -58,6 +58,7 @@
             where  courserecord.stu_id= #{stuId}
             group by year_mouth,c.course_id,course_name,course_time_start,course_time_end,c.room_id,room_name,c.coach_id,coach_name,
         course_type,course_capacity,course_surplus,course_record_id
+        order by course_time_start DESC
     </select>
     <select id="getRecordByCoachId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select c.course_id,course_name,
@@ -72,6 +73,7 @@
         where c.coach_id= #{coachId}
         group by year_mouth,c.course_id,course_name,
         course_time_start,course_time_end,c.room_id,cr.room_name,c.coach_id,coach.coach_name
+        order by course_time_start DESC
     </select>
     <select id="getSelectStudent" parameterType="java.lang.Integer" resultMap="BaseResultMap1">
         select sr.stu_id,s.stu_name,course_id,course_record_id

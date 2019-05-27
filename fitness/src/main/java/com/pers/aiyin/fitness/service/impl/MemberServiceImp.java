@@ -13,6 +13,7 @@ import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -52,6 +53,20 @@ public class MemberServiceImp implements MemberService {
             }else{
                 student.setPassword("123");
                 student.setRestDate(new Date());
+                Date date=new Date();
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+                if(student.getCardId()==1){
+                    cal.add(Calendar.MONTH, 1);
+                    student.setDueDate(cal.getTime());
+
+                }else if(student.getCardId()==2){
+                    cal.add(Calendar.MONTH, 3);
+                    student.setDueDate(cal.getTime());
+                }else{
+                    cal.add(Calendar.YEAR, 1);
+                    student.setDueDate(cal.getTime());
+                }
                 int result = studentMapper.insertSelective(student);
                 if(result!=-1){
                     return Result.success();

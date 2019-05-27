@@ -33,7 +33,7 @@
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link " href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-user-circle-o fa-2x"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -231,7 +231,8 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
-                        <input type="text" class="form-control col-7 datetimepicker-input" id="eidtTimeEnd" data-toggle="datetimepicker" data-target="#ceidtTimeEnd">
+                        <input type="text" class="form-control col-7 datetimepicker-input"
+                               id="eidtTimeEnd" data-toggle="datetimepicker" data-target="#eidtTimeEnd">
                     </div>
                 </form>
             </div>
@@ -270,7 +271,6 @@
             sortable: true,
             sortOrder: "asc",
             sidePagination: 'server',
-            pageNumber: 1,
             pageSize: 5,
             pageList: [5,10,15],
             search: false,
@@ -361,7 +361,7 @@
 
         $('#courseId').val(id);
         $.ajax({
-            type:'POST',
+            type:'GET',
             url:'course/getCourse/'+id,
             dataType:"json",
             success: function (data){
@@ -369,8 +369,8 @@
                     $('#eidtName').val(data.data.courseName);
                     $('#eidtCoach').val(data.data.coachId);
                     $('#eidtRoom').val(data.data.roomId);
-                    $('#eidtTimeStart').val(timestampToTime(Date.parse(data.data.courseTimeStart)));
-                    $('#eidtTimeEnd').val(timestampToTime(Date.parse(data.data.courseTimeEnd)));
+                    $('#eidtTimeStart').val(timestampToTime(data.data.courseTimeStart));
+                    $('#eidtTimeEnd').val(timestampToTime(data.data.courseTimeEnd));
                     $('#eidtCourseModal').modal('show');
 
                 }else{
@@ -390,9 +390,7 @@
             courseId:$('#courseId').val(),
            courseName: $('#eidtName').val(),
             coachId:$('#eidtCoach').val(),
-            coachName:$("#eidtCoach").find("option:selected").text(),
             roomId: $('#eidtRoom').val(),
-            roomName:$("#eidtRoom").find("option:selected").text(),
             courseTimeStart:$('#eidtTimeStart').val(),
             courseTimeEnd:$('#eidtTimeEnd').val(),
         }
@@ -504,6 +502,7 @@
                         $(option).val(list[i].coachId);
                         $(option).text(list[i].coachName);
                         $('#addCoach').append(option);
+                        $('#eidtCoach').append(option);
                     }
                 }
 
@@ -523,13 +522,12 @@
             success: function (data){
                 var list = data.data;
                 if(null!=list) {
-
-
                     for (var i = 0; i < list.length; i++) {
                         var option = document.createElement("option");
-                        $(option).val(data[i].roomId);
-                        $(option).text(data[i].roomName);
+                        $(option).val(list[i].roomId);
+                        $(option).text(list[i].roomName);
                         $('#addRoom').append(option);
+                        $('#eidtRoom').append(option)
                     }
                 }
 
@@ -544,4 +542,22 @@
 
 
 </script>
+<style>
+    .dropdown-toggle{
+        background-color:#007bff;
+        border-color:#007bff;
+    }
+    .dropdown-toggle:hover{
+        background-color:#007bff;
+    }
+    .dropdown-toggle:focus{
+        background-color:#007bff;
+    }
+    .dropdown-toggle:active{
+        background-color:#007bff;
+    }
+    .btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle{
+        background-color:#007bff;
+    }
+</style>
 </html>

@@ -11,11 +11,12 @@ public interface ClubCardService {
 
     Result addClubCard(ClubCard clubCard);
 
-    ClubCard getClubCard(Integer cardId);
+    Result getClubCard(Integer cardId);
 
     Result deleteClubCard(ClubCard clubCard);
 
     Result updateClubCard(ClubCard clubCard);
 
     Result getByStuId(Integer stuId);
+
 }
