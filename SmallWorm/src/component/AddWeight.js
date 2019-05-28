@@ -33,6 +33,7 @@ export default class AddWeight extends Component{
                     if(result.code===0){
                         ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                         this.props.navigation.goBack();
+                        this.props.navigation.state.params.refresh();
                     }else{
                         ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                     }

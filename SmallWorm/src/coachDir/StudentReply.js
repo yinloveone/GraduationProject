@@ -5,7 +5,7 @@ export default class StudentReply extends Component{
         return(
             <Container>
                 <Content>
-                    <Text>CoachCourse</Text>
+                    <Text>课程评价</Text>
                 </Content>
             </Container>
         )

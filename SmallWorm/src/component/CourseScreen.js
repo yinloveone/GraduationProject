@@ -16,35 +16,6 @@ import {
 import HttpUtil from '../utils/HttpUtil'
 import StorageUtil from "../utils/StorageUtil";
 import {ToastAndroid} from "react-native";
-/*const  dataList =[{
-        month:"4月",
-        course:[
-            {
-                courseId:1,
-               courseName:"体操",
-                courseTimeStart: "4月12日 09:15"},
-            {
-                courseId:2,
-                courseName:"瑜伽",
-                courseTimeStart:"4月12日 13:00"},
-
-            ]
-    },
-    {
-        month:"5月",
-        course:[
-            {
-                courseId: 1,
-                courseName: "体操",
-                courseTimeStart: "5月12日 09:15"},
-            {
-                courseId:2,
-                courseName:"瑜伽",
-                courseTimeStart:"5月12日 13:00"},
-        ]
-    }
-]*/
-
 export default  class CourseScreen extends Component{
     constructor(props){
         super(props)
@@ -74,7 +45,7 @@ export default  class CourseScreen extends Component{
                     }
                 })
     }
-    cancelCourse(courseRecordId,courseId,e){
+    cancelCourse(courseId,courseRecordId,e){
         const url='http://47.100.239.1:8080/api/user/cancelOrder'
         let stuId=0;
         StorageUtil.get('stuId', (error, object) => {
@@ -99,34 +70,58 @@ export default  class CourseScreen extends Component{
         });
 
     }
+    submitScore = (courseRecordId,e) =>{
+        this.props.navigation.navigate('SubmitScore',{
+            courseRecordId:courseRecordId
+        })
+    }
 
     renderItems() {
         const dataList = this.state.dataList;
         let replys = [];
         for (let i = 0; i < dataList.length; i++) {
+
             replys.push(<ListItem itemDivider key={dataList[i].yearMonth}>
                 <Text>{dataList[i].yearMonth}</Text>
             </ListItem>)
             for (let j = 0; j < dataList[i].listCourse.length; j++) {
-                replys.push(
-                    <ListItem key={dataList[i].listCourse[j].courseId}>
-                        <Body>
-                            <Text>{dataList[i].listCourse[j].monthDate}</Text>
-                            <Text>{dataList[i].listCourse[j].courseName}({dataList[i].listCourse[j].timeStartStr}-{dataList[i].listCourse[j].timeEndStr})</Text>
-                            <Text>上课老师:{dataList[i].listCourse[j].coachName}</Text>
-                            <Text>教室:{dataList[i].listCourse[j].roomName}</Text>
-                        </Body>
-                        <Right>
-                            {
-                                dataList[i].listCourse[j].courseTimeEnd<new Date().getTime()?<Button><Text>评分</Text></Button>:
-                                    <Button danger onPress={this.cancelCourse.bind(this, dataList[i].listCourse[j].courseId,dataList[i].listCourse[j].courseRecordId)}>
-                                        <Text>退课</Text>
-                                    </Button>
-                            }
+                if(dataList[i].listCourse[j].score!==6){
+                    replys.push(
+                        <ListItem key={dataList[i].listCourse[j].courseId}>
+                            <Body>
+                                <Text>{dataList[i].listCourse[j].monthDate}</Text>
+                                <Text>{dataList[i].listCourse[j].courseName}({dataList[i].listCourse[j].timeStartStr}-{dataList[i].listCourse[j].timeEndStr})</Text>
+                                <Text>上课老师:{dataList[i].listCourse[j].coachName}</Text>
+                                <Text>教室:{dataList[i].listCourse[j].roomName}</Text>
+                            </Body>
+                            <Right>
+                                <Text>评分:{dataList[i].listCourse[j].score}分</Text>
+                            </Right>
+                        </ListItem>
+                    )
 
-                        </Right>
-                    </ListItem>
-                )
+                }else{
+                    replys.push(
+                        <ListItem key={dataList[i].listCourse[j].courseId}>
+                            <Body>
+                                <Text>{dataList[i].listCourse[j].monthDate}</Text>
+                                <Text>{dataList[i].listCourse[j].courseName}({dataList[i].listCourse[j].timeStartStr}-{dataList[i].listCourse[j].timeEndStr})</Text>
+                                <Text>上课老师:{dataList[i].listCourse[j].coachName}</Text>
+                                <Text>教室:{dataList[i].listCourse[j].roomName}</Text>
+                            </Body>
+                            <Right>
+                                {
+                                    dataList[i].listCourse[j].courseTimeEnd<new Date().getTime()?<Button onPress={this.submitScore.bind(this,dataList[i].listCourse[j].courseRecordId)}><Text>评分</Text></Button>:
+                                        <Button danger onPress={this.cancelCourse.bind(this, dataList[i].listCourse[j].courseId,dataList[i].listCourse[j].courseRecordId)}>
+                                            <Text>退课</Text>
+                                        </Button>
+                                }
+
+                            </Right>
+                        </ListItem>
+                    )
+                }
+
             }
         }
         return replys;

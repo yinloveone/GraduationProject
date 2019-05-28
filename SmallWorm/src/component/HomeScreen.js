@@ -46,13 +46,13 @@ export default class HomeScreen extends Component {
         }
         HttpUtil.post(url,privateCourse).then(result=>{
             if(result.code===0){
-                ToastAndroid.show('请求成功',ToastAndroid.SHORT);
+               // ToastAndroid.show('请求成功',ToastAndroid.SHORT);
                 this.setState({
                     dataList: result.data
                 })
                 console.log(result.data[0].courseName)
             }else{
-                ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+               // ToastAndroid.show(result.msg,ToastAndroid.SHORT);
             }
         }).catch(error => {
             console.log(error)

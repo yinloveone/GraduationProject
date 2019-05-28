@@ -35,6 +35,11 @@ import StudentReply from './src/coachDir/StudentReply'
 import CourseManage from './src/coachDir/CourseManage'
 import UpdateCourse from './src/coachDir/UpdateCourse'
 import UpdateStuPassword from './src/component/UpdateStuPassword'
+import ModifyWeightScreen from './src/component/ModifyWeightScreen'
+import ModifyHeightScreen from './src/component/ModifyHeightScreen'
+import ModifyBirthScreen from './src/component/ModifyBirthScreen'
+import ModifyPhoneScreen from './src/component/ModifyPhoneScreen'
+import SubmitScore from './src/component/SubmitScore'
 
  const MainStudent = createBottomTabNavigator({
     Home: {
@@ -243,6 +248,21 @@ export default class App extends Component{
               },
               UpdateStuPassword: {
                   screen:UpdateStuPassword
+              },
+              ModifyWeightScreen:{
+                  screen:ModifyWeightScreen
+              },
+              ModifyHeightScreen:{
+                  screen:ModifyHeightScreen
+              },
+              ModifyBirthScreen: {
+                  screen:ModifyBirthScreen
+              },
+              ModifyPhoneScreen:{
+                  screen:ModifyPhoneScreen
+              },
+              SubmitScore:{
+                  screen:SubmitScore
               }
 
           },

@@ -38,7 +38,7 @@ export default class CourseHour extends Component{
               fetch(url).then(response => response.json())
                   .then((json)=>{
                       if (json.code === 0){
-                          ToastAndroid.show('请求成功',ToastAndroid.SHORT);
+                       //   ToastAndroid.show('请求成功',ToastAndroid.SHORT);
                           this.setState({
                               datas:json.data,
                           })

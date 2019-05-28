@@ -38,7 +38,7 @@
         DATE_FORMAT(course_time_end,'%H:%i') as time_end_str
         from course
         left join coach on coach.coach_id=course.coach_id
-        WHERE  course_type=#{courseType} and course_course_surplus>0
+        WHERE  course_type=#{courseType} and course_surplus>0
         <if test="beginDate != null">
             AND course_time_start <![CDATA[>=]]> #{beginDate}
         </if>

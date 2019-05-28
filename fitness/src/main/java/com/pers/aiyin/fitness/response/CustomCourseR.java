@@ -9,4 +9,6 @@ public class CustomCourseR {
     private Integer courseId;
     private String stuName;
     private String courseName;
+    private Byte signIn;
+
 }

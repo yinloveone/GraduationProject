@@ -4,37 +4,39 @@ import {
     Content,
     Icon,
     Item,
-    Input, Header, Left, Button, Body, Title, Right, Text, Toast
+    Input, Header, Left, Button, Body, Title, Right,Text,Toast
 
 } from 'native-base';
 import StorageUtil from "../utils/StorageUtil";
 import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid} from "react-native";
 
-export default class ModifyScreen extends Component{
+export default class ModifyPhoneScreen extends Component{
     constructor(props){
         super(props);
         this.state = {
-            userName:null,
+            phone:null,
+            errorPhone:''
         }
     }
-              /*
-               * 修改用户基本信息
-               * */
+    /*
+     * 修改用户基本信息
+     * */
     modifyUserInfo =() =>{
-        if(this.state.userName) {
+        if(!this.state.errorPhone&&this.state.phone) {
+
             StorageUtil.get('stuId', (error, object) => {
                 if (!error && object && object.stuId) {
                     const url = 'http://47.100.239.1:8080/api/member/modifyStudent';
                     const student = {
                         stuId: object.stuId,
-                        stuName: this.state.userName
+                        phone: this.state.phone
                     }
                     HttpUtil.post(url, student).then(result => {
                         if (result.code === 0) {
                             ToastAndroid.show(result.msg, ToastAndroid.SHORT);
-                                this.props.navigation.goBack()
-                                this.props.navigation.state.params.refresh();
+                            this.props.navigation.goBack();
+                            this.props.navigation.state.params.refresh();
                         } else {
                             ToastAndroid.show(result.msg, ToastAndroid.SHORT);
                         }
@@ -46,7 +48,7 @@ export default class ModifyScreen extends Component{
             })
         }else{
             Toast.show({
-                text: "请输入用户名",
+                text: "请输入正确电话的电话号码",
                 buttonText: "确定",
                 duration: 3000
             })
@@ -62,19 +64,27 @@ export default class ModifyScreen extends Component{
                             <Icon name="arrow-back"/>
                         </Button>
                     </Left>
-                    <Body><Title>修改用户名</Title></Body>
+                    <Body><Title>修改电话</Title></Body>
                     <Right>
                         <Button transparent onPress={this.modifyUserInfo}>
-                        <Text>确认</Text>
+                            <Text>确认</Text>
                         </Button>
                     </Right>
                 </Header>
                 <Content padder>
                     <Item>
-                        <Input placeholder='输入用户名' onChangeText={ userName => this.setState({userName},()=>{
-
-                        })} value={this.state.userName} />
+                        <Input placeholder='输入电话' onChangeText={ phone => this.setState({phone},()=>{
+                            let myreg=new RegExp("/^[1][3,4,5,7,8][0-9]{9}$/")
+                            if(this.state.phone.length===0||this.state.phone===null){
+                                this.setState({errorPhone:'请输入电话号码'})
+                            }else if(!myreg.test(this.state.phone)){
+                                this.setState({errorPhone:'请输入正确的电话号码'})
+                            }else{
+                                this.setState({errorPhone:''})
+                            }
+                        })} value={this.state.phone} />
                     </Item>
+                    <Text style={{color:'red'}}>{this.state.errorPhone}</Text>
                 </Content>
             </Container>
         )

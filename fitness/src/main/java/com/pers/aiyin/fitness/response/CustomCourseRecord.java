@@ -31,4 +31,7 @@ public class CustomCourseRecord {
     private String coachName;
 
     private String monthDate;
+
+    private Integer score;
+
 }

@@ -39,7 +39,7 @@ export default class ClubCard extends Component{
                 //object.stuId;
                 HttpUtil.get(url).then(result=>{
                     if(result.code===0){
-                        ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+                    //    ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                         this.setState({cardInfo:result.data})
                         console.log(result.data[0].cardName)
                     }else{

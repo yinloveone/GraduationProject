@@ -11,30 +11,30 @@ import StorageUtil from "../utils/StorageUtil";
 import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid} from "react-native";
 
-export default class ModifyScreen extends Component{
+export default class ModifyWeightScreen extends Component{
     constructor(props){
         super(props);
         this.state = {
-            userName:null,
+            weight:null,
         }
     }
-              /*
-               * 修改用户基本信息
-               * */
+    /*
+     * 修改用户基本信息
+     * */
     modifyUserInfo =() =>{
-        if(this.state.userName) {
+        if(this.state.weight) {
             StorageUtil.get('stuId', (error, object) => {
                 if (!error && object && object.stuId) {
                     const url = 'http://47.100.239.1:8080/api/member/modifyStudent';
                     const student = {
                         stuId: object.stuId,
-                        stuName: this.state.userName
+                        weight: this.state.weight
                     }
                     HttpUtil.post(url, student).then(result => {
                         if (result.code === 0) {
                             ToastAndroid.show(result.msg, ToastAndroid.SHORT);
-                                this.props.navigation.goBack()
-                                this.props.navigation.state.params.refresh();
+                            this.props.navigation.goBack();
+                            this.props.navigation.state.params.refresh();
                         } else {
                             ToastAndroid.show(result.msg, ToastAndroid.SHORT);
                         }
@@ -46,7 +46,7 @@ export default class ModifyScreen extends Component{
             })
         }else{
             Toast.show({
-                text: "请输入用户名",
+                text: "请先输入体重",
                 buttonText: "确定",
                 duration: 3000
             })
@@ -62,18 +62,17 @@ export default class ModifyScreen extends Component{
                             <Icon name="arrow-back"/>
                         </Button>
                     </Left>
-                    <Body><Title>修改用户名</Title></Body>
+                    <Body><Title>输入体重</Title></Body>
                     <Right>
                         <Button transparent onPress={this.modifyUserInfo}>
-                        <Text>确认</Text>
+                            <Text>确认</Text>
                         </Button>
                     </Right>
                 </Header>
                 <Content padder>
                     <Item>
-                        <Input placeholder='输入用户名' onChangeText={ userName => this.setState({userName},()=>{
-
-                        })} value={this.state.userName} />
+                        <Input placeholder='输入体重(kg)' onChangeText={ weight => this.setState({weight},()=>{
+                        })} value={this.state.weight} />
                     </Item>
                 </Content>
             </Container>

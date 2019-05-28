@@ -5,6 +5,7 @@ import {Body, Button, Container, Content, List,Header, Icon,
     Right
 } from "native-base";
 import HttpUtil from "../utils/HttpUtil";
+import {ToastAndroid} from "react-native";
 export  default class CourseSignIn extends Component{
     constructor(props){
         super(props);
@@ -42,25 +43,26 @@ export  default class CourseSignIn extends Component{
     * 学员签到
     * */
     studentIn=(courseRecordId,e)=>{
-        const t=e;
+    /*    const t=e;
         this.setState({
             currIndex:courseRecordId,
             show:false
-        })
-  /*      const url = 'http://47.100.239.1:8080/api/courseRecord/getSelectStudent'
+        })*/
+       const url = 'http://47.100.239.1:8080/api/courseRecord/studentIn'
         const record = {
             courseRecordId:courseRecordId,
             signIn:0
         }
         HttpUtil.post(url,record).then(result=>{
             if(result.code==0){
-
+                this.getCourseSelect();
+                ToastAndroid.show(result.msg,ToastAndroid.SHORT);
             }else{
-
+                ToastAndroid.show(result.msg,ToastAndroid.SHORT);
             }
         }).catch(error => {
             console.log(error)
-        })*/
+        })
 
     }
 
@@ -90,7 +92,7 @@ export  default class CourseSignIn extends Component{
                                     </Left>
                                     <Right>
                                         {
-                                            this.state.currIndex!==data.courseRecordId ?(
+                                            data.signIn===1 ?(
                                                 <Button onPress={this.studentIn.bind(this, data.courseRecordId)}>
                                                     <Text>
                                                         签到

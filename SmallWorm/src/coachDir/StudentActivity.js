@@ -16,7 +16,6 @@ export default class StudentActivity extends Component{
     componentDidMount(): void {
         this.getStudentList();
     }
-
     /*
     * 根据教练id获取学生信息
     * */
@@ -38,8 +37,6 @@ export default class StudentActivity extends Component{
             }})
 
     }
-
-
     render(){
         let avatar = require('../../img/6.png');
         if(!this.state.studentList) {

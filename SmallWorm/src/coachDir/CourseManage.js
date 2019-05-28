@@ -32,12 +32,18 @@ export default class CourseManage extends Component{
             }})
     }
     turnOnPage(pageName) {
-        this.props.navigation.navigate(pageName);
+        this.props.navigation.navigate(pageName,{
+            refresh:()=>{
+                this.getCoachCourse();
+            }})
     }
     updateCourse = (courseId,e) =>{
         this.props.navigation.navigate('UpdateCourse',{
             courseId:courseId
-        })
+        },{
+            refresh:()=>{
+                this.getCoachCourse();
+            }})
     }
     renderItems() {
         const dataList = this.state.courseList;
@@ -75,7 +81,7 @@ export default class CourseManage extends Component{
                         </Body>
                         <Right>
                             <Button transparent onPress={() => this.turnOnPage('AddCourse')}>
-                                <AntDesign name='plus' style={{color: 'white'}}/>
+                                <AntDesign name='plus' size={22} style={{color: 'white'}}/>
                             </Button>
                         </Right>
                     </Header>
@@ -101,7 +107,7 @@ export default class CourseManage extends Component{
                         </Body>
                         <Right>
                             <Button transparent onPress={() => this.turnOnPage('AddCourse')}>
-                                <AntDesign name='plus' style={{color: 'white'}}/>
+                                <AntDesign name='plus' size={22} style={{color: 'white'}}/>
                             </Button>
                         </Right>
                     </Header>

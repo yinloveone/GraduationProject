@@ -41,7 +41,7 @@ export default class UserIndex extends Component{
                 //object.stuId;
                 HttpUtil.get(url).then(result=>{
                     if(result.code===0){
-                        ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+                      //  ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                         this.setState({userInfo:result.data})
                         //console.log(result.data)
                     }else{
@@ -69,7 +69,11 @@ export default class UserIndex extends Component{
                     <View style={styles.divider}/>
                     <ScrollView style={styles.content}>
                         <TouchableHighlight underlayColor={Global.touchableHighlightColor} onPress={() => {
-                            this.turnOnPage('UserInfo')
+                            this.props.navigation.navigate('UserInfo',{
+                                refresh:()=> {
+                                    this.getUserInfo();
+                                }
+                            });
                         }}>
                             <View style={styles.meInfoContainer}>
                                 <Image style={styles.meInfoAvatar} source={avatar}/>

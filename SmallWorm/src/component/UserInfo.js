@@ -39,7 +39,7 @@ export default class UserInfo extends Component{
                 //object.stuId;
                 HttpUtil.get(url).then(result=>{
                     if(result.code===0){
-                        ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+                      //  ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                         this.setState({userInfo:result.data})
                         //console.log(result.data)
                     }else{
@@ -53,7 +53,10 @@ export default class UserInfo extends Component{
             }
 
     turnOnPage(pageName) {
-        this.props.navigation.navigate(pageName);
+        this.props.navigation.navigate(pageName,{
+            refresh:()=>{
+                this.getUserInfo();
+            }})
     }
     render(){
         if(!this.state.userInfo){
@@ -108,7 +111,7 @@ export default class UserInfo extends Component{
                                     <Text>{this.state.userInfo.stuName}</Text>
                                 </Right>
                             </ListItem>
-                            <ListItem>
+                            <ListItem onPress={() => this.turnOnPage('ModifyPhoneScreen')}>
                                 <Left>
                                     <Text>手机号码</Text>
                                 </Left>
@@ -121,31 +124,32 @@ export default class UserInfo extends Component{
                                     <Text>性别</Text>
                                 </Left>
                                 <Right>
-                                    <Text>女</Text>
+                                    {this.state.userInfo.sex===1?<Text>女</Text>:<Text>男</Text>
+                                    }
                                 </Right>
                             </ListItem>
-                            <ListItem>
+                            <ListItem onPress={() => this.turnOnPage('ModifyBirthScreen')}>
                                 <Left>
                                     <Text>生日</Text>
                                 </Left>
                                 <Right>
-                                    <Text>5-20</Text>
+                                    <Text>{this.state.userInfo.birthday}</Text>
                                 </Right>
                             </ListItem>
-                            <ListItem>
+                            <ListItem onPress={() => this.turnOnPage('ModifyHeightScreen')}>
                                 <Left>
                                     <Text>身高</Text>
                                 </Left>
                                 <Right>
-                                    <Text>155</Text>
+                                    <Text>{this.state.userInfo.height}</Text>
                                 </Right>
                             </ListItem>
-                            <ListItem>
+                            <ListItem onPress={() => this.turnOnPage('ModifyWeightScreen')}>
                                 <Left>
                                     <Text>体重</Text>
                                 </Left>
                                 <Right>
-                                    <Text>52</Text>
+                                    <Text>{this.state.userInfo.weight}</Text>
                                 </Right>
                             </ListItem>
                         </List>

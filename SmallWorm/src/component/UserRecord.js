@@ -26,7 +26,10 @@ export default class UserRecord extends Component {
         this.getUserWeight();
     }
     turnOnPage(pageName) {
-        this.props.navigation.navigate(pageName);
+        this.props.navigation.navigate(pageName,{
+            refresh:()=>{
+                this.getUserWeight();
+            }})
     }
     getUserWeight= () =>{
 

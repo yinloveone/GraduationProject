@@ -37,7 +37,6 @@ public class CourseRecordController {
         }
 
     }
-
     /*
      * *根据教练id获得课程表
      */

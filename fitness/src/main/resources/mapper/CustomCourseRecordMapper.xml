@@ -19,6 +19,7 @@
             <result column="coach_name" jdbcType="VARCHAR" property="coachName" />
             <result column="time_start_str" jdbcType="VARCHAR" property="timeStartStr" />
             <result column="time_end_str" jdbcType="VARCHAR" property="timeEndStr" />
+            <result column="score" jdbcType="INTEGER" property="score"/>
         </collection>
     </resultMap>
 
@@ -28,6 +29,7 @@
             <result column="course_record_id" jdbcType="INTEGER" property="courseRecordId" />
             <result column="course_name" jdbcType="VARCHAR" property="courseName" />
             <result column="stu_name" jdbcType="VARCHAR" property="stuName" />
+            <result column="sign_in" jdbcType="TINYINT" property="signIn" />
     </resultMap>
 
     <resultMap id="BaseResultMap2" type="com.pers.aiyin.fitness.response.CustomCourse">
@@ -47,7 +49,7 @@
     </resultMap>
 
     <select id="getRecordByStuId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select c.course_id,course_record_id,course_name,course_time_start,course_time_end,c.room_id,cr.room_name,stu_id,c.coach_id,
+        select c.course_id,course_record_id,course_name,course_time_start,course_time_end,c.room_id,cr.room_name,stu_id,c.coach_id,score,
             coach_name,DATE_FORMAT(course_time_start,'%Y-%m') as year_mouth,
             DATE_FORMAT(course_time_start,'%m-%d') as mouth_date,
                DATE_FORMAT(course_time_start,'%H:%i') as time_start_str,
@@ -57,7 +59,7 @@
         left join coach on c.coach_id=coach.coach_id
             where  courserecord.stu_id= #{stuId}
             group by year_mouth,c.course_id,course_name,course_time_start,course_time_end,c.room_id,room_name,c.coach_id,coach_name,
-        course_type,course_capacity,course_surplus,course_record_id
+        course_type,course_capacity,course_surplus,course_record_id,score
         order by course_time_start DESC
     </select>
     <select id="getRecordByCoachId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -76,7 +78,7 @@
         order by course_time_start DESC
     </select>
     <select id="getSelectStudent" parameterType="java.lang.Integer" resultMap="BaseResultMap1">
-        select sr.stu_id,s.stu_name,course_id,course_record_id
+        select sr.stu_id,s.stu_name,course_id,course_record_id,sign_in
         from courserecord sr
         left join student s on sr.stu_id=s.stu_id
          where course_id=#{courseId}

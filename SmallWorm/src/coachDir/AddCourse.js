@@ -56,6 +56,7 @@ export default class AddCourse extends Component{
                     if(result.code===0){
                         ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                         this.props.navigation.goBack()
+                        this.props.navigation.state.params.refresh();
                     }else{
                         ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                     }
@@ -149,7 +150,7 @@ export default class AddCourse extends Component{
                                         style={{width: '100%'}}
                                         date={this.state.courseTimeStart}
                                         mode="datetime"
-                                        maximumDate={new Date()}
+                                        minimumDate={new Date()}
                                         format="YYYY-MM-DD HH:mm"
                                         confirmBtnText="确定"
                                         cancelBtnText="取消"
