@@ -16,6 +16,9 @@ import ListItemDivider from '../views/ListItemDivider';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import StorageUtil from '../utils/StorageUtil'
 import navigationUtil from "../utils/navigationUtil";
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
+import {StyleProvider} from "native-base";
 const DeviceWidth = Dimensions.get('window').width;
 
 
@@ -58,7 +61,7 @@ export default class CoachIndex extends Component{
     }*/
 
     render(){
-        let avatar = require('../../img/6.png');
+        let avatar = require('../../img/header.jpg');
         if(!this.state.userName){
             return (
                 <View style={styles.container}>
@@ -67,6 +70,7 @@ export default class CoachIndex extends Component{
             )
         }else {
             return (
+                <StyleProvider style={getTheme(material)}>
                 <View style={styles.container}>
                     <View style={styles.divider}/>
                     <ScrollView style={styles.content}>
@@ -99,6 +103,7 @@ export default class CoachIndex extends Component{
                     </ScrollView>
                     <View style={styles.divider}/>
                 </View>
+                </StyleProvider>
             )
         }
     }
@@ -150,6 +155,7 @@ const styles = StyleSheet.create({
     meInfoAvatar: {
         width: 60,
         height: 60,
+        borderRadius:30,
     },
     meInfoTextContainer: {
         flex: 1,

@@ -11,13 +11,15 @@ import {
     ListItem,
     Icon,
     Button,
-    Title, Thumbnail
+    Title, Thumbnail, StyleProvider
 } from "native-base";
 const sankhadeep = require("../../img/header.jpg");
 import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid, TouchableHighlight} from "react-native";
 import StorageUtil from "../utils/StorageUtil";
 import {Grid, Row,Col} from "react-native-easy-grid";
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 export default class CoachInfo extends Component{
     constructor(props){
         super(props)
@@ -60,6 +62,7 @@ export default class CoachInfo extends Component{
 render(){
         if(!this.state.userInfo){
             return(
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -75,10 +78,12 @@ render(){
                         <Text>Loading...</Text>
                     </Content>
                 </Container>
+                </StyleProvider>
             )
         }
     else {
             return (
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -155,6 +160,7 @@ render(){
                         </Grid>
                     </Content>
                 </Container>
+                </StyleProvider>
             )
         }
 }

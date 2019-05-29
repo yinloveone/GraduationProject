@@ -1,11 +1,13 @@
 import React,{ Component } from 'react'
 import {
     Container, Header, Content, List, ListItem,
-    Thumbnail, Text, Left, Body, Right, Button, Icon, Title
+    Thumbnail, Text, Left, Body, Right, Button, Icon, Title, StyleProvider
 } from 'native-base';
 import StorageUtil from "../utils/StorageUtil";
 import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid} from "react-native";
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 export default class StudentActivity extends Component{
     constructor(props){
         super(props)
@@ -41,6 +43,7 @@ export default class StudentActivity extends Component{
         let avatar = require('../../img/6.png');
         if(!this.state.studentList) {
             return (
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -56,9 +59,11 @@ export default class StudentActivity extends Component{
                       <Text>Loading...</Text>
                     </Content>
                 </Container>
+                </StyleProvider>
             )
         }else{
             return (
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -89,6 +94,7 @@ export default class StudentActivity extends Component{
                             />
                     </Content>
                 </Container>
+                </StyleProvider>
             )
         }
 

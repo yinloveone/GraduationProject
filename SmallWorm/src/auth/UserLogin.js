@@ -13,7 +13,8 @@ import {
     Body,
     Segment,
     Text,
-    Right
+    Right, StyleProvider,
+    H1
 } from "native-base";
 import { Grid, Row } from "react-native-easy-grid";
 
@@ -21,6 +22,8 @@ import HttpUtil from '../utils/HttpUtil';
 import StorageUtil from '../utils/StorageUtil';
 import navigationUtil from '../utils/navigationUtil'
 import {ToastAndroid} from "react-native";
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 
 
 export  default class UserLogin extends Component {
@@ -115,6 +118,7 @@ export  default class UserLogin extends Component {
     }
     render(){
         return(
+            <StyleProvider style={getTheme(material)}>
             <Container>
                 <Header hasSegment>
                     <Left>
@@ -147,7 +151,6 @@ export  default class UserLogin extends Component {
                 {this.state.seg === 1 &&
                 <Grid>
                     <Row style={{width: '100%', height: '20%'}}>
-
                     </Row>
                     <Row style={{width: '100%', height: '80%'}}>
                         <Content>
@@ -171,7 +174,7 @@ export  default class UserLogin extends Component {
                                         value={this.state.userName}/>
 
                                 </Item>
-                                <Item floatingLabel last>
+                                <Item floatingLabel>
                                     <Label>密码</Label>
                                     <Input
                                         onChangeText={password =>
@@ -192,9 +195,11 @@ export  default class UserLogin extends Component {
                                     />
                                 </Item>
                             </Form>
-                            <Button block style={{margin: 15, marginTop: 50}} onPress={this.handleLogin}>
-                                <Text>登 陆</Text>
+                        <Row style={{width: '100%', height: '30%',flexDirection:"column",alignItems:'center',justifyItems:'center'}}>
+                            <Button bordered style={{marginTop: 50,width:50,height:50,borderRadius:30,alignSelf:'center'}} onPress={this.handleLogin}>
+                                <Icon name='arrow-forward' />
                             </Button>
+                        </Row>
                         </Content>
                     </Row>
                 </Grid>}
@@ -223,7 +228,7 @@ export  default class UserLogin extends Component {
                                         }
                                         value={this.state.coachName}/>
                                 </Item>
-                                <Item floatingLabel last>
+                                <Item floatingLabel>
                                     <Label>密码</Label>
                                     <Input
                                         onChangeText={coachPassword =>
@@ -244,13 +249,16 @@ export  default class UserLogin extends Component {
                                     />
                                 </Item>
                             </Form>
-                            <Button block style={{margin: 15, marginTop: 50}} onPress={this.handleCoachLogin}>
-                                <Text>登 陆</Text>
-                            </Button>
+                            <Row style={{width: '100%', height: '30%',flexDirection:"column",alignItems:'center',justifyItems:'center'}}>
+                                <Button bordered style={{marginTop: 50,width:50,height:50,borderRadius:30,alignSelf:'center'}} onPress={this.handleCoachLogin}>
+                                    <Icon name='arrow-forward' />
+                                </Button>
+                            </Row>
                         </Content>
                     </Row>
                 </Grid>}
             </Container>
+            </StyleProvider>
         )
     }
 

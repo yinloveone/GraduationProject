@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import {Container, Header, Content, Item, Input,
-    Left, Button, Icon, Body, Title,Text,Label} from 'native-base';
+import {
+    Container, Header, Content, Item, Input,
+    Left, Button, Icon, Body, Title, Text, Label, StyleProvider
+} from 'native-base';
 import {Grid, Row,Col} from "react-native-easy-grid";
 import StorageUtil from "../utils/StorageUtil";
 import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid} from "react-native";
 import navigationUtil from "../utils/navigationUtil";
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 
 export default class UpdatePassword extends Component{
     constructor(props){
@@ -84,6 +88,7 @@ export default class UpdatePassword extends Component{
     }
     render() {
         return (
+            <StyleProvider style={getTheme(material)}>
             <Container>
                 <Header>
                     <Left>
@@ -185,6 +190,7 @@ export default class UpdatePassword extends Component{
 
                 </Content>
             </Container>
+            </StyleProvider>
         );
     }
 }

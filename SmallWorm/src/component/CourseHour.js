@@ -6,10 +6,12 @@ import {
     Left,
     Body,
     Content,
-     Button, Icon, Title,Text,Card, CardItem
+    Button, Icon, Title, Text, Card, CardItem, StyleProvider
 } from "native-base";
 import {ToastAndroid} from "react-native";
 import StorageUtil from "../utils/StorageUtil";
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 /*const datas = [
     {
         hourName: "产后恢复",
@@ -79,6 +81,7 @@ export default class CourseHour extends Component{
     render(){
         if(!this.state.datas){
             return(
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -95,9 +98,11 @@ export default class CourseHour extends Component{
                 <Text>loading...</Text>
                     </Content>
                 </Container>
+                </StyleProvider>
             );
         }else {
             return (
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -116,6 +121,7 @@ export default class CourseHour extends Component{
                             }
                     </Content>
                 </Container>
+                </StyleProvider>
             )
         }
     }

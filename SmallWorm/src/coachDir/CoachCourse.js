@@ -6,11 +6,13 @@ import {
     Left,
     Body,
     Content,
-    Button, Icon, Title,Text,List, ListItem
+    Button, Icon, Title, Text, List, ListItem, StyleProvider
 } from "native-base";
 import StorageUtil from "../utils/StorageUtil";
 import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid} from "react-native";
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 export default class CoachCourse extends Component{
     constructor(props) {
         super(props);
@@ -57,7 +59,7 @@ export default class CoachCourse extends Component{
                             <Text>教室:{dataList[i].listCourse[j].roomName}</Text>
                         </Body>
                         <Right>
-                            <Button onPress={this.getCourseSelect.bind(this,dataList[i].listCourse[j].courseId)}>
+                            <Button bordered onPress={this.getCourseSelect.bind(this,dataList[i].listCourse[j].courseId)}>
                                 <Text>详情</Text>
                             </Button>
                         </Right>
@@ -81,6 +83,7 @@ export default class CoachCourse extends Component{
     render(){
         if(!this.state.courseList){
             return(
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -96,10 +99,12 @@ export default class CoachCourse extends Component{
                        <Text>Loading..</Text>
                     </Content>
                 </Container>
+                </StyleProvider>
             )
 
         }else{
             return(
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -117,6 +122,7 @@ export default class CoachCourse extends Component{
                         </List>
                     </Content>
                 </Container>
+                </StyleProvider>
             )
         }
 

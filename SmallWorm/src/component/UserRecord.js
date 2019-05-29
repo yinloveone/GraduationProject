@@ -3,7 +3,7 @@ import {
     Body,
     Button,
     Container,
-    Content, Header, Icon, Left, Right,
+    Content, Header, Icon, Left, Right, StyleProvider,
     Text, Title
 } from "native-base";
 
@@ -12,6 +12,8 @@ import StorageUtil from "../utils/StorageUtil";
 import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid} from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 
 export default class UserRecord extends Component {
     constructor(props) {
@@ -63,6 +65,7 @@ export default class UserRecord extends Component {
     render() {
         if(!this.state.weightData) {
             return(
+                <StyleProvider style={getTheme(material)}>
             <Container>
                 <Header>
                     <Left>
@@ -82,6 +85,7 @@ export default class UserRecord extends Component {
                     <Text>Loading</Text>
                 </Content>
             </Container>
+                </StyleProvider>
             )
         }else{
             const option = {
@@ -92,6 +96,15 @@ export default class UserRecord extends Component {
                 legend: {
                     data: ['体重']
                 },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']}
+                    }
+                },
+                calculable : true,
                 xAxis: {
                     data: this.state.dateList
                 },
@@ -105,6 +118,7 @@ export default class UserRecord extends Component {
                 }]
             };
             return (
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -123,6 +137,7 @@ export default class UserRecord extends Component {
                     <MyCharts option={option} height={300}/>
                     </Content>
                 </Container>
+                </StyleProvider>
             )
         }
     }

@@ -4,12 +4,14 @@ import {
     Content,
     Icon,
     Item,
-    Input, Header, Left, Button, Body, Title, Right,Text
+    Input, Header, Left, Button, Body, Title, Right, Text, StyleProvider
 
 } from 'native-base';
 import StorageUtil from "../utils/StorageUtil";
 import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid} from "react-native";
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 
 export default class AddWeight extends Component{
     constructor(props){
@@ -46,6 +48,7 @@ export default class AddWeight extends Component{
     }
     render(){
         return(
+            <StyleProvider style={getTheme(material)}>
             <Container>
                 <Header>
                     <Left>
@@ -67,6 +70,7 @@ export default class AddWeight extends Component{
                     </Item>
                 </Content>
             </Container>
+            </StyleProvider>
         )
     }
 

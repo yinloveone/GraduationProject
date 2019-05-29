@@ -1,12 +1,15 @@
 import React,{ Component } from 'react'
-import {Body, Button, Container, Content, Header, Icon, Left, Form, Text, Title,
-    Label,Input,Right,Subtitle,Item, Picker
+import {
+    Body, Button, Container, Content, Header, Icon, Left, Form, Text, Title,
+    Label, Input, Right, Subtitle, Item, Picker, StyleProvider
 
 } from "native-base";
 import {Row,Col} from 'react-native-easy-grid'
 import DatePicker from 'react-native-datepicker'
 import HttpUtil from "../utils/HttpUtil";
 import {StyleSheet, ToastAndroid} from "react-native"
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 
 export default class UpdateCourse extends Component{
     constructor(props){
@@ -87,6 +90,7 @@ export default class UpdateCourse extends Component{
     render(){
         if(!this.state.courseInfo){
             return(
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -103,9 +107,11 @@ export default class UpdateCourse extends Component{
                         <Text>没有课程</Text>
                     </Content>
                 </Container>
+                </StyleProvider>
             )
         }else{
             return (
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -233,6 +239,7 @@ export default class UpdateCourse extends Component{
                         </Form>
                     </Content>
                 </Container>
+                </StyleProvider>
             )
         }
     }

@@ -17,6 +17,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import StorageUtil from '../utils/StorageUtil'
 import navigationUtil from "../utils/navigationUtil";
 import HttpUtil from "../utils/HttpUtil";
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
+import {StyleProvider} from "native-base";
 const DeviceWidth = Dimensions.get('window').width;
 
 
@@ -65,6 +68,7 @@ export default class UserIndex extends Component{
         }else {
 
             return (
+                <StyleProvider style={getTheme(material)}>
                 <View style={styles.container}>
                     <View style={styles.divider}/>
                     <ScrollView style={styles.content}>
@@ -105,6 +109,7 @@ export default class UserIndex extends Component{
                     </ScrollView>
                     <View style={styles.divider}/>
                 </View>
+                </StyleProvider>
             )
         }
     }

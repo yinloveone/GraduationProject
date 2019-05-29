@@ -6,7 +6,7 @@ import {
     Text, Button, Body,
     Right, H1, Header,
     Left, Icon, Title,
-    ActionSheet,
+    ActionSheet,StyleProvider,
     Item,
     Picker,
     Input, DatePicker,
@@ -16,10 +16,9 @@ import {ToastAndroid} from "react-native";
 import StorageUtil from "../utils/StorageUtil";
 import {Grid, Row,Col} from "react-native-easy-grid";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import material from './../../native-base-theme/variables/material';
+import getTheme from './../../native-base-theme/components';
 
-const BUTTONS = ["时间", "教练", "课程"];
-/*const DESTRUCTIVE_INDEX = 3;
-const CANCEL_INDEX = 4;*/
 
 export default class ProfileScreen extends Component {
     constructor(props){
@@ -118,6 +117,7 @@ export default class ProfileScreen extends Component {
     }
     render() {
             return (
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -211,6 +211,7 @@ export default class ProfileScreen extends Component {
                                    }
                     </Content>
                 </Container>
+                </StyleProvider>
             )
 
     }

@@ -4,7 +4,7 @@ import {
     Content,
     Icon,
     Item,
-    Input, Header, Left, Button, Body, Title, Right, Text, Toast
+    Input, Header, Left, Button, Body, Title, Right, Text, Toast, StyleProvider
 
 } from 'native-base';
 import StorageUtil from "../utils/StorageUtil";
@@ -12,6 +12,8 @@ import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid} from "react-native";
 import {Col} from "react-native-easy-grid";
 import StarScore from "../views/StarScore"
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 
 export default class SubmitScore extends Component{
     constructor(props){
@@ -50,6 +52,7 @@ export default class SubmitScore extends Component{
     render() {
 
         return(
+            <StyleProvider style={getTheme(material)}>
             <Container>
                 <Header>
                     <Left>
@@ -69,6 +72,7 @@ export default class SubmitScore extends Component{
                     <StarScore selectIndex={this._selectIndex.bind(this)}/>
                 </Content>
             </Container>
+            </StyleProvider>
         )
     }
 }

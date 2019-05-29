@@ -1,6 +1,7 @@
 import React,{ Component } from 'react'
-import {Body, Button, Container, Content, Header, Icon, Left, Form, Text, Title,
-     Label,Input,Right,Subtitle,Item, Picker
+import {
+    Body, Button, Container, Content, Header, Icon, Left, Form, Text, Title,
+    Label, Input, Right, Subtitle, Item, Picker, StyleProvider
 
 } from "native-base";
 import {Row,Col} from 'react-native-easy-grid'
@@ -8,6 +9,8 @@ import DatePicker from 'react-native-datepicker'
 import StorageUtil from "../utils/StorageUtil";
 import HttpUtil from "../utils/HttpUtil";
 import {StyleSheet, ToastAndroid} from "react-native"
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 
 
 export default class AddCourse extends Component{
@@ -69,6 +72,7 @@ export default class AddCourse extends Component{
     }
     render(){
         return(
+            <StyleProvider style={getTheme(material)}>
             <Container>
                 <Header>
                     <Left>
@@ -199,6 +203,7 @@ export default class AddCourse extends Component{
                     </Form>
                 </Content>
             </Container>
+            </StyleProvider>
         )
     }
 }

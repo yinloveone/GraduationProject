@@ -11,11 +11,13 @@ import {
     Left,
     Body,
     Title,
-    Right
+    Right, StyleProvider
 } from 'native-base';
 import HttpUtil from '../utils/HttpUtil'
 import StorageUtil from "../utils/StorageUtil";
 import {ToastAndroid} from "react-native";
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 export default  class CourseScreen extends Component{
     constructor(props){
         super(props)
@@ -130,6 +132,7 @@ export default  class CourseScreen extends Component{
     render() {
         if (!this.state.dataList) {
             return (
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -146,9 +149,11 @@ export default  class CourseScreen extends Component{
                         <Text>loading...</Text>
                     </Content>
                 </Container>
+                </StyleProvider>
             )
         } else {
             return (
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -167,6 +172,7 @@ export default  class CourseScreen extends Component{
                         </List>
                     </Content>
                 </Container>
+                </StyleProvider>
 
             )
         }

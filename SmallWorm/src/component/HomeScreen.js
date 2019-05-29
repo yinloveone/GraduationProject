@@ -6,7 +6,7 @@ import {
     Tabs,
     Tab,
     Left,
-    List, ListItem, Text, Button, Body, Right, ScrollableTab, Header, Icon,Title
+    List, ListItem, Text, Button, Body, Right, ScrollableTab, Header, Icon,Title,StyleProvider
 
 } from 'native-base';
 
@@ -14,6 +14,8 @@ import TimeListUtil from '../utils/TimeListUtil'
 import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid} from "react-native";
 import StorageUtil from "../utils/StorageUtil";
+import material from './../../native-base-theme/variables/material';
+import getTheme from './../../native-base-theme/components';
 
 const sankhadeep = require("../../img/header.jpg");
 
@@ -83,6 +85,7 @@ export default class HomeScreen extends Component {
 
     render() {
         return (
+            <StyleProvider style={getTheme(material)}>
             <Container>
                 <Header>
                     <Left>
@@ -315,6 +318,7 @@ export default class HomeScreen extends Component {
 
                 </Content>
             </Container>
+            </StyleProvider>
         )
     }
 }

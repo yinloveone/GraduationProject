@@ -1,11 +1,14 @@
 import React,{ Component } from 'react'
-import {Body, Button, Container, Content, List,Header, Icon,
+import {
+    Body, Button, Container, Content, List, Header, Icon,
     Left, Text, Title,
     ListItem,
-    Right
+    Right, StyleProvider
 } from "native-base";
 import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid} from "react-native";
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 export  default class CourseSignIn extends Component{
     constructor(props){
         super(props);
@@ -69,6 +72,7 @@ export  default class CourseSignIn extends Component{
     render(){
         if(this.state.studentList) {
             return (
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -110,9 +114,11 @@ export  default class CourseSignIn extends Component{
                         />
                     </Content>
                 </Container>
+                </StyleProvider>
             )
         }else{
             return (
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -128,6 +134,7 @@ export  default class CourseSignIn extends Component{
                     <Text>Loading</Text>
                     </Content>
                 </Container>
+                </StyleProvider>
             )
         }
     }

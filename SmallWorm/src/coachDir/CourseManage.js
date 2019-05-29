@@ -1,9 +1,25 @@
 import React,{ Component } from 'react'
-import {Body, Button, Container, Content, Header, Icon, Left, Text, Title, Right, ListItem, List} from "native-base";
+import {
+    Body,
+    Button,
+    Container,
+    Content,
+    Header,
+    Icon,
+    Left,
+    Text,
+    Title,
+    Right,
+    ListItem,
+    List,
+    StyleProvider
+} from "native-base";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import StorageUtil from "../utils/StorageUtil";
 import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid} from "react-native";
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 export default class CourseManage extends Component{
     constructor(props){
         super(props)
@@ -69,6 +85,7 @@ export default class CourseManage extends Component{
     render(){
         if(!this.state.courseList){
             return (
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -89,12 +106,14 @@ export default class CourseManage extends Component{
                         <Text>没有课程</Text>
                     </Content>
                 </Container>
+                </StyleProvider>
             )
 
         }else {
 
 
             return (
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -117,6 +136,7 @@ export default class CourseManage extends Component{
                         </List>
                     </Content>
                 </Container>
+                </StyleProvider>
             )
         }
     }

@@ -11,13 +11,15 @@ import {
     ListItem,
     Icon,
     Button,
-    Title, Thumbnail
+    Title, Thumbnail, StyleProvider
 } from "native-base";
-const sankhadeep = require("../../img/header.jpg");
+const sankhadeep = require("../../img/6.png");
 import HttpUtil from "../utils/HttpUtil";
 import {ToastAndroid} from "react-native";
 import StorageUtil from "../utils/StorageUtil";
 import {Grid, Row} from "react-native-easy-grid";
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 export default class UserInfo extends Component{
     constructor(props){
         super(props);
@@ -61,6 +63,7 @@ export default class UserInfo extends Component{
     render(){
         if(!this.state.userInfo){
             return(
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -77,10 +80,12 @@ export default class UserInfo extends Component{
                         <Text>loading...</Text>
                     </Content>
                 </Container>
+                </StyleProvider>
             );
 
         }else{
         return(
+            <StyleProvider style={getTheme(material)}>
             <Container>
                 <Header>
                     <Left>
@@ -166,6 +171,7 @@ export default class UserInfo extends Component{
                     </Grid>
                 </Content>
             </Container>
+            </StyleProvider>
         )
         }
 

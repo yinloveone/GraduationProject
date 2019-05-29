@@ -13,11 +13,13 @@ import {
     Thumbnail,
     Left,
     Body,
-    Right
+    Right, StyleProvider
 } from "native-base";
 import {Grid,Row,Col} from "react-native-easy-grid";
 import StorageUtil from "../utils/StorageUtil";
 import HttpUtil from "../utils/HttpUtil";
+import getTheme from "../../native-base-theme/components";
+import material from "../../native-base-theme/variables/material";
 
 const sankhadeep = require("../../img/header.jpg");
 const DeviceWidth = Dimensions.get('window').width;
@@ -56,6 +58,7 @@ export default class ClubCard extends Component{
     render() {
         if(!this.state.cardInfo){
             return (
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -73,9 +76,11 @@ export default class ClubCard extends Component{
                         <Text>Loading...</Text>
                     </Content>
                 </Container>
+                </StyleProvider>
             )
         }else {
             return (
+                <StyleProvider style={getTheme(material)}>
                 <Container>
                     <Header>
                         <Left>
@@ -139,6 +144,7 @@ export default class ClubCard extends Component{
                         </View>
                     </Content>
                 </Container>
+                </StyleProvider>
             );
         }
     }
