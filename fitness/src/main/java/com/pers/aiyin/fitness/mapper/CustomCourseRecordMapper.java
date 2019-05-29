@@ -12,5 +12,7 @@ public interface CustomCourseRecordMapper {
     List<CourseRecordList> getRecordByCoachId(Integer coachId);
     List<CustomCourseR> getSelectStudent(Integer courseId);
     List<CustomCourse> getCourseList(CustomCourse customCourse);
+    List<CustomCourseR> getContentByCoach(CustomCourse customCourse);
+    List<CustomCourseR> getDetailContent(CustomCourse customCourse);
 
 }

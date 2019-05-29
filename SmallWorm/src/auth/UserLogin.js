@@ -17,13 +17,10 @@ import {
 } from "native-base";
 import { Grid, Row } from "react-native-easy-grid";
 
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import {
-    seagreen
-} from 'color-disk';
 import HttpUtil from '../utils/HttpUtil';
 import StorageUtil from '../utils/StorageUtil';
 import navigationUtil from '../utils/navigationUtil'
+import {ToastAndroid} from "react-native";
 
 
 export  default class UserLogin extends Component {
@@ -82,6 +79,8 @@ export  default class UserLogin extends Component {
                 StorageUtil.set('password', {'password': this.state.coachPassword});
                 //跳页面
                 navigationUtil.reset(this.props.navigation, 'MainCoach');
+            }else{
+                ToastAndroid.show(result.msg,ToastAndroid.SHORT);
             }
 
         }).catch(error => {
@@ -107,23 +106,21 @@ export  default class UserLogin extends Component {
                 navigationUtil.reset(this.props.navigation, 'MainStudent');
 
             }else{
-
+                ToastAndroid.show(result.msg,ToastAndroid.SHORT);
             }
         }) .catch(error => {
             console.log(error);
         })
 
     }
-
-
     render(){
         return(
             <Container>
                 <Header hasSegment>
                     <Left>
-                        <Button transparent>
-                            <Icon name='arrow-back' />
-                        </Button>
+                            <Text style={{
+                                color:'#fff',fontSize:12
+                            }}>SmallWorm</Text>
                     </Left>
                         <Body>
                             <Segment>
@@ -144,15 +141,15 @@ export  default class UserLogin extends Component {
                             </Segment>
                         </Body>
                     <Right>
-                        <Text style={{
-                            color:'#fff'
-                        }}>登陆</Text>
                     </Right>
                 </Header>
 
                 {this.state.seg === 1 &&
                 <Grid>
-                    <Row style={{width: '100%', height: '50%'}}>
+                    <Row style={{width: '100%', height: '20%'}}>
+
+                    </Row>
+                    <Row style={{width: '100%', height: '80%'}}>
                         <Content>
                             <Form>
                                 <Item floatingLabel>
@@ -200,15 +197,12 @@ export  default class UserLogin extends Component {
                             </Button>
                         </Content>
                     </Row>
-
-                    <Row style={{width: '100%', height: '50%', alignItems: 'center', justifyContent: 'center'}}>
-                        <Button transparent>
-                            <FontAwesome name='weixin' color={seagreen} size={32}/>
-                        </Button>
-                    </Row>
                 </Grid>}
                 {this.state.seg === 2 && <Grid>
-                    <Row style={{width: '100%', height: '50%'}}>
+                    <Row style={{width: '100%', height: '20%'}}>
+
+                    </Row>
+                    <Row style={{width: '100%', height: '80%'}}>
                         <Content>
                             <Form>
                                 <Item floatingLabel>
@@ -254,12 +248,6 @@ export  default class UserLogin extends Component {
                                 <Text>登 陆</Text>
                             </Button>
                         </Content>
-                    </Row>
-
-                    <Row style={{width: '100%', height: '50%', alignItems: 'center', justifyContent: 'center'}}>
-                        <Button transparent>
-                            <FontAwesome name='weixin' color={seagreen} size={32}/>
-                        </Button>
                     </Row>
                 </Grid>}
             </Container>

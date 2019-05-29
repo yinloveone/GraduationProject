@@ -14,7 +14,15 @@ public class CourseRecord implements Serializable {
 
     private Byte signIn;
 
+    private String content;
+
     private Integer score;
+
+    private Byte isValid;
+
+    private Byte isDelete;
+
+    private Date commentTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -58,11 +66,43 @@ public class CourseRecord implements Serializable {
         this.signIn = signIn;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
+
     public Integer getScore() {
         return score;
     }
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public Byte getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(Byte isValid) {
+        this.isValid = isValid;
+    }
+
+    public Byte getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Byte isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public Date getCommentTime() {
+        return commentTime;
+    }
+
+    public void setCommentTime(Date commentTime) {
+        this.commentTime = commentTime;
     }
 }

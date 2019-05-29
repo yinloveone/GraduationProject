@@ -10,5 +10,10 @@ public class CustomCourseR {
     private String stuName;
     private String courseName;
     private Byte signIn;
+    private String content;
+    private Integer score;
+    private String timeStartStr;
+    private String timeEndStr;
+    private Double avgScore;
 
 }

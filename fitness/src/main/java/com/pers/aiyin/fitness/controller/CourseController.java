@@ -69,10 +69,6 @@ public class CourseController {
             return  Result.failure(ResponseCode.FAIL);
         }
     }
-   /* @PostMapping("/course/getByCourseId/{courseId}")
-    public Result getByCourseId(@PathVariable("courseId") Integer courseId){
-       return null;
-    }*/
 
     @GetMapping("/course/getCoachList")
     public Result getCoachList(){
@@ -116,6 +112,8 @@ public class CourseController {
         }
     }
 
+    /*
+    * */
     @GetMapping("/course/getPrivateList/{coachId}")
     public Result getPrivateList(@PathVariable("coachId") Integer coachId){
         return courseService.getPrivateList(coachId);

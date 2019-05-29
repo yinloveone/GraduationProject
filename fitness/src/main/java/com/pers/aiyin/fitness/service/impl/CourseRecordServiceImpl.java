@@ -6,6 +6,7 @@ import com.pers.aiyin.fitness.mapper.CourseMapper;
 import com.pers.aiyin.fitness.mapper.CourseRecordMapper;
 import com.pers.aiyin.fitness.mapper.CustomCourseRecordMapper;
 import com.pers.aiyin.fitness.response.CourseRecordList;
+import com.pers.aiyin.fitness.response.CustomCourse;
 import com.pers.aiyin.fitness.response.CustomCourseR;
 import com.pers.aiyin.fitness.response.CustomCourseRecord;
 import com.pers.aiyin.fitness.service.CourseRecordService;
@@ -141,10 +142,37 @@ public class CourseRecordServiceImpl implements CourseRecordService {
 
     @Override
     public Result submitScore(CourseRecord courseRecord){
+        courseRecord.setCommentTime(new Date());
         int updateCount = courseRecordMapper.updateByPrimaryKeySelective(courseRecord);
         if(updateCount>0)
             return new Result(0,"打分成功");
         else
             return new Result(500,"发生意外错误,请联系管理员");
     }
+
+    @Override
+    public Result getContent(Integer coachId) {
+        CustomCourse customCourse = new CustomCourse();
+        customCourse.setCoachId(coachId);
+        customCourse.setCourseTimeStart(new Date());
+        List<CustomCourseR> list = customCourseRecordMapper.getContentByCoach(customCourse);
+        if (null != list && list.size() > 0) {
+            return Result.success(list);
+        } else {
+            return Result.failure(ResponseCode.FAIL);
+        }
+    }
+    @Override
+    public Result getDetailContent(Integer coachId){
+        CustomCourse customCourse = new CustomCourse();
+        customCourse.setCoachId(coachId);
+        customCourse.setCourseTimeStart(new Date());
+        List<CustomCourseR> list = customCourseRecordMapper.getDetailContent(customCourse);
+        if (null != list && list.size() > 0) {
+            return Result.success(list);
+        } else {
+            return Result.failure(ResponseCode.FAIL);
+        }
+    }
+
 }

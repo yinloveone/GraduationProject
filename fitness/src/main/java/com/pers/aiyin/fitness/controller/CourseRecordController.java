@@ -78,5 +78,21 @@ public class CourseRecordController {
         CourseRecord record=new ObjectMapper().readValue(request.getInputStream(),CourseRecord.class);
         return courseRecordService.submitScore(record);
     }
+    /*
+    * 根据教练Id获取课程评价统计
+    * */
+    @GetMapping("/courseRecord/getContent/{coachId}")
+    public Result getContent(@PathVariable("coachId") Integer coachId){
+        return courseRecordService.getContent(coachId);
+    }
+    /*
+     * 根据教练Id获取每一条课程评价
+     * */
+    @GetMapping("/courseRecord/getDetailContent/{coachId}")
+    public Result getDetailContent(@PathVariable("coachId") Integer coachId){
+        return courseRecordService.getDetailContent(coachId);
+    }
+
+
 
 }

@@ -32,6 +32,10 @@ public class CustomCourseRecord {
 
     private String monthDate;
 
+    private String content;
+
     private Integer score;
+
+    private Date commentTime;
 
 }

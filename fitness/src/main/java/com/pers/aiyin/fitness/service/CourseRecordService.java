@@ -22,4 +22,8 @@ public interface CourseRecordService {
     Result studentIn(CourseRecord courseRecord);
 
     Result submitScore(CourseRecord courseRecord);
+
+    Result getContent(Integer coachId);
+
+    Result getDetailContent(Integer coachId);
 }

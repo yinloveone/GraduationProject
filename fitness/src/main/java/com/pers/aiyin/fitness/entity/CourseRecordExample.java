@@ -432,6 +432,76 @@ public class CourseRecordExample {
             return (Criteria) this;
         }
 
+        public Criteria andContentIsNull() {
+            addCriterion("content is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentIsNotNull() {
+            addCriterion("content is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentEqualTo(String value) {
+            addCriterion("content =", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotEqualTo(String value) {
+            addCriterion("content <>", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentGreaterThan(String value) {
+            addCriterion("content >", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentGreaterThanOrEqualTo(String value) {
+            addCriterion("content >=", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLessThan(String value) {
+            addCriterion("content <", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLessThanOrEqualTo(String value) {
+            addCriterion("content <=", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentLike(String value) {
+            addCriterion("content like", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotLike(String value) {
+            addCriterion("content not like", value, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentIn(List<String> values) {
+            addCriterion("content in", values, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotIn(List<String> values) {
+            addCriterion("content not in", values, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentBetween(String value1, String value2) {
+            addCriterion("content between", value1, value2, "content");
+            return (Criteria) this;
+        }
+
+        public Criteria andContentNotBetween(String value1, String value2) {
+            addCriterion("content not between", value1, value2, "content");
+            return (Criteria) this;
+        }
+
         public Criteria andScoreIsNull() {
             addCriterion("score is null");
             return (Criteria) this;
@@ -489,6 +559,186 @@ public class CourseRecordExample {
 
         public Criteria andScoreNotBetween(Integer value1, Integer value2) {
             addCriterion("score not between", value1, value2, "score");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidIsNull() {
+            addCriterion("is_valid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidIsNotNull() {
+            addCriterion("is_valid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidEqualTo(Byte value) {
+            addCriterion("is_valid =", value, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidNotEqualTo(Byte value) {
+            addCriterion("is_valid <>", value, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidGreaterThan(Byte value) {
+            addCriterion("is_valid >", value, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_valid >=", value, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidLessThan(Byte value) {
+            addCriterion("is_valid <", value, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidLessThanOrEqualTo(Byte value) {
+            addCriterion("is_valid <=", value, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidIn(List<Byte> values) {
+            addCriterion("is_valid in", values, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidNotIn(List<Byte> values) {
+            addCriterion("is_valid not in", values, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidBetween(Byte value1, Byte value2) {
+            addCriterion("is_valid between", value1, value2, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsValidNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_valid not between", value1, value2, "isValid");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIsNull() {
+            addCriterion("is_delete is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIsNotNull() {
+            addCriterion("is_delete is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteEqualTo(Byte value) {
+            addCriterion("is_delete =", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotEqualTo(Byte value) {
+            addCriterion("is_delete <>", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteGreaterThan(Byte value) {
+            addCriterion("is_delete >", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteGreaterThanOrEqualTo(Byte value) {
+            addCriterion("is_delete >=", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteLessThan(Byte value) {
+            addCriterion("is_delete <", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteLessThanOrEqualTo(Byte value) {
+            addCriterion("is_delete <=", value, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteIn(List<Byte> values) {
+            addCriterion("is_delete in", values, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotIn(List<Byte> values) {
+            addCriterion("is_delete not in", values, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteBetween(Byte value1, Byte value2) {
+            addCriterion("is_delete between", value1, value2, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsDeleteNotBetween(Byte value1, Byte value2) {
+            addCriterion("is_delete not between", value1, value2, "isDelete");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentTimeIsNull() {
+            addCriterion("comment_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentTimeIsNotNull() {
+            addCriterion("comment_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentTimeEqualTo(Date value) {
+            addCriterion("comment_time =", value, "commentTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentTimeNotEqualTo(Date value) {
+            addCriterion("comment_time <>", value, "commentTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentTimeGreaterThan(Date value) {
+            addCriterion("comment_time >", value, "commentTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("comment_time >=", value, "commentTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentTimeLessThan(Date value) {
+            addCriterion("comment_time <", value, "commentTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentTimeLessThanOrEqualTo(Date value) {
+            addCriterion("comment_time <=", value, "commentTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentTimeIn(List<Date> values) {
+            addCriterion("comment_time in", values, "commentTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentTimeNotIn(List<Date> values) {
+            addCriterion("comment_time not in", values, "commentTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentTimeBetween(Date value1, Date value2) {
+            addCriterion("comment_time between", value1, value2, "commentTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentTimeNotBetween(Date value1, Date value2) {
+            addCriterion("comment_time not between", value1, value2, "commentTime");
             return (Criteria) this;
         }
     }

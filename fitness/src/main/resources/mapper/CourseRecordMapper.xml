@@ -7,7 +7,11 @@
     <result column="course_id" jdbcType="INTEGER" property="courseId" />
     <result column="scdate" jdbcType="DATE" property="scdate" />
     <result column="sign_in" jdbcType="TINYINT" property="signIn" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="is_valid" jdbcType="TINYINT" property="isValid" />
+    <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
+    <result column="comment_time" jdbcType="TIMESTAMP" property="commentTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    course_record_id, stu_id, course_id, scdate, sign_in, score
+    course_record_id, stu_id, course_id, scdate, sign_in, content, score, is_valid, is_delete, 
+    comment_time
   </sql>
   <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.CourseRecordExample" resultMap="BaseResultMap">
     select
@@ -103,9 +108,13 @@
   </delete>
   <insert id="insert" parameterType="com.pers.aiyin.fitness.entity.CourseRecord">
     insert into courserecord (course_record_id, stu_id, course_id, 
-      scdate, sign_in, score)
+      scdate, sign_in, content, 
+      score, is_valid, is_delete, 
+      comment_time)
     values (#{courseRecordId,jdbcType=INTEGER}, #{stuId,jdbcType=INTEGER}, #{courseId,jdbcType=INTEGER}, 
-      #{scdate,jdbcType=DATE}, #{signIn,jdbcType=TINYINT}, #{score,jdbcType=INTEGER})
+      #{scdate,jdbcType=DATE}, #{signIn,jdbcType=TINYINT}, #{content,jdbcType=VARCHAR}, 
+      #{score,jdbcType=INTEGER}, #{isValid,jdbcType=TINYINT}, #{isDelete,jdbcType=TINYINT}, 
+      #{commentTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.CourseRecord">
     insert into courserecord
@@ -125,8 +134,20 @@
       <if test="signIn != null">
         sign_in,
       </if>
+      <if test="content != null">
+        content,
+      </if>
       <if test="score != null">
         score,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="commentTime != null">
+        comment_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -145,8 +166,20 @@
       <if test="signIn != null">
         #{signIn,jdbcType=TINYINT},
       </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
       <if test="score != null">
         #{score,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="commentTime != null">
+        #{commentTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -174,8 +207,20 @@
       <if test="record.signIn != null">
         sign_in = #{record.signIn,jdbcType=TINYINT},
       </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
       <if test="record.score != null">
         score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.isValid != null">
+        is_valid = #{record.isValid,jdbcType=TINYINT},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="record.commentTime != null">
+        comment_time = #{record.commentTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -189,7 +234,11 @@
       course_id = #{record.courseId,jdbcType=INTEGER},
       scdate = #{record.scdate,jdbcType=DATE},
       sign_in = #{record.signIn,jdbcType=TINYINT},
-      score = #{record.score,jdbcType=INTEGER}
+      content = #{record.content,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=INTEGER},
+      is_valid = #{record.isValid,jdbcType=TINYINT},
+      is_delete = #{record.isDelete,jdbcType=TINYINT},
+      comment_time = #{record.commentTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -209,8 +258,20 @@
       <if test="signIn != null">
         sign_in = #{signIn,jdbcType=TINYINT},
       </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
       <if test="score != null">
         score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=TINYINT},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="commentTime != null">
+        comment_time = #{commentTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where course_record_id = #{courseRecordId,jdbcType=INTEGER}
@@ -221,7 +282,11 @@
       course_id = #{courseId,jdbcType=INTEGER},
       scdate = #{scdate,jdbcType=DATE},
       sign_in = #{signIn,jdbcType=TINYINT},
-      score = #{score,jdbcType=INTEGER}
+      content = #{content,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      is_valid = #{isValid,jdbcType=TINYINT},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      comment_time = #{commentTime,jdbcType=TIMESTAMP}
     where course_record_id = #{courseRecordId,jdbcType=INTEGER}
   </update>
 </mapper>

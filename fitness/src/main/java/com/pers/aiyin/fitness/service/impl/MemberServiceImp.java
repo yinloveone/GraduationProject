@@ -83,11 +83,31 @@ public class MemberServiceImp implements MemberService {
 
     @Override
     public Result modifyStudent(Student student){
-        int result = studentMapper.updateByPrimaryKeySelective(student);
-        if (result != -1) {
-            return Result.success();
-        } else {
-            return Result.failure(ResponseCode.FAIL);
+        if(null!=student.getPhone()) {
+
+
+            StudentExample example = new StudentExample();
+            StudentExample.Criteria criteria = example.createCriteria();
+            criteria.andPhoneEqualTo(student.getPhone());
+            List<Student> list = studentMapper.selectByExample(example);
+            if (null != list && list.size() > 0) {
+
+                return new Result(1, "此电话号码已经存在");
+            } else {
+                int result = studentMapper.updateByPrimaryKeySelective(student);
+                if (result != -1) {
+                    return Result.success();
+                } else {
+                    return Result.failure(ResponseCode.FAIL);
+                }
+            }
+        }else{
+            int result = studentMapper.updateByPrimaryKeySelective(student);
+            if (result != -1) {
+                return Result.success();
+            } else {
+                return Result.failure(ResponseCode.FAIL);
+            }
         }
     }
 
