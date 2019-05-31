@@ -9,13 +9,9 @@ public class CourseHour implements Serializable {
 
     private Integer coachId;
 
-    private String coachName;
-
     private Integer hourCount;
 
     private Integer stuId;
-
-    private String stuName;
 
     private static final long serialVersionUID = 1L;
 
@@ -43,14 +39,6 @@ public class CourseHour implements Serializable {
         this.coachId = coachId;
     }
 
-    public String getCoachName() {
-        return coachName;
-    }
-
-    public void setCoachName(String coachName) {
-        this.coachName = coachName == null ? null : coachName.trim();
-    }
-
     public Integer getHourCount() {
         return hourCount;
     }
@@ -65,13 +53,5 @@ public class CourseHour implements Serializable {
 
     public void setStuId(Integer stuId) {
         this.stuId = stuId;
-    }
-
-    public String getStuName() {
-        return stuName;
-    }
-
-    public void setStuName(String stuName) {
-        this.stuName = stuName == null ? null : stuName.trim();
     }
 }

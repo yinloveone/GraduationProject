@@ -33,7 +33,7 @@
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-user-circle-o fa-2x"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -70,6 +70,11 @@
                 <i class="fa fa-asterisk"></i>
                 <span>会员卡管理</span></a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/api/hourManage">
+                <i class="fa fa-asterisk"></i>
+                <span>课时管理</span></a>
+        </li>
     </ul>
     <div id="content-wrapper">
 
@@ -105,8 +110,9 @@
                             <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#addCardModal"><i class="fa fa-plus"></i> 新增</button>
                         </div>
                         <table id="tb_cards" class="table table-striped table-hover table-sm" data-filter-control="true">
+                        </table>
 
-                    </div>
+                     </div>
 
                     </div>
                 </div>

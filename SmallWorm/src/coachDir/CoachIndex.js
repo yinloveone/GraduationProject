@@ -61,7 +61,7 @@ export default class CoachIndex extends Component{
     }*/
 
     render(){
-        let avatar = require('../../img/header.jpg');
+        let avatar = require('../../img/6.png');
         if(!this.state.userName){
             return (
                 <View style={styles.container}>

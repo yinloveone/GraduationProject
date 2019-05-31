@@ -33,7 +33,7 @@
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-user-circle-o fa-2x"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -69,6 +69,11 @@
             <a class="nav-link" href="/api/cardManage">
                 <i class="fa fa-asterisk"></i>
                 <span>会员卡管理</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/api/hourManage">
+                <i class="fa fa-asterisk"></i>
+                <span>课时管理</span></a>
         </li>
     </ul>
     <div id="content-wrapper">

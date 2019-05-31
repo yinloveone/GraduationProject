@@ -70,6 +70,11 @@
                 <i class="fa fa-asterisk"></i>
                 <span>会员卡管理</span></a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/api/hourManage">
+                <i class="fa fa-asterisk"></i>
+                <span>课时管理</span></a>
+        </li>
     </ul>
     <div id="content-wrapper">
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pers.aiyin.fitness.entity.CourseHour;
 import com.pers.aiyin.fitness.entity.CourseRecord;
 import com.pers.aiyin.fitness.response.CustomCourse;
+import com.pers.aiyin.fitness.response.CustomCourseHour;
 import com.pers.aiyin.fitness.response.CustomStudent;
 import com.pers.aiyin.fitness.response.PrivateCourse;
 import com.pers.aiyin.fitness.service.CourseHourService;
@@ -107,7 +108,7 @@ public class UserController {
     * */
     @GetMapping("/user/getCourseHour/{stuId}")
     public Result getCourseHour(@PathVariable("stuId") Integer stuId)  {
-       List<CourseHour> list = courseHourService.getByStuId(stuId);
+       List<CustomCourseHour> list = courseHourService.getByStuId(stuId);
        if(null!=list&&list.size()!=0){
            return Result.success(list);
        }else{

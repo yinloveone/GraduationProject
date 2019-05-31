@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -40,6 +41,14 @@ public class MemberController {
         return memberService.addStudent(student);
     }
 
+    @GetMapping("/member/getStudentList")
+    public Result getStudentList(){
+        List<Student> list=memberService.getStudentList();
+        if(null!=list){
+            return Result.success(list);
+        }
+        return Result.failure(ResponseCode.FAIL);
+    }
     @GetMapping("/member/getStudent/{stuId}")
     public Result getStudent(@PathVariable("stuId") Integer stuId){
         CustomStudent customStudent=memberService.getStudent(stuId);
@@ -48,6 +57,7 @@ public class MemberController {
         }
         return Result.failure(ResponseCode.FAIL);
     }
+
 
     /*
     * 学员修改自己的基本信息

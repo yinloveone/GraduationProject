@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pers.aiyin.fitness.mapper.CustomCourseHourMapper">
+    <resultMap id="BaseResultMap" type="com.pers.aiyin.fitness.response.CustomCourseHour">
+        <id column="hour_id" jdbcType="INTEGER" property="hourId" />
+        <result column="hour_name" jdbcType="VARCHAR" property="hourName" />
+        <result column="coach_id" jdbcType="INTEGER" property="coachId"/>
+        <result column="coach_name" jdbcType="VARCHAR" property="coachName"/>
+        <result column="stu_id" jdbcType="INTEGER" property="stuId"/>
+        <result column="stu_name" jdbcType="VARCHAR" property="stuName"/>
+        <result column="hour_count" jdbcType="INTEGER" property="hourCount"/>
+    </resultMap>
+    <select id="getHourById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select hour_id,hour_name,ch.coach_id,coach_name,ch.stu_id,stu_name,hour_count
+        from coursehour ch left join student s on s.stu_id=ch.stu_id
+        left join  coach c on c.coach_id=ch.coach_id
+        where ch.stu_id=#{stuId}
+    </select>
+    <select id="getHourList" parameterType="com.pers.aiyin.fitness.response.CustomCourseHour" resultMap="BaseResultMap">
+         select hour_id,hour_name,ch.coach_id,coach_name,ch.stu_id,stu_name,hour_count
+        from coursehour ch left join student s on s.stu_id=ch.stu_id
+        left join  coach c on c.coach_id=ch.coach_id
+        where 1=1
+        <if test="coachName!=null and coachName!= ''">
+            AND  coach_name like  CONCAT('%',#{coachName},'%')
+        </if>
+        <if test="stuName!=null and stuName!= ''">
+            AND  stu_name like CONCAT('%',#{stuName},'%')
+        </if>
+    </select>
+
+</mapper>

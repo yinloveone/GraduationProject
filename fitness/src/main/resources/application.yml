@@ -8,6 +8,8 @@ spring:
     active: dev
   freemarker:
     suffix: .ftl
+  resources:
+    static-locations: classpath:static/,file:static/
 
 
   datasource:

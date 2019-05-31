@@ -33,7 +33,7 @@
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto">
        <li class="nav-item dropdown no-arrow">
-            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-user-circle-o fa-2x"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
@@ -66,9 +66,14 @@
                 <span>课程管理</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/api/cardManage">
+        <a class="nav-link" href="/api/cardManage">
+            <i class="fa fa-asterisk"></i>
+            <span>会员卡管理</span></a>
+    </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/api/hourManage">
                 <i class="fa fa-asterisk"></i>
-                <span>会员卡管理</span></a>
+                <span>课时管理</span></a>
         </li>
     </ul>
     <div id="content-wrapper">
@@ -175,7 +180,7 @@
 </div>
 
 <div class="modal fade" id="changeModel">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
             <!-- 模态框头部 -->
@@ -207,6 +212,42 @@
             <!-- 模态框底部 -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-primary" onclick="updateStudent()"><i class="fa fa-check-square-o"></i> 提交</button>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-exclamation-circle"></i> 关闭</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="addTimeModel">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- 模态框头部 -->
+            <div class="modal-header">
+                <h4 class="modal-title">会员卡续费</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- 模态框主体 -->
+            <div class="modal-body">
+
+                <form class="">
+                    <input style="display: none" id="stuId" />
+                    <div class="form-group flex-display">
+                        <label class="col-4">续费时长：</label>
+                        <select class="form-control col-8" id="sumTime">
+                            <option value="1">一个月</option>
+                            <option value="2">一个季度</option>
+                            <option value="3">一年</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 模态框底部 -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" onclick="addMemberTime()"><i class="fa fa-check-square-o"></i> 提交</button>
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal"><i class="fa fa-exclamation-circle"></i> 关闭</button>
             </div>
 
@@ -306,11 +347,19 @@
         var id=value;
         var result="";
         result += "<a href='javascript:;' class='btn' onclick=\"ViewById('"+ id +"')\" title='会员卡转让'><i class='fa fa-arrow-right'></i></a>"
+        result += "<a href='javascript:;' class='btn' onclick=\"addTime('"+ id +"')\" title='会员卡续费'><i class='fa fa-pencil-square-o'></i></a>"
+
         return result;
     }
     function ViewById(id) {
         $('#changeModel').modal('show');
         $('#cardId').val(id+"");
+
+    }
+    function addTime(id){
+        $('#addTimeModel').modal('show');
+        $('#stuId').val(id);
+
 
     }
     function updateStudent() {

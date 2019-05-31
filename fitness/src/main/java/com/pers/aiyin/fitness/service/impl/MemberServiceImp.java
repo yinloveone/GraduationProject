@@ -150,5 +150,10 @@ public class MemberServiceImp implements MemberService {
             }
         }
     }
+    @Override
+    public List<Student> getStudentList(){
+        StudentExample example = new StudentExample();
+        return studentMapper.selectByExample(example);
+    }
 
 }

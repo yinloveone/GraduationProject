@@ -36,6 +36,11 @@ public class AdminController {
         return "cardManage";
     }
 
+    @GetMapping("/hourManage")
+    public String gethourManage(){
+        return "hourManage";
+    }
+
     @GetMapping("/index")
     public String getIndex(){
         return "index";

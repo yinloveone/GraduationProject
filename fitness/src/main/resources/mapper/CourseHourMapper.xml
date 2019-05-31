@@ -5,10 +5,8 @@
     <id column="hour_id" jdbcType="INTEGER" property="hourId" />
     <result column="hour_name" jdbcType="VARCHAR" property="hourName" />
     <result column="coach_id" jdbcType="INTEGER" property="coachId" />
-    <result column="coach_name" jdbcType="VARCHAR" property="coachName" />
     <result column="hour_count" jdbcType="INTEGER" property="hourCount" />
     <result column="stu_id" jdbcType="INTEGER" property="stuId" />
-    <result column="stu_name" jdbcType="VARCHAR" property="stuName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    hour_id, hour_name, coach_id, coach_name, hour_count, stu_id, stu_name
+    hour_id, hour_name, coach_id, hour_count, stu_id
   </sql>
   <select id="selectByExample" parameterType="com.pers.aiyin.fitness.entity.CourseHourExample" resultMap="BaseResultMap">
     select
@@ -104,11 +102,9 @@
   </delete>
   <insert id="insert" parameterType="com.pers.aiyin.fitness.entity.CourseHour">
     insert into coursehour (hour_id, hour_name, coach_id, 
-      coach_name, hour_count, stu_id, 
-      stu_name)
+      hour_count, stu_id)
     values (#{hourId,jdbcType=INTEGER}, #{hourName,jdbcType=VARCHAR}, #{coachId,jdbcType=INTEGER}, 
-      #{coachName,jdbcType=VARCHAR}, #{hourCount,jdbcType=INTEGER}, #{stuId,jdbcType=INTEGER}, 
-      #{stuName,jdbcType=VARCHAR})
+      #{hourCount,jdbcType=INTEGER}, #{stuId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.pers.aiyin.fitness.entity.CourseHour">
     insert into coursehour
@@ -122,17 +118,11 @@
       <if test="coachId != null">
         coach_id,
       </if>
-      <if test="coachName != null">
-        coach_name,
-      </if>
       <if test="hourCount != null">
         hour_count,
       </if>
       <if test="stuId != null">
         stu_id,
-      </if>
-      <if test="stuName != null">
-        stu_name,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -145,17 +135,11 @@
       <if test="coachId != null">
         #{coachId,jdbcType=INTEGER},
       </if>
-      <if test="coachName != null">
-        #{coachName,jdbcType=VARCHAR},
-      </if>
       <if test="hourCount != null">
         #{hourCount,jdbcType=INTEGER},
       </if>
       <if test="stuId != null">
         #{stuId,jdbcType=INTEGER},
-      </if>
-      <if test="stuName != null">
-        #{stuName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -177,17 +161,11 @@
       <if test="record.coachId != null">
         coach_id = #{record.coachId,jdbcType=INTEGER},
       </if>
-      <if test="record.coachName != null">
-        coach_name = #{record.coachName,jdbcType=VARCHAR},
-      </if>
       <if test="record.hourCount != null">
         hour_count = #{record.hourCount,jdbcType=INTEGER},
       </if>
       <if test="record.stuId != null">
         stu_id = #{record.stuId,jdbcType=INTEGER},
-      </if>
-      <if test="record.stuName != null">
-        stu_name = #{record.stuName,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -199,10 +177,8 @@
     set hour_id = #{record.hourId,jdbcType=INTEGER},
       hour_name = #{record.hourName,jdbcType=VARCHAR},
       coach_id = #{record.coachId,jdbcType=INTEGER},
-      coach_name = #{record.coachName,jdbcType=VARCHAR},
       hour_count = #{record.hourCount,jdbcType=INTEGER},
-      stu_id = #{record.stuId,jdbcType=INTEGER},
-      stu_name = #{record.stuName,jdbcType=VARCHAR}
+      stu_id = #{record.stuId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -216,17 +192,11 @@
       <if test="coachId != null">
         coach_id = #{coachId,jdbcType=INTEGER},
       </if>
-      <if test="coachName != null">
-        coach_name = #{coachName,jdbcType=VARCHAR},
-      </if>
       <if test="hourCount != null">
         hour_count = #{hourCount,jdbcType=INTEGER},
       </if>
       <if test="stuId != null">
         stu_id = #{stuId,jdbcType=INTEGER},
-      </if>
-      <if test="stuName != null">
-        stu_name = #{stuName,jdbcType=VARCHAR},
       </if>
     </set>
     where hour_id = #{hourId,jdbcType=INTEGER}
@@ -235,10 +205,8 @@
     update coursehour
     set hour_name = #{hourName,jdbcType=VARCHAR},
       coach_id = #{coachId,jdbcType=INTEGER},
-      coach_name = #{coachName,jdbcType=VARCHAR},
       hour_count = #{hourCount,jdbcType=INTEGER},
-      stu_id = #{stuId,jdbcType=INTEGER},
-      stu_name = #{stuName,jdbcType=VARCHAR}
+      stu_id = #{stuId,jdbcType=INTEGER}
     where hour_id = #{hourId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -11,13 +11,14 @@ import {
     Left,
     Body,
     Title,
-    Right, StyleProvider
+    Right, StyleProvider, DatePicker
 } from 'native-base';
 import HttpUtil from '../utils/HttpUtil'
 import StorageUtil from "../utils/StorageUtil";
 import {ToastAndroid} from "react-native";
 import getTheme from "../../native-base-theme/components";
 import material from "../../native-base-theme/variables/material";
+import AntDesign from "react-native-vector-icons/AntDesign";
 export default  class CourseScreen extends Component{
     constructor(props){
         super(props)
@@ -27,6 +28,27 @@ export default  class CourseScreen extends Component{
     }
     componentDidMount(){
         this.getCourseOrder()
+    }
+    setDate(newDate) {
+        /*this.setState({ chosenDate: newDate });
+        const course={
+            courseTimeStart:newDate
+        }
+        const url = 'http://47.100.239.1:8080/api/user/getCourse';
+        HttpUtil.post(url,course).then(result=>{
+            if(result.code===0){
+                this.setState({
+                    dataList: result.data
+                })
+            }else{
+                this.setState({
+                    dataList: null
+                })
+            }
+            console.log(result)
+        }).catch(error => {
+            console.log(error)
+        })*/
     }
 
     getCourseOrder(){
@@ -164,7 +186,27 @@ export default  class CourseScreen extends Component{
                         <Body>
                             <Title>我的课表</Title>
                         </Body>
-                        <Right/>
+                        <Right>
+                            <Button transparent>
+                                <AntDesign name='calendar' size={16} style={{color: 'white'}}/>
+                                <DatePicker
+                                    defaultDate={new Date()}
+                                    minimumDate={new Date(2019,1,1)}
+                                    maximumDate={new Date(2019, 12, 31)}
+                                    locale={"en"}
+                                    timeZoneOffsetInMinutes={undefined}
+                                    modalTransparent={false}
+                                    animationType={"fade"}
+                                    androidMode={"spinner"}
+                                    placeHolderText="选择时间"
+                                    textStyle={{ color: "white" }}
+                                    placeHolderTextStyle={{ color: "white" }}
+                                    onDateChange={this.setDate.bind(this)}
+                                    disabled={false}
+                                />
+                            </Button>
+
+                        </Right>
                     </Header>
                     <Content>
                         <List>
