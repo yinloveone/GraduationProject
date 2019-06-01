@@ -17,4 +17,5 @@ public class PrivateCourse {
     private Date courseTimeEnd;
     private String timeStartStr;
     private String timeEndStr;
+    private String coachPortrait;
 }

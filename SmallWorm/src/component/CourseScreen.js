@@ -23,40 +23,29 @@ export default  class CourseScreen extends Component{
     constructor(props){
         super(props)
         this.state = {
-            dataList:null
+            dataList:null,
+            chosenDate:''
         }
     }
     componentDidMount(){
         this.getCourseOrder()
     }
     setDate(newDate) {
-        /*this.setState({ chosenDate: newDate });
-        const course={
-            courseTimeStart:newDate
-        }
-        const url = 'http://47.100.239.1:8080/api/user/getCourse';
-        HttpUtil.post(url,course).then(result=>{
-            if(result.code===0){
-                this.setState({
-                    dataList: result.data
-                })
-            }else{
-                this.setState({
-                    dataList: null
-                })
-            }
-            console.log(result)
-        }).catch(error => {
-            console.log(error)
-        })*/
+        this.setState({ chosenDate: newDate });
+        this. getCourseOrder();
+    
     }
 
     getCourseOrder(){
 
         StorageUtil.get('stuId', (error, object) => {
             if (!error && object && object.stuId) {
-                const url = 'http://47.100.239.1:8080/api/courseRecord/getRecordById/'+object.stuId;
-                HttpUtil.get(url).then(result=>{
+                const url = 'http://47.100.239.1:8080/api/courseRecord/getRecordById';
+                const data={
+                    stuId:object.stuId,
+                    dateRange:this.state.chosenDate
+                }
+                HttpUtil.post(url,data).then(result=>{
                     if(result.code === 0){
                         this.setState({
                             dataList:result.data

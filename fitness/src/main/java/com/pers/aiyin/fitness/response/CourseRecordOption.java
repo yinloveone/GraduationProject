@@ -1,11 +1,14 @@
 package com.pers.aiyin.fitness.response;
 
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Date;
+
 
 @Data
-public class Portrait {
+public class CourseRecordOption {
     private Integer stuId;
     private Integer coachId;
-    private MultipartFile file;
+    private Date dateRange;
+    private Date dateRangeEnd;
 }

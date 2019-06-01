@@ -5,16 +5,17 @@ import com.pers.aiyin.fitness.mapper.CourseHourMapper;
 import com.pers.aiyin.fitness.mapper.CourseMapper;
 import com.pers.aiyin.fitness.mapper.CourseRecordMapper;
 import com.pers.aiyin.fitness.mapper.CustomCourseRecordMapper;
-import com.pers.aiyin.fitness.response.CourseRecordList;
-import com.pers.aiyin.fitness.response.CustomCourse;
-import com.pers.aiyin.fitness.response.CustomCourseR;
-import com.pers.aiyin.fitness.response.CustomCourseRecord;
+import com.pers.aiyin.fitness.response.*;
 import com.pers.aiyin.fitness.service.CourseRecordService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -35,12 +36,21 @@ public class CourseRecordServiceImpl implements CourseRecordService {
 
 
     @Override
-    public List<CourseRecordList> getRecordByStuId(Integer stuId){
-        return customCourseRecordMapper.getRecordByStuId(stuId);
+    public List<CourseRecordList> getRecordByStuId(CourseRecordOption course){
+        return customCourseRecordMapper.getRecordByStuId(course);
     }
     @Override
-    public List<CourseRecordList> getRecordByCoachId(Integer coachId){
-        return customCourseRecordMapper.getRecordByCoachId(coachId);
+    public List<CourseRecordList> getRecordByCoachId(CourseRecordOption courseRecordOption){
+        if(null!=courseRecordOption.getDateRange()) {
+            LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(courseRecordOption.getDateRange().getTime()), ZoneId.systemDefault());
+            LocalDateTime endOfDay = localDateTime.with(LocalTime.MAX);
+            LocalDateTime startOfDay = localDateTime.with(LocalTime.MIN);
+            Date beginDate = Date.from(startOfDay.atZone(ZoneId.systemDefault()).toInstant());
+            Date endDate = Date.from(endOfDay.atZone(ZoneId.systemDefault()).toInstant());
+            courseRecordOption.setDateRange(beginDate);
+            courseRecordOption.setDateRangeEnd(endDate);
+        }
+        return customCourseRecordMapper.getRecordByCoachId(courseRecordOption);
     }
     @Override
     public Result orderCourse(CourseRecord courseRecord){

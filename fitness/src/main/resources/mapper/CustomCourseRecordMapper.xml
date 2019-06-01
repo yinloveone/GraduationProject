@@ -36,6 +36,8 @@
             <result column="content" jdbcType="VARCHAR" property="content" />
             <result column="score" jdbcType="INTEGER" property="score"/>
             <result column="avg_score" jdbcType="DOUBLE" property="avgScore"/>
+            <result column="course_time_start" jdbcType="TIMESTAMP" property="courseTimeStart" />
+            <result column="course_time_end" jdbcType="TIMESTAMP" property="courseTimeEnd" />
     </resultMap>
 
     <resultMap id="BaseResultMap2" type="com.pers.aiyin.fitness.response.CustomCourse">
@@ -54,7 +56,7 @@
         <result column="is_delete" jdbcType="TINYINT" property="isDelete" />
     </resultMap>
 
-    <select id="getRecordByStuId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="getRecordByStuId" parameterType="com.pers.aiyin.fitness.response.CourseRecordOption" resultMap="BaseResultMap">
         select c.course_id,course_record_id,course_name,course_time_start,course_time_end,c.room_id,cr.room_name,stu_id,c.coach_id,score,
         comment_time,
             coach_name,DATE_FORMAT(course_time_start,'%Y-%m') as year_mouth,
@@ -65,11 +67,17 @@
              left join classroom cr on cr.room_id=c.room_id
         left join coach on c.coach_id=coach.coach_id
             where  courserecord.stu_id= #{stuId}
-            group by year_mouth,c.course_id,course_name,course_time_start,course_time_end,c.room_id,room_name,c.coach_id,coach_name,
+        <if test="dateRange != null and dateRange != ''">
+            AND course_time_start <![CDATA[>=]]> #{dateRange}
+        </if>
+        <if test="dateRangeEnd != null and dateRangeEnd != ''">
+            AND course_time_start <![CDATA[<=]]>#{dateRangeEnd}
+        </if>
+        group by year_mouth,c.course_id,course_name,course_time_start,course_time_end,c.room_id,room_name,c.coach_id,coach_name,
         course_type,course_capacity,course_surplus,course_record_id,score,comment_time
         order by course_time_start DESC
     </select>
-    <select id="getRecordByCoachId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="getRecordByCoachId" parameterType="com.pers.aiyin.fitness.response.CourseRecordOption" resultMap="BaseResultMap">
         select c.course_id,course_name,
         course_time_start,course_time_end,c.room_id,cr.room_name,c.coach_id,coach.coach_name,
         DATE_FORMAT(course_time_start,'%Y-%m') as year_mouth,
@@ -80,15 +88,22 @@
         left join classroom cr on cr.room_id=c.room_id
         left join coach on c.coach_id=coach.coach_id
         where c.coach_id= #{coachId}
+        <if test="dateRange != null and dateRange != ''">
+            AND course_time_start <![CDATA[>=]]> #{dateRange}
+        </if>
+        <if test="dateRangeEnd != null and dateRangeEnd != ''">
+            AND course_time_start <![CDATA[<=]]>#{dateRangeEnd}
+        </if>
         group by year_mouth,c.course_id,course_name,
         course_time_start,course_time_end,c.room_id,cr.room_name,c.coach_id,coach.coach_name
         order by course_time_start DESC
     </select>
     <select id="getSelectStudent" parameterType="java.lang.Integer" resultMap="BaseResultMap1">
-        select sr.stu_id,s.stu_name,course_id,course_record_id,sign_in
+        select sr.stu_id,s.stu_name,sr.course_id,course_record_id,sign_in,course_time_start,course_time_end
         from courserecord sr
         left join student s on sr.stu_id=s.stu_id
-         where course_id=#{courseId}
+        left join course c on c.course_id=sr.course_id
+         where sr.course_id=#{courseId}
 
     </select>
     <select id="getCourseList" parameterType="com.pers.aiyin.fitness.response.CustomCourse" resultMap="BaseResultMap2">
@@ -111,9 +126,9 @@
         </if>
     </select>
     <select id="getContentByCoach" parameterType="com.pers.aiyin.fitness.response.CustomCourse" resultMap="BaseResultMap1">
-        select course_name,avg(score) as avg_score from course c
+        select course_name, avg(score) as avg_score from course c
         left join courserecord cr on c.course_id=cr.course_id
-        where c.coach_id=#{coachId}
+        where c.coach_id=#{coachId} and cr.course_id is not null
         <if test="courseTimeStart != null">
         AND c.course_time_end <![CDATA[<]]> #{courseTimeStart}
         </if>

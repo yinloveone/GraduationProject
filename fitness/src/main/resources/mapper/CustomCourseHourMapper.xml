@@ -9,9 +9,10 @@
         <result column="stu_id" jdbcType="INTEGER" property="stuId"/>
         <result column="stu_name" jdbcType="VARCHAR" property="stuName"/>
         <result column="hour_count" jdbcType="INTEGER" property="hourCount"/>
+        <result column="coach_portrait" jdbcType="VARCHAR" property="coachPortrait" />
     </resultMap>
     <select id="getHourById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select hour_id,hour_name,ch.coach_id,coach_name,ch.stu_id,stu_name,hour_count
+        select hour_id,hour_name,ch.coach_id,coach_name,ch.stu_id,stu_name,hour_count,coach_portrait
         from coursehour ch left join student s on s.stu_id=ch.stu_id
         left join  coach c on c.coach_id=ch.coach_id
         where ch.stu_id=#{stuId}

@@ -5,8 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.pers.aiyin.fitness.entity.Coach;
 import com.pers.aiyin.fitness.response.CustomCoach;
-import com.pers.aiyin.fitness.response.Portrait;
-import com.pers.aiyin.fitness.response.PrivateCourse;
 import com.pers.aiyin.fitness.service.CoachService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;

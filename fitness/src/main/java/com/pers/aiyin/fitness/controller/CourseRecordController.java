@@ -1,8 +1,10 @@
 package com.pers.aiyin.fitness.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pers.aiyin.fitness.entity.Course;
 import com.pers.aiyin.fitness.entity.CourseRecord;
 import com.pers.aiyin.fitness.response.CourseRecordList;
+import com.pers.aiyin.fitness.response.CourseRecordOption;
 import com.pers.aiyin.fitness.response.CustomCourseRecord;
 import com.pers.aiyin.fitness.service.CourseRecordService;
 import com.pers.aiyin.fitness.utils.Result;
@@ -11,6 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 /*
@@ -27,26 +34,47 @@ public class CourseRecordController {
     /*
     * *根据学生id获得课程表
      */
-    @GetMapping("/courseRecord/getRecordById/{stuId}")
-    public Result getRecordById(@PathVariable("stuId") Integer stuId){
-        List<CourseRecordList> courseRecordList = courseRecordService.getRecordByStuId(stuId);
-        if(null!=courseRecordList&&courseRecordList.size()>0){
-            return Result.success(courseRecordList);
+    @PostMapping("/courseRecord/getRecordById")
+    public Result getRecordById(HttpServletRequest request) throws
+            IOException {
+        CourseRecordOption course=new ObjectMapper().readValue(request.getInputStream(), CourseRecordOption.class);
+        if(null!=course.getStuId()) {
+            if(null!=course.getDateRange()) {
+                LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(course.getDateRange().getTime()), ZoneId.systemDefault());
+                LocalDateTime endOfDay = localDateTime.with(LocalTime.MAX);
+                LocalDateTime startOfDay = localDateTime.with(LocalTime.MIN);
+                Date beginDate = Date.from(startOfDay.atZone(ZoneId.systemDefault()).toInstant());
+                Date endDate = Date.from(endOfDay.atZone(ZoneId.systemDefault()).toInstant());
+                course.setDateRange(beginDate);
+                course.setDateRangeEnd(endDate);
+            }
+            List<CourseRecordList> courseRecordList = courseRecordService.getRecordByStuId(course);
+            if (null != courseRecordList && courseRecordList.size() > 0) {
+                return Result.success(courseRecordList);
+            } else {
+                return new Result(1, "没有课表记录");
+            }
         }else{
-            return new Result(1,"没有课表记录");
+            return new Result(1, "stuId为空");
         }
 
     }
     /*
      * *根据教练id获得课程表
      */
-    @GetMapping("/courseRecord/getRecordByCoachId/{coachId}")
-    public Result getRecordByCoachId(@PathVariable("coachId") Integer coachId){
-        List<CourseRecordList> courseRecordList = courseRecordService.getRecordByCoachId(coachId);
-        if(null!=courseRecordList&&courseRecordList.size()>0){
-            return Result.success(courseRecordList);
+    @PostMapping("/courseRecord/getRecordByCoachId")
+    public Result getRecordByCoachId(HttpServletRequest request) throws
+            IOException {
+        CourseRecordOption courseRecordOption=new ObjectMapper().readValue(request.getInputStream(), CourseRecordOption.class);
+        if(null!=courseRecordOption.getCoachId()) {
+            List<CourseRecordList> courseRecordList = courseRecordService.getRecordByCoachId(courseRecordOption);
+            if (null != courseRecordList && courseRecordList.size() > 0) {
+                return Result.success(courseRecordList);
+            } else {
+                return new Result(1, "没有课表记录");
+            }
         }else{
-            return new Result(1,"没有课表记录");
+            return new Result(1, "coachId为空");
         }
     }
 

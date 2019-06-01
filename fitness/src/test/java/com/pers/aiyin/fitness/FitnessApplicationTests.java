@@ -13,12 +13,5 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class FitnessApplicationTests {
-    @Autowired
-    private CourseRecordService courseRecordService;
-
-    @Test
-    public void contextLoads() {
-        List<CourseRecordList> courseRecordList = courseRecordService.getRecordByStuId(1);
-    }
 
 }

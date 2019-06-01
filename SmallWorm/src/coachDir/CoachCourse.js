@@ -19,6 +19,7 @@ export default class CoachCourse extends Component{
         super(props);
         this.state={
             courseList:'',
+            chosenDate:null,
         }
     }
     componentDidMount(): void {
@@ -30,8 +31,12 @@ export default class CoachCourse extends Component{
     getCoachCourse=()=>{
         StorageUtil.get('coachId', (error, object) => {
             if (!error && object && object.coachId) {
-                const url="http://47.100.239.1:8080/api/courseRecord/getRecordByCoachId/"+object.coachId
-                HttpUtil.get(url).then(result=>{
+                const url="http://47.100.239.1:8080/api/courseRecord/getRecordByCoachId"
+                const data={
+                    coachId:object.coachId,
+                    dateRange:this.state.chosenDate
+                }
+                HttpUtil.post(url,data).then(result=>{
                     if(result.code===0){
                         ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                         this.setState({
@@ -45,25 +50,9 @@ export default class CoachCourse extends Component{
             }})
     }
     setDate(newDate) {
-        /*this.setState({ chosenDate: newDate });
-        const course={
-            courseTimeStart:newDate
-        }
-        const url = 'http://47.100.239.1:8080/api/user/getCourse';
-        HttpUtil.post(url,course).then(result=>{
-            if(result.code===0){
-                this.setState({
-                    dataList: result.data
-                })
-            }else{
-                this.setState({
-                    dataList: null
-                })
-            }
-            console.log(result)
-        }).catch(error => {
-            console.log(error)
-        })*/
+        this.setState({ chosenDate: newDate });
+        this.getCoachCourse();
+    
     }
     renderItems() {
         const dataList = this.state.courseList;
@@ -155,6 +144,7 @@ export default class CoachCourse extends Component{
                                     onDateChange={this.setDate.bind(this)}
                                     disabled={false}
                                 />
+                    
                             </Button>
 
                         </Right>

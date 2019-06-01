@@ -1,18 +1,14 @@
 package com.pers.aiyin.fitness.mapper;
 
-import com.pers.aiyin.fitness.response.CourseRecordList;
-import com.pers.aiyin.fitness.response.CustomCourse;
-import com.pers.aiyin.fitness.response.CustomCourseR;
-import com.pers.aiyin.fitness.response.CustomCourseRecord;
+import com.pers.aiyin.fitness.response.*;
 
 import java.util.List;
 
 public interface CustomCourseRecordMapper {
-    List<CourseRecordList> getRecordByStuId(Integer stuId);
-    List<CourseRecordList> getRecordByCoachId(Integer coachId);
+    List<CourseRecordList> getRecordByStuId(CourseRecordOption course);
+    List<CourseRecordList> getRecordByCoachId(CourseRecordOption course);
     List<CustomCourseR> getSelectStudent(Integer courseId);
     List<CustomCourse> getCourseList(CustomCourse customCourse);
     List<CustomCourseR> getContentByCoach(CustomCourse customCourse);
     List<CustomCourseR> getDetailContent(CustomCourse customCourse);
-
 }

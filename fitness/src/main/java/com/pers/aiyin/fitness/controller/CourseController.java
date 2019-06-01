@@ -41,14 +41,22 @@ public class CourseController {
 
     @PostMapping("/course/addCourse")
     public Result addCourse(Course course){
-        return courseService.addCourse(course);
+        if(null!=course.getCourseTimeStart()&&null!=course.getCourseTimeEnd()) {
+            return courseService.addCourse(course);
+        }else{
+            return new Result(1,"上课时间不能为空");
+        }
     }
 
     @PostMapping("/course/addPrivateCourse")
     public Result addPrivateCourse(HttpServletRequest request) throws
             IOException {
         Course course=new ObjectMapper().readValue(request.getInputStream(),Course.class);
-        return courseService.addCourse(course);
+        if(null!=course.getCourseTimeStart()&&null!=course.getCourseTimeEnd()) {
+            return courseService.addCourse(course);
+        }else{
+            return new Result(1,"上课时间不能为空");
+        }
     }
 
     @GetMapping("/course/getCourse/{courseId}")

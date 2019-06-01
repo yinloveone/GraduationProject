@@ -81,7 +81,7 @@ export default class StudentActivity extends Component{
                                 renderRow={data =>
                                     <ListItem>
                                             <Left>
-                                                <Thumbnail square source={avatar}/>
+                                                <Thumbnail square source={{uri: 'http://47.100.239.1:8080'+data.studentPortrait}}/>
                                             </Left>
 
                                         <Body>

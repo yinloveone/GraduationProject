@@ -17,4 +17,6 @@ public class CustomCourseHour {
     private String coachName;
 
     private String stuName;
+
+    private String coachPortrait;
 }

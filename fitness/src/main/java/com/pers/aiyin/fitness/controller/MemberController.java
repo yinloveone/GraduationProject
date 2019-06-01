@@ -5,7 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.pers.aiyin.fitness.entity.Student;
 import com.pers.aiyin.fitness.response.CustomStudent;
-import com.pers.aiyin.fitness.response.Portrait;
 import com.pers.aiyin.fitness.service.MemberService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;
