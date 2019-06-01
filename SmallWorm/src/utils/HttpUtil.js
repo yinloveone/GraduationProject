@@ -38,24 +38,52 @@ export default class HttpUtil{
             for (let key in params){
                 formData.append(key, params[key]);
             }
-            let file = {uri: params.path, type: 'application/octet-stream', name: 'image.jpg'};
+            let file = {uri: params.file, type: 'application/octet-stream', name: 'image.jpg'};
             formData.append("file", file);
             fetch(common_url + url, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'multipart/form-data;charset=utf-8',
-                    "x-access-token": token,
-                },//欢迎加入前端全栈开发交流圈一起学习交流：864305860
+                    'Accept':"application/json",
+                    'Content-Type':"application/json"
+                },
                 body: formData,
             }).then((response) => response.json())
-                .then((responseData)=> {
-                   console.log('uploadImage', responseData);
-                    resolve(responseData);
+                .then((result)=> {
+                   console.log('uploadImage', result);
+                    resolve(result);
                 })
-                .catch((err)=> {
-                    console.log('err', err);
-                    reject(err);
+                .catch((error)=> {
+                    console.log('err', error);
+                    reject(error);
                 });
+        });
+    }
+
+    static  uploadFile(url, fileUrl,fileName) {
+        //这里要注意，把当前this，存储下来。
+       // let thisObj = this;
+        //可以忽略，就是过度效果。
+     //   thisObj.setState({ spinner: true });
+        let formData = new FormData();
+        formData.append('file', {
+            uri: fileUrl,
+            name: fileName,
+            type: 'image/jpeg'
+        });
+
+        const fetchOptions = {
+            method: 'POST',
+            body: formData
+        };
+
+        fetch(url,fetchOptions).
+        then(function(response) {
+            return response.json();
+        }).then(function(data) {
+            let url = 'http://47.100.239.1:8080'+data.data;
+            console.log(url)
+        }).catch(function(e) {
+            console.info(e);
         });
     }
 }

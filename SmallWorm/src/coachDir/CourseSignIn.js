@@ -96,7 +96,7 @@ export  default class CourseSignIn extends Component{
                                     </Left>
                                     <Right>
                                         {
-                                            data.signIn===1 ?(
+                                            data.courseTimeStart>new Date().getTime()&&data.courseTimeEnd>new Date().getTime()&&data.signIn===1 ?(
                                                 <Button onPress={this.studentIn.bind(this, data.courseRecordId)}>
                                                     <Text>
                                                         签到
@@ -131,7 +131,7 @@ export  default class CourseSignIn extends Component{
                         </Body>
                     </Header>
                     <Content>
-                    <Text>Loading</Text>
+                    <Text>没有学员选呢。。</Text>
                     </Content>
                 </Container>
                 </StyleProvider>

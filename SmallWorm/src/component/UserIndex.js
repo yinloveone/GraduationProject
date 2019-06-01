@@ -28,6 +28,7 @@ export default class UserIndex extends Component{
         super(props);
         this.state = {
             userInfo:null,
+            avatarSource:'../../img/6.png'
         }
     }
     componentDidMount(){
@@ -45,7 +46,9 @@ export default class UserIndex extends Component{
                 HttpUtil.get(url).then(result=>{
                     if(result.code===0){
                       //  ToastAndroid.show(result.msg,ToastAndroid.SHORT);
-                        this.setState({userInfo:result.data})
+                        this.setState({userInfo:result.data,
+                            avatarSource:'http://47.100.239.1:8080'+result.data.studentPortrait
+                        })
                         //console.log(result.data)
                     }else{
                         ToastAndroid.show(result.msg,ToastAndroid.SHORT);
@@ -80,7 +83,7 @@ export default class UserIndex extends Component{
                             });
                         }}>
                             <View style={styles.meInfoContainer}>
-                                <Image style={styles.meInfoAvatar} source={avatar}/>
+                                <Image style={styles.meInfoAvatar} source={{uri: this.state.avatarSource}}/>
                                 <View style={styles.meInfoContainer}>
                                     <Text style={styles.meInfoNickName}>{this.state.userInfo.stuName}</Text>
                                 </View>

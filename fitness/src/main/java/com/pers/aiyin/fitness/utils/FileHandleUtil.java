@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 
 public class FileHandleUtil  {
@@ -33,9 +34,8 @@ public class FileHandleUtil  {
     public static String upload(InputStream inputStream, String path, String filename) {
         //第一次会创建文件夹
         createDirIfNotExists();
-
-        String resultPath = fileDir + path + filename;
-
+        String newFileName = UUID.randomUUID().toString().substring(0,5)+ filename.substring(filename.lastIndexOf("."));
+        String resultPath = fileDir + path + newFileName;
         //存文件
         File uploadFile = new File(absolutePath, staticDir + resultPath);
         try {

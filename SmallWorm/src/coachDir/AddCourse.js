@@ -39,36 +39,41 @@ export default class AddCourse extends Component{
         });
     }
     submitCourse = () =>{
-        let theTime=new Date(this.state.courseTimeStart).getTime();
-        let endTime = theTime + (this.state.courseTimeCount*45*60*1000)
-        let end=new Date(endTime);
-        StorageUtil.get('coachId', (error, object) => {
-            if (!error && object && object.coachId) {
-               const course={
-                    courseName:this.state.courseName,
-                    roomId:this.state.roomName,
-                    courseTimeStart:theTime,
-                    courseTimeEnd:end,
-                    coachId:object.coachId,
-                    courseCapacity:1,
-                    courseSurplus:1,
-                    courseType:2
-                }
-                const url="http://47.100.239.1:8080/api/course/addPrivateCourse"
-                HttpUtil.post(url,course).then(result=>{
-                    if(result.code===0){
-                        ToastAndroid.show(result.msg,ToastAndroid.SHORT);
-                        this.props.navigation.goBack()
-                        this.props.navigation.state.params.refresh();
-                    }else{
-                        ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+        if(!this.state.courseTimeStart){
+            ToastAndroid.show('请选择上课时间', ToastAndroid.SHORT);
+        }else {
+            StorageUtil.get('coachId', (error, object) => {
+                if (!error && object && object.coachId) {
+                    let theTime = new Date(this.state.courseTimeStart).getTime();
+                    let endTime = theTime + (this.state.courseTimeCount * 45 * 60 * 1000)
+                    let end = new Date(endTime);
+                    const course = {
+                        courseName: this.state.courseName,
+                        roomId: this.state.roomName,
+                        courseTimeStart: theTime,
+                        courseTimeEnd: end,
+                        coachId: object.coachId,
+                        courseCapacity: 1,
+                        courseSurplus: 1,
+                        courseType: 2
                     }
-                    console.log(result.msg)
+                    const url = "http://47.100.239.1:8080/api/course/addPrivateCourse"
+                    HttpUtil.post(url, course).then(result => {
+                        if (result.code === 0) {
+                            ToastAndroid.show(result.msg, ToastAndroid.SHORT);
+                            this.props.navigation.goBack()
+                            this.props.navigation.state.params.refresh();
+                        } else {
+                            ToastAndroid.show(result.msg, ToastAndroid.SHORT);
+                        }
+                        console.log(result.msg)
 
-                }).catch(error => {
-                    console.log(error)
-                })
-            }})
+                    }).catch(error => {
+                        console.log(error)
+                    })
+                }
+            })
+        }
     }
     render(){
         return(
@@ -173,9 +178,9 @@ export default class AddCourse extends Component{
                                     />
                             </Col>
                         </Row>
-                        <Row style={{width:'100%'}}>
+                    {/*    <Row style={{width:'100%'}}>
                             <Text style={{ color: 'red', fontSize: 12 }}>{this.state.courseTimeStart}</Text>
-                        </Row>
+                        </Row>*/}
                         <Row style={styles.touchableOp}>
                             <Col style={styles.touchablePre}>
                                 <Label>课程时长:</Label>

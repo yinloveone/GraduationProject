@@ -12,6 +12,7 @@ import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -119,12 +120,11 @@ public class CoachController {
     }
 
     @PostMapping("/coach/uploadPortrait")
-    public Result uploadPortrait(HttpServletRequest request) throws
-            IOException {
-        Portrait portrait =new ObjectMapper().readValue(
-                request.getInputStream(), Portrait.class);
-        if(null!=portrait){
-            return coachService.uploadPortrait(portrait.getCoachId(),portrait.getFile());
+    public Result uploadPortrait(Integer coachId, MultipartFile file) {
+       /* Portrait portrait =new ObjectMapper().readValue(
+                request.getInputStream(), Portrait.class);*/
+        if(null!=file&&null!=coachId){
+            return coachService.uploadPortrait(coachId,file);
 
         }
         return Result.failure(ResponseCode.FAIL);

@@ -1,10 +1,51 @@
 import React,{ Component } from 'react'
 import {Body, Button, Container, Content, Header, Icon, Left, Right, StyleProvider, Text, Title} from "native-base";
 import MyCharts from 'native-echarts';
-import AntDesign from "react-native-vector-icons/AntDesign";
 import getTheme from "../../native-base-theme/components";
 import material from "../../native-base-theme/variables/material";
+import StorageUtil from "../utils/StorageUtil";
+import HttpUtil from "../utils/HttpUtil";
+import {ToastAndroid} from "react-native";
 export default class StudentReply extends Component{
+    constructor(props){
+        super(props)
+        this.state={
+            avgScores:null,
+            courseList:null
+
+        }
+    }
+    componentDidMount(): void {
+        this.getContent();
+    }
+
+    getContent = ()=> {
+
+        StorageUtil.get('coachId', (error, object) => {
+            if (!error && object && object.coachId) {
+                const url = 'http://47.100.239.1:8080/api/courseRecord/getContent/'+object.coachId;
+                //object.stuId;
+                HttpUtil.get(url).then(result=>{
+                    if(result.code===0){
+                        let a=[],b=[];
+                        for(var i=0;i<result.data.length;i++){
+                            a.push(result.data[i].courseName);
+                            b.push(result.data[i].avgScore)
+                        }
+                        this.setState({weightData:result.data,
+                            courseList:a,
+                            avgScores:b
+                        });
+
+                    }else{
+                        ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+                    }
+
+                }) .catch(error => {
+                    console.log(error);
+                })
+            }})
+    }
     render(){
         const option = {
             title : {
@@ -28,7 +69,7 @@ export default class StudentReply extends Component{
             xAxis : [
                 {
                     type : 'category',
-                    data : ['体操课','瑜伽课','形体芭蕾','肚皮舞']
+                    data : this.state.courseList
                 }
             ],
             yAxis : [
@@ -52,7 +93,7 @@ export default class StudentReply extends Component{
                 {
                     name:'平均分',
                     type:'bar',
-                    data:[2.0, 4.9, 4.2, 3.3],
+                    data:this.state.avgScores,
                     markPoint : {
                         data : [
                             {type : 'max', name: '最大值'},

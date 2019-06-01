@@ -30,9 +30,11 @@ export default class UserInfo extends Component{
         this.state = {
             userInfo:null,
             avatarSource:"../../img/6.png",
-            spinner:true
+            spinner:true,
+            imageUrl:''
 
         }
+        this.addOnClicked=this.addOnClicked.bind(this)
     }
     componentDidMount(){
         this.getUserInfo();
@@ -49,7 +51,8 @@ export default class UserInfo extends Component{
                 HttpUtil.get(url).then(result=>{
                     if(result.code===0){
                       //  ToastAndroid.show(result.msg,ToastAndroid.SHORT);
-                        this.setState({userInfo:result.data,
+                        this.setState({
+                            userInfo:result.data,
                             avatarSource:'http://47.100.239.1:8080'+result.data.studentPortrait
                         })
                     }else{
@@ -68,22 +71,55 @@ export default class UserInfo extends Component{
                 this.getUserInfo();
             }})
     }
+
     addOnClicked(){
-        HttpUtil.uploadImage("/memeber/uploadPortrait").then( res=>{
-            //请求成功
-            if(res.header.code===1){
-              //  upLoadImgUrl = res.body.imgurl; //服务器返回的地址
-                this.setState({
-                    avatarSource:'http://47.100.239.1:8080'+result.data.url
-                })
-            }else{
-                //服务器返回异常，设定服务器返回的异常信息保存在 header.msgArray[0].desc
-                console.log(res.header.msgArray[0].desc);
-            }
-        }).catch( err=>{
-            //请求失败
+        ImagePicker.openPicker({
+            width: 300,
+            height: 300,
+            cropping: true
+        }).then(image => {
+
+           StorageUtil.get('stuId', (error, object) => {
+
+                 if (!error && object && object.stuId) {
+                     let formData = new FormData();
+                     formData.append('file', {
+                         uri: image['path'],
+                         name: image['path'],
+                         type: 'image/jpeg'
+                     });
+                     formData.append('stuId',object.stuId);
+                     const fetchOptions = {
+                         method: 'POST',
+                         body: formData
+                     };
+                     const url='http://47.100.239.1:8080/api/member/uploadPortrait'
+
+                     fetch(url,fetchOptions).
+                     then(function(response) {
+                         return response.json();
+                     }).then(function(data) {
+                         if(data.code===0) {
+                             this.setState({
+                                 avatarSource:'http://47.100.239.1:8080'+data.data
+                             })
+                             let url = 'http://47.100.239.1:8080' + data.data;
+                             console.log(url)
+                         }else{
+                             console.log(data.code)
+                         }
+
+                     }).catch(function(e) {
+                         console.info(e);
+                     });
+                }})
+        }).catch(err=>{
+            console.log(err)
         })
+
     }
+
+
 
     render(){
         if(!this.state.userInfo){

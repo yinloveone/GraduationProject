@@ -20,6 +20,7 @@ import getTheme from "../../native-base-theme/components";
 import material from "../../native-base-theme/variables/material";
 import {StyleProvider} from "native-base";
 const DeviceWidth = Dimensions.get('window').width;
+import HttpUtil from "../utils/HttpUtil";
 
 
 export default class CoachIndex extends Component{
@@ -27,28 +28,33 @@ export default class CoachIndex extends Component{
         super(props);
         this.state = {
             userName:null,
+            avatarSource:'',
         }
     }
     componentDidMount(){
-        StorageUtil.get('userName', (error, object) => {
+      /*  StorageUtil.get('userName', (error, object) => {
             if (!error && object && object.userName) {
                 this.setState({
                     userName:object.userName
                 })
             }
-        })
+        })*/
+      this.getUserInfo();
     }
 
-   /* getUserInfo = () =>{
+    getUserInfo = () =>{
 
-        StorageUtil.get('stuId', (error, object) => {
-            if (!error && object && object.stuId) {
-                const url = 'http://47.100.239.1:8080/api/member/getStudent/'+object.stuId;
+      StorageUtil.get('coachId', (error, object) => {
+            if (!error && object && object.coachId) {
+                const url = 'http://47.100.239.1:8080/api/coach/getCoach/'+object.coachId;
                 //object.stuId;
                 HttpUtil.get(url).then(result=>{
                     if(result.code===0){
                         ToastAndroid.show(result.msg,ToastAndroid.SHORT);
-                        this.setState({userInfo:result.data})
+                        this.setState({
+                            userName:result.data.coachName,
+                            avatarSource:'http://47.100.239.1:8080'+result.data.coachPortrait
+                        })
                         //console.log(result.data)
                     }else{
                         ToastAndroid.show(result.msg,ToastAndroid.SHORT);
@@ -58,7 +64,7 @@ export default class CoachIndex extends Component{
                     console.log(error);
                 })
             }})
-    }*/
+    }
 
     render(){
         let avatar = require('../../img/6.png');
@@ -78,7 +84,7 @@ export default class CoachIndex extends Component{
                             this.turnOnPage('CoachInfo')
                         }}>
                             <View style={styles.meInfoContainer}>
-                                <Image style={styles.meInfoAvatar} source={avatar}/>
+                                <Image style={styles.meInfoAvatar} source={{uri: this.state.avatarSource}}/>
                                 <View style={styles.meInfoContainer}>
                                     <Text style={styles.meInfoNickName}>{this.state.userName}</Text>
                                 </View>

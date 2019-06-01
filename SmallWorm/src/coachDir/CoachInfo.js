@@ -20,12 +20,15 @@ import StorageUtil from "../utils/StorageUtil";
 import {Grid, Row,Col} from "react-native-easy-grid";
 import getTheme from "../../native-base-theme/components";
 import material from "../../native-base-theme/variables/material";
+import ImagePicker from "../component/UserInfo";
 export default class CoachInfo extends Component{
     constructor(props){
         super(props)
         this.state={
             userInfo:'',
+            avatarSource:"../../img/6.png",
         }
+        this.addOnClicked=this.addOnClicked.bind(this)
     }
     componentDidMount(): void {
         this.getUserInfo();
@@ -47,7 +50,9 @@ export default class CoachInfo extends Component{
                 HttpUtil.get(url).then(result=>{
                     if(result.code===0){
                         ToastAndroid.show(result.msg,ToastAndroid.SHORT);
-                        this.setState({userInfo:result.data})
+                        this.setState({userInfo:result.data,
+                            avatarSource:'http://47.100.239.1:8080'+result.data.coachPortrait
+                        })
                         //console.log(result.data)
                     }else{
                         ToastAndroid.show(result.msg,ToastAndroid.SHORT);
@@ -57,6 +62,52 @@ export default class CoachInfo extends Component{
                     console.log(error);
                 })
             }})
+    }
+    addOnClicked(){
+        ImagePicker.openPicker({
+            width: 300,
+            height: 300,
+            cropping: true
+        }).then(image => {
+
+            StorageUtil.get('coachId', (error, object) => {
+
+                if (!error && object && object.coachId) {
+                    let formData = new FormData();
+                    formData.append('file', {
+                        uri: image['path'],
+                        name: image['path'],
+                        type: 'image/jpeg'
+                    });
+                    formData.append('coachId',object.coachId);
+                    const fetchOptions = {
+                        method: 'POST',
+                        body: formData
+                    };
+                    const url='http://47.100.239.1:8080/api/coach/uploadPortrait'
+
+                    fetch(url,fetchOptions).
+                    then(function(response) {
+                        return response.json();
+                    }).then(function(data) {
+                        if(data.code===0) {
+                            this.setState({
+                                avatarSource:'http://47.100.239.1:8080'+data.data
+                            })
+                            let url = 'http://47.100.239.1:8080' + data.data;
+                            console.log(url)
+                        }else{
+                            console.log(data.code)
+                        }
+
+                    }).catch(function(e) {
+                        console.info(e);
+                    });
+                }})
+        }).catch(err=>{
+            console.log(err)
+        })
+
     }
 
 render(){
@@ -98,12 +149,12 @@ render(){
                     <Content>
 
                         <List>
-                            <ListItem>
+                            <ListItem onPress={this.addOnClicked}>
                                 <Left>
                                     <Text>头像</Text>
                                 </Left>
                                 <Right>
-                                    <Thumbnail small source={sankhadeep}/>
+                                    <Thumbnail small source={{uri:this.state.avatarSource}}/>
                                 </Right>
                             </ListItem>
                             <ListItem>

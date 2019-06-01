@@ -94,12 +94,11 @@ public class MemberController {
     * 学员上传自己的头像
     * */
     @PostMapping("member/uploadPortrait")
-    public Result uploadPortrait(HttpServletRequest request) throws
-            IOException {
-        Portrait portrait =new ObjectMapper().readValue(
-                request.getInputStream(), Portrait.class);
-        if(null!=portrait){
-            return memberService.uploadPortrait(portrait.getStuId(),portrait.getFile());
+    public Result uploadPortrait(Integer stuId, MultipartFile file ){
+      /*  Portrait portrait =new ObjectMapper().readValue(
+                request.getInputStream(), Portrait.class);*/
+        if(null!=stuId&&null!=file){
+            return memberService.uploadPortrait(stuId,file);
 
         }
 
