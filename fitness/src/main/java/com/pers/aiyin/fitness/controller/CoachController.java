@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.pers.aiyin.fitness.entity.Coach;
 import com.pers.aiyin.fitness.response.CustomCoach;
+import com.pers.aiyin.fitness.response.Portrait;
 import com.pers.aiyin.fitness.response.PrivateCourse;
 import com.pers.aiyin.fitness.service.CoachService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
@@ -55,6 +56,7 @@ public class CoachController {
             customCoach.setCoachId(coach.getCoachId());
             customCoach.setBirthdayStr(sdf.format(coach.getBirthday()));
             customCoach.setPhone(coach.getPhone());
+            customCoach.setCoachPortrait(coach.getCoachPortrait());
             if(coach.getGrade()==1){
                 customCoach.setGradeStr("初级");
             }else if(coach.getGrade()==2){
@@ -114,6 +116,18 @@ public class CoachController {
     @GetMapping("/coach/getStudent/{coachId}")
     public Result getStudentList(@PathVariable("coachId") Integer coachId){
         return coachService.getStudentList(coachId);
+    }
+
+    @PostMapping("/coach/uploadPortrait")
+    public Result uploadPortrait(HttpServletRequest request) throws
+            IOException {
+        Portrait portrait =new ObjectMapper().readValue(
+                request.getInputStream(), Portrait.class);
+        if(null!=portrait){
+            return coachService.uploadPortrait(portrait.getCoachId(),portrait.getFile());
+
+        }
+        return Result.failure(ResponseCode.FAIL);
     }
 
 

@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.pers.aiyin.fitness.entity.Student;
 import com.pers.aiyin.fitness.response.CustomStudent;
 import com.pers.aiyin.fitness.utils.Result;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ public interface MemberService {
     Result modifyStudent(Student student);
 
     List<Student> getStudentList();
+
+    Result uploadPortrait(Integer stuId,MultipartFile file);
 
 
 }

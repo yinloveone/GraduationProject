@@ -8,10 +8,12 @@ import com.pers.aiyin.fitness.mapper.StudentMapper;
 import com.pers.aiyin.fitness.mapper.CustomStudentMapper;
 import com.pers.aiyin.fitness.response.CustomStudent;
 import com.pers.aiyin.fitness.service.MemberService;
+import com.pers.aiyin.fitness.utils.FileHandleUtil;
 import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -155,5 +157,26 @@ public class MemberServiceImp implements MemberService {
         StudentExample example = new StudentExample();
         return studentMapper.selectByExample(example);
     }
+    @Override
+    public Result uploadPortrait(Integer stuId,MultipartFile file) {
+        String url;
+        try {
+            url = FileHandleUtil.upload(file.getInputStream(), "image/", file.getOriginalFilename());
+            if (null != url) {
+                Student student = new Student();
+                student.setStuId(stuId);
+                student.setStudentPortrait(url);
+                int count = studentMapper.updateByPrimaryKeySelective(student);
+                if (count > 0) {
+                    return Result.success(url);
+                } else {
+                    return Result.failure(ResponseCode.FAIL);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Result.failure(ResponseCode.FAIL);
+      }
 
 }

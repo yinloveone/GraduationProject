@@ -3,6 +3,7 @@ package com.pers.aiyin.fitness.service;
 import com.github.pagehelper.PageInfo;
 import com.pers.aiyin.fitness.entity.Coach;
 import com.pers.aiyin.fitness.utils.Result;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface CoachService {
     PageInfo<Coach> getCoachList(int pageCurrent, int pageSize,Coach coach);
@@ -19,4 +20,5 @@ public interface CoachService {
 
     Result getStudentList(Integer coachId);
 
+    Result uploadPortrait(Integer coachId, MultipartFile file);
 }

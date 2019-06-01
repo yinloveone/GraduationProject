@@ -5,11 +5,13 @@ import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.pers.aiyin.fitness.entity.Student;
 import com.pers.aiyin.fitness.response.CustomStudent;
+import com.pers.aiyin.fitness.response.Portrait;
 import com.pers.aiyin.fitness.service.MemberService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
 import com.pers.aiyin.fitness.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -86,6 +88,22 @@ public class MemberController {
     @PostMapping("/member/updateStudent")
     public Result updateStudent(Student student){
         return memberService.updateStudent(student);
+    }
+
+    /*
+    * 学员上传自己的头像
+    * */
+    @PostMapping("member/uploadPortrait")
+    public Result uploadPortrait(HttpServletRequest request) throws
+            IOException {
+        Portrait portrait =new ObjectMapper().readValue(
+                request.getInputStream(), Portrait.class);
+        if(null!=portrait){
+            return memberService.uploadPortrait(portrait.getStuId(),portrait.getFile());
+
+        }
+
+        return Result.failure(ResponseCode.FAIL);
     }
 
 }
