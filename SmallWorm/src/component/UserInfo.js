@@ -31,7 +31,8 @@ export default class UserInfo extends Component{
             userInfo:null,
             avatarSource:"../../img/6.png",
             spinner:true,
-            imageUrl:''
+            imageUrl:'',
+            birthday:'',
 
         }
         this.addOnClicked=this.addOnClicked.bind(this)
@@ -39,6 +40,31 @@ export default class UserInfo extends Component{
     componentDidMount(){
         this.getUserInfo();
     }
+     formatToString = (timestamp, formater) => {
+        let date = new Date();
+        date.setTime(parseInt(timestamp));
+        formater = (formater != null) ? formater : 'yyyy-MM-dd hh:mm';
+        Date.prototype.Format = function (fmt) {
+            var o = {
+                "M+": this.getMonth() + 1, //月
+                "d+": this.getDate(), //日
+                "h+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o) {
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ?
+                    (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            }
+            return fmt;
+        }
+        return date.Format(formater);
+    };
+
     /*
     * 获取用户基本信息
     * */
@@ -51,10 +77,18 @@ export default class UserInfo extends Component{
                 HttpUtil.get(url).then(result=>{
                     if(result.code===0){
                       //  ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+                        let birthdayStr
+                        if(null!=result.data.birthday){
+                             birthdayStr = this.formatToString(result.data.birthday,'yyyy-MM-dd');
+                        }else{
+                            birthdayStr = "";
+                        }
                         this.setState({
                             userInfo:result.data,
-                            avatarSource:'http://47.100.239.1:8080'+result.data.studentPortrait
+                            avatarSource:'http://47.100.239.1:8080'+result.data.studentPortrait,
+                            birthday:birthdayStr
                         })
+
                     }else{
                         ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                     }
@@ -73,6 +107,7 @@ export default class UserInfo extends Component{
     }
 
     addOnClicked(){
+        let _this=this
         ImagePicker.openPicker({
             width: 300,
             height: 300,
@@ -100,7 +135,7 @@ export default class UserInfo extends Component{
                          return response.json();
                      }).then(function(data) {
                          if(data.code===0) {
-                             this.setState({
+                             _this.setState({
                                  avatarSource:'http://47.100.239.1:8080'+data.data
                              })
                              let url = 'http://47.100.239.1:8080' + data.data;
@@ -161,7 +196,7 @@ export default class UserInfo extends Component{
                 <Content>
 
                         <List>
-                            <ListItem onPress={this.addOnClicked}>
+                            <ListItem onPress={this.addOnClicked.bind(this)}>
                                 <Left>
                                     <Text>头像</Text>
                                 </Left>
@@ -178,12 +213,11 @@ export default class UserInfo extends Component{
                                 </Right>
                             </ListItem>
                             <ListItem onPress={() => this.turnOnPage('ModifyPhoneScreen')}>
-                                <Left>
+
                                     <Text>手机号码</Text>
-                                </Left>
-                                <Right>
-                                    <Text>{this.state.userInfo.phone}</Text>
-                                </Right>
+
+                                    <Text style={{width:'80%',textAlign:'right'}}>{this.state.userInfo.phone}</Text>
+
                             </ListItem>
                             <ListItem>
                                 <Left>
@@ -195,12 +229,9 @@ export default class UserInfo extends Component{
                                 </Right>
                             </ListItem>
                             <ListItem onPress={() => this.turnOnPage('ModifyBirthScreen')}>
-                                <Left>
                                     <Text>生日</Text>
-                                </Left>
-                                <Right>
-                                    <Text>{this.state.userInfo.birthday}</Text>
-                                </Right>
+                                    <Text style={{width:'90%',textAlign:'right'}}>{this.state.birthday}</Text>
+
                             </ListItem>
                             <ListItem onPress={() => this.turnOnPage('ModifyHeightScreen')}>
                                 <Left>

@@ -19,5 +19,7 @@ public class CustomCourseR {
     private String timeStartStr;
     private String timeEndStr;
     private Double avgScore;
+    private String studentPortrait;
+
 
 }

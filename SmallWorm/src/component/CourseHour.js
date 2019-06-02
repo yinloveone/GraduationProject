@@ -6,22 +6,12 @@ import {
     Left,
     Body,
     Content,
-    Button, Icon, Title, Text, Card, CardItem, StyleProvider
+    Button, Icon, Title, Text, Card, CardItem, StyleProvider, Thumbnail
 } from "native-base";
-import {ToastAndroid} from "react-native";
+import {ToastAndroid,View} from "react-native";
 import StorageUtil from "../utils/StorageUtil";
 import getTheme from "../../native-base-theme/components";
 import material from "../../native-base-theme/variables/material";
-/*const datas = [
-    {
-        hourName: "产后恢复",
-        coachName: "丽丽",
-        hourCount:20
-    },
-]*/
-/*var datas;*/
-
-
 export default class CourseHour extends Component{
     constructor(props){
         super(props);
@@ -32,7 +22,6 @@ export default class CourseHour extends Component{
 
     }
   componentDidMount(){
-        const stuId=1;
         StorageUtil.get('stuId', (error, object) => {
           if (!error && object && object.stuId) {
             //  this.setState({stuId: object.stuId});
@@ -62,16 +51,18 @@ export default class CourseHour extends Component{
         let list=this.state.datas;
         for(let i=0;i<list.length;i++){
             resultList.push(
-                <Card key={list[i].hourId}>
-                <CardItem>
-                <Body>
-                    <Text style={{fontSize:18}}>{list[i].hourName}</Text>
-                    <Text>教练:{list[i].coachName}</Text>
-                    <Text>课时剩余:{list[i].hourCount}</Text>
-                    <Text>有效期限:无限</Text>
-                </Body>
-            </CardItem>
-                </Card>)
+                <View key={list[i].hourId} style={{width:'100%',flexDirection:'row'}}>
+                    <View style={{width:'40%',textAlign:'center',justifyContent:'center'}}>
+                        <Thumbnail source={{uri:'http://47.100.239.1:8080'+list[i].coachPortrait}}/>
+                    </View>
+                    <View style={{width:'60%',textAlign: 'right'}}>
+                        <Text style={{fontSize:18}}>{list[i].hourName}</Text>
+                        <Text>教练:{list[i].coachName}</Text>
+                        <Text>课时剩余:{list[i].hourCount}</Text>
+                        <Text>有效期限:无限</Text>
+                    </View>
+                </View>
+            )
 
         }
         return resultList;

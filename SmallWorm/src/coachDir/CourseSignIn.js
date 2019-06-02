@@ -96,8 +96,8 @@ export  default class CourseSignIn extends Component{
                                     </Left>
                                     <Right>
                                         {
-                                            data.courseTimeStart>new Date().getTime()&&data.courseTimeEnd>new Date().getTime()&&data.signIn===1 ?(
-                                                <Button onPress={this.studentIn.bind(this, data.courseRecordId)}>
+                                            data.courseTimeStart<new Date().getTime()&&data.courseTimeEnd>new Date().getTime()&&data.signIn===1 ?(
+                                                <Button success onPress={this.studentIn.bind(this, data.courseRecordId)}>
                                                     <Text>
                                                         签到
                                                     </Text>

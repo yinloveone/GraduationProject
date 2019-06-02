@@ -40,6 +40,7 @@ import ModifyHeightScreen from './src/component/ModifyHeightScreen'
 import ModifyBirthScreen from './src/component/ModifyBirthScreen'
 import ModifyPhoneScreen from './src/component/ModifyPhoneScreen'
 import SubmitScore from './src/component/SubmitScore'
+import DetailContent from './src/coachDir/DetailContent'
 
  const MainStudent = createBottomTabNavigator({
     Home: {
@@ -263,6 +264,9 @@ export default class App extends Component{
               },
               SubmitScore:{
                   screen:SubmitScore
+              },
+              DetailContent:{
+                  screen:DetailContent
               }
 
           },

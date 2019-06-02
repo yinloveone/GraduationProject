@@ -38,4 +38,6 @@ public class CustomCourseRecord {
 
     private Date commentTime;
 
+    private String courseType;
+
 }

@@ -116,9 +116,9 @@ public class CourseRecordController {
     /*
      * 根据教练Id获取每一条课程评价
      * */
-    @GetMapping("/courseRecord/getDetailContent/{coachId}")
-    public Result getDetailContent(@PathVariable("coachId") Integer coachId){
-        return courseRecordService.getDetailContent(coachId);
+    @GetMapping("/courseRecord/getDetailContent/{courseId}")
+    public Result getDetailContent(@PathVariable("courseId") Integer courseId){
+        return courseRecordService.getDetailContent(courseId);
     }
 
 

@@ -26,14 +26,16 @@ export default class HomeScreen extends Component {
         this.state = {
             dataList:'',
             dates:TimeListUtil.getWeeks(new Date(new Date().getTime() + 48*60*60*1000)),
+            indexi:0,
         }
     }
     componentDidMount(){
         this.getCourse(0);
     }
-    getCourse(i){
+    getCourse=(i)=>{
         this.setState({
             dataList:'',
+            indexi:i,
         })
         StorageUtil.get('stuId', (error, object) => {
             if (!error && object && object.stuId) {
@@ -72,7 +74,14 @@ export default class HomeScreen extends Component {
                     courseId: id
                 }
                 HttpUtil.post(url,courseRecord).then(result=>{
-                    ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+                    if(result.code===0){
+                        this.getCourse(0);
+                        ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+                    }else{
+                        ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+
+                    }
+
                 }).catch(error =>{
                     console.log(error)
                 })
@@ -93,9 +102,8 @@ export default class HomeScreen extends Component {
                             <Icon name="arrow-back"/>
                         </Button>
                     </Left>
-
                     <Body><Title>私教课</Title></Body>
-                    <Right><Button transparent><Text>筛选</Text></Button></Right>
+                    <Right></Right>
                 </Header>
                 <Content>
                     <Tabs renderTabBar={() => <ScrollableTab />} onChangeTab={({i})=>this.getCourse(i)}>
@@ -106,7 +114,7 @@ export default class HomeScreen extends Component {
                                     renderRow={data =>
                                         <ListItem thumbnail>
                                             <Left>
-                                                <Thumbnail source={sankhadeep}/>
+                                                <Thumbnail source={{uri:'http://47.100.239.1:8080'+data.coachPortrait}}/>
                                             </Left>
                                             <Body>
                                                 <Text>
@@ -137,7 +145,7 @@ export default class HomeScreen extends Component {
                                     renderRow={data =>
                                         <ListItem thumbnail>
                                             <Left>
-                                                <Thumbnail source={sankhadeep}/>
+                                                <Thumbnail source={{uri:'http://47.100.239.1:8080'+data.coachPortrait}}/>
                                             </Left>
                                             <Body>
                                                 <Text style={{fontSize: 22}}>
@@ -168,7 +176,7 @@ export default class HomeScreen extends Component {
                                     renderRow={data =>
                                         <ListItem thumbnail>
                                             <Left>
-                                                <Thumbnail source={sankhadeep}/>
+                                                <Thumbnail source={{uri:'http://47.100.239.1:8080'+data.coachPortrait}}/>
                                             </Left>
                                             <Body>
                                                 <Text>
@@ -199,7 +207,7 @@ export default class HomeScreen extends Component {
                                     renderRow={data =>
                                         <ListItem thumbnail>
                                             <Left>
-                                                <Thumbnail source={sankhadeep}/>
+                                                <Thumbnail source={{uri:'http://47.100.239.1:8080'+data.coachPortrait}}/>
                                             </Left>
                                             <Body>
                                                 <Text>
@@ -230,7 +238,7 @@ export default class HomeScreen extends Component {
                                     renderRow={data =>
                                         <ListItem thumbnail>
                                             <Left>
-                                                <Thumbnail source={sankhadeep}/>
+                                                <Thumbnail source={{uri:'http://47.100.239.1:8080'+data.coachPortrait}}/>
                                             </Left>
                                             <Body>
                                                 <Text>
@@ -261,7 +269,7 @@ export default class HomeScreen extends Component {
                                     renderRow={data =>
                                         <ListItem thumbnail>
                                             <Left>
-                                                <Thumbnail source={sankhadeep}/>
+                                                <Thumbnail source={{uri:'http://47.100.239.1:8080'+data.coachPortrait}}/>
                                             </Left>
                                             <Body>
                                                 <Text style={{fontSize:20,color:'#efefef'}}>
@@ -291,7 +299,7 @@ export default class HomeScreen extends Component {
                                     renderRow={data =>
                                         <ListItem thumbnail>
                                             <Left>
-                                                <Thumbnail source={sankhadeep}/>
+                                                <Thumbnail source={{uri:'http://47.100.239.1:8080'+data.coachPortrait}}/>
                                             </Left>
                                             <Body>
                                                 <Text>

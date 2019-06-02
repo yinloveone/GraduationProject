@@ -164,6 +164,7 @@ const styles = StyleSheet.create({
     meInfoAvatar: {
         width: 60,
         height: 60,
+        borderRadius:30,
     },
     meInfoTextContainer: {
         flex: 1,

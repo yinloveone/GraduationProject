@@ -73,7 +73,7 @@ export default class CourseManage extends Component{
                             <Text>教室:{dataList[i].roomName}</Text>
                         </Body>
                         <Right>
-                            <Button onPress={this.updateCourse.bind(this,dataList[i].courseId)}>
+                            <Button success onPress={this.updateCourse.bind(this,dataList[i].courseId)}>
                                 <Text>编辑</Text>
                             </Button>
                         </Right>

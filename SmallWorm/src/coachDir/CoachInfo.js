@@ -20,7 +20,7 @@ import StorageUtil from "../utils/StorageUtil";
 import {Grid, Row,Col} from "react-native-easy-grid";
 import getTheme from "../../native-base-theme/components";
 import material from "../../native-base-theme/variables/material";
-import ImagePicker from "../component/UserInfo";
+import ImagePicker from 'react-native-image-crop-picker';
 export default class CoachInfo extends Component{
     constructor(props){
         super(props)
@@ -64,6 +64,7 @@ export default class CoachInfo extends Component{
             }})
     }
     addOnClicked(){
+        let _this=this
         ImagePicker.openPicker({
             width: 300,
             height: 300,
@@ -91,7 +92,7 @@ export default class CoachInfo extends Component{
                         return response.json();
                     }).then(function(data) {
                         if(data.code===0) {
-                            this.setState({
+                            _this.setState({
                                 avatarSource:'http://47.100.239.1:8080'+data.data
                             })
                             let url = 'http://47.100.239.1:8080' + data.data;
@@ -149,7 +150,7 @@ render(){
                     <Content>
 
                         <List>
-                            <ListItem onPress={this.addOnClicked}>
+                            <ListItem onPress={this.addOnClicked.bind(this)}>
                                 <Left>
                                     <Text>头像</Text>
                                 </Left>

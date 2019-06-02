@@ -74,6 +74,7 @@ export default class StudentActivity extends Component{
                         <Body>
                             <Title>我的学员</Title>
                         </Body>
+
                     </Header>
                     <Content padder>
                         <List
@@ -81,13 +82,13 @@ export default class StudentActivity extends Component{
                                 renderRow={data =>
                                     <ListItem>
                                             <Left>
-                                                <Thumbnail square source={{uri: 'http://47.100.239.1:8080'+data.studentPortrait}}/>
+                                                <Thumbnail source={{uri: 'http://47.100.239.1:8080'+data.studentPortrait}}/>
                                             </Left>
 
                                         <Body>
                                             <Text>{data.stuName}</Text>
-                                            <Text note numberOfLines={1}>电话:{data.phone}</Text>
-                                            <Text note numberOfLines={1}>邮箱:{data.email}</Text>
+                                            <Text note style={{fontSize:12}}>电话:{data.phone}</Text>
+                                            <Text note style={{fontSize:12}}>邮箱:{data.email}</Text>
                                         </Body>
                                         <Right/>
                                     </ListItem>}

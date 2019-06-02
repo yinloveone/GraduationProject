@@ -38,10 +38,34 @@ export default class CoachCourse extends Component{
                 }
                 HttpUtil.post(url,data).then(result=>{
                     if(result.code===0){
-                        ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+                      //  ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                         this.setState({
                             courseList:result.data
                         })
+                    }else{
+                        ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+                    }
+
+                }).catch(error => {
+                    console.log(error)
+                })
+            }})
+    }
+    reload=()=>{
+        StorageUtil.get('coachId', (error, object) => {
+            if (!error && object && object.coachId) {
+                const url="http://47.100.239.1:8080/api/courseRecord/getRecordByCoachId"
+                const data={
+                    coachId:object.coachId
+                }
+                HttpUtil.post(url,data).then(result=>{
+                    if(result.code===0){
+                      //  ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+                        this.setState({
+                            courseList:result.data
+                        })
+                    }else{
+                        ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                     }
 
                 }).catch(error => {
@@ -70,9 +94,16 @@ export default class CoachCourse extends Component{
                             <Text>教室:{dataList[i].listCourse[j].roomName}</Text>
                         </Body>
                         <Right>
-                            <Button bordered onPress={this.getCourseSelect.bind(this,dataList[i].listCourse[j].courseId)}>
-                                <Text>详情</Text>
-                            </Button>
+                            {
+                                dataList[i].listCourse[j].courseTimeEnd<new Date().getTime()?
+                                    <Button style={{width:80,height:30}} bordered onPress={this.getContent.bind(this,dataList[i].listCourse[j].courseId)}>
+                                        <Text style={{fontSize:10}}>查看评论</Text>
+                                    </Button>:
+                                    <Button style={{width:80,height:30}} bordered onPress={this.getCourseSelect.bind(this,dataList[i].listCourse[j].courseId)}>
+                                        <Text style={{fontSize:10}}>查看学员</Text>
+                                    </Button>
+                            }
+
                         </Right>
                     </ListItem>
                 )
@@ -80,13 +111,16 @@ export default class CoachCourse extends Component{
         }
         return replys;
     }
-
-
     /*
     * 根据课程Id获取选课情况
     * */
     getCourseSelect = (courseId,e) => {
         this.props.navigation.navigate('CourseSignIn',{
+            courseId:courseId
+        })
+    }
+    getContent = (courseId,e) =>{
+        this.props.navigation.navigate('DetailContent',{
             courseId:courseId
         })
     }
@@ -127,6 +161,9 @@ export default class CoachCourse extends Component{
                             <Title>我的课程表</Title>
                         </Body>
                         <Right>
+                            <Button transparent onPress={this.reload}>
+                                <AntDesign name='sync' size={16} style={{color: 'white'}}/>
+                            </Button>
                             <Button transparent>
                                 <AntDesign name='calendar' size={16} style={{color: 'white'}}/>
                                 <DatePicker

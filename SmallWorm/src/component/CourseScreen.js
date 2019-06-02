@@ -15,7 +15,7 @@ import {
 } from 'native-base';
 import HttpUtil from '../utils/HttpUtil'
 import StorageUtil from "../utils/StorageUtil";
-import {ToastAndroid} from "react-native";
+import {ToastAndroid,Alert} from "react-native";
 import getTheme from "../../native-base-theme/components";
 import material from "../../native-base-theme/variables/material";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -32,8 +32,7 @@ export default  class CourseScreen extends Component{
     }
     setDate(newDate) {
         this.setState({ chosenDate: newDate });
-        this. getCourseOrder();
-    
+        this.getCourseOrder();
     }
 
     getCourseOrder(){
@@ -58,35 +57,95 @@ export default  class CourseScreen extends Component{
                     }
                 })
     }
-    cancelCourse(courseId,courseRecordId,e){
-        const url='http://47.100.239.1:8080/api/user/cancelOrder'
-        let stuId=0;
+    reload=()=>{
+        this.setState({
+                dateRange: null
+            }
+        )
         StorageUtil.get('stuId', (error, object) => {
             if (!error && object && object.stuId) {
-                stuId = object.stuId;
+                const url = 'http://47.100.239.1:8080/api/courseRecord/getRecordById';
+                const data={
+                    stuId:object.stuId
+                }
+                HttpUtil.post(url,data).then(result=>{
+                    if(result.code === 0){
+                        this.setState({
+                            dataList:result.data
+                        })
+                    }
 
-        const courseRecord = {
-            courseId:courseId,
-            stuId:object.stuId,
-            courseRecordId:courseRecordId
-        }
-        HttpUtil.post(url,courseRecord).then(result=>{
-            if(result.code===0){
-                this.getCourseOrder();
+                }).catch(error => {
+                    console.log(error)
+                })
             }
-            ToastAndroid.show(result.msg,ToastAndroid.SHORT);
-
-        }).catch(error=>{
-            console.log(error)
         })
-            }
-        });
+    }
+    cancelCourse(courseId,courseRecordId,courseTimeStart,courseType,e){
+        if((courseTimeStart-new Date().getTime())/60*60*1000<24&&courseType==='1'){
+            Alert.alert('提醒','将不能退还课时，是否继续?',[
+                {text:'取消',onPress:()=>ToastAndroid.show('取消',ToastAndroid.SHORT)},
+                {text:'确定',onPress:()=>{
+                        const url = 'http://47.100.239.1:8080/api/user/cancelOrder'
+                        let stuId = 0;
+                        StorageUtil.get('stuId', (error, object) => {
+                            if (!error && object && object.stuId) {
+                                stuId = object.stuId;
+
+                                const courseRecord = {
+                                    courseId: courseId,
+                                    stuId: object.stuId,
+                                    courseRecordId: courseRecordId
+                                }
+                                HttpUtil.post(url, courseRecord).then(result => {
+                                    if (result.code === 0) {
+                                        this.reload(this);
+                                    }
+                                    ToastAndroid.show(result.msg, ToastAndroid.SHORT);
+
+                                }).catch(error => {
+                                    console.log(error)
+                                })
+                            }
+                        });
+                    }}
+            ])
+
+        }else{
+            const url = 'http://47.100.239.1:8080/api/user/cancelOrder'
+            let stuId = 0;
+            StorageUtil.get('stuId', (error, object) => {
+                if (!error && object && object.stuId) {
+                    stuId = object.stuId;
+
+                    const courseRecord = {
+                        courseId: courseId,
+                        stuId: object.stuId,
+                        courseRecordId: courseRecordId
+                    }
+                    HttpUtil.post(url, courseRecord).then(result => {
+                        if (result.code === 0) {
+                            this.reload(this);
+                        }
+                        ToastAndroid.show(result.msg, ToastAndroid.SHORT);
+
+                    }).catch(error => {
+                        console.log(error)
+                    })
+                }
+            });
+
+        }
+
 
     }
     submitScore = (courseRecordId,e) =>{
         this.props.navigation.navigate('SubmitScore',{
             courseRecordId:courseRecordId
-        })
+        },{
+            refresh:()=>{
+                this.reload();
+            }})
     }
 
     renderItems() {
@@ -98,7 +157,7 @@ export default  class CourseScreen extends Component{
                 <Text>{dataList[i].yearMonth}</Text>
             </ListItem>)
             for (let j = 0; j < dataList[i].listCourse.length; j++) {
-                if(dataList[i].listCourse[j].score!==6){
+                if(dataList[i].listCourse[j].commentTime){
                     replys.push(
                         <ListItem key={dataList[i].listCourse[j].courseId}>
                             <Body>
@@ -124,12 +183,11 @@ export default  class CourseScreen extends Component{
                             </Body>
                             <Right>
                                 {
-                                    dataList[i].listCourse[j].courseTimeEnd<new Date().getTime()?<Button onPress={this.submitScore.bind(this,dataList[i].listCourse[j].courseRecordId)}><Text>评分</Text></Button>:
-                                        <Button danger onPress={this.cancelCourse.bind(this, dataList[i].listCourse[j].courseId,dataList[i].listCourse[j].courseRecordId)}>
+                                    dataList[i].listCourse[j].courseTimeEnd<new Date().getTime()?<Button success onPress={this.submitScore.bind(this,dataList[i].listCourse[j].courseRecordId)}><Text>评分</Text></Button>:
+                                        <Button danger onPress={this.cancelCourse.bind(this, dataList[i].listCourse[j].courseId,dataList[i].listCourse[j].courseRecordId,dataList[i].listCourse[j].courseTimeStart,dataList[i].listCourse[j].courseType)}>
                                             <Text>退课</Text>
                                         </Button>
                                 }
-
                             </Right>
                         </ListItem>
                     )
@@ -176,6 +234,9 @@ export default  class CourseScreen extends Component{
                             <Title>我的课表</Title>
                         </Body>
                         <Right>
+                            <Button transparent onPress={this.reload}>
+                                <AntDesign name='sync' size={16} style={{color: 'white'}}/>
+                            </Button>
                             <Button transparent>
                                 <AntDesign name='calendar' size={16} style={{color: 'white'}}/>
                                 <DatePicker

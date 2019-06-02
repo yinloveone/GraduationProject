@@ -5,7 +5,9 @@ import getTheme from "../../native-base-theme/components";
 import material from "../../native-base-theme/variables/material";
 import StorageUtil from "../utils/StorageUtil";
 import HttpUtil from "../utils/HttpUtil";
-import {ToastAndroid} from "react-native";
+import {ToastAndroid,View,Dimensions} from "react-native";
+const DeviceHeight = Dimensions.get('window').height
+
 export default class StudentReply extends Component{
     constructor(props){
         super(props)
@@ -119,14 +121,12 @@ export default class StudentReply extends Component{
                         </Button>
                     </Left>
                     <Body><Title>学员反馈</Title></Body>
-                    <Right>
-                        <Button transparent>
-                           <Text>详情</Text>
-                        </Button>
-                    </Right>
+                    <Right/>
                 </Header>
                 <Content padder>
+                    <View style={{paddingTop:DeviceHeight*0.1}}>
                     <MyCharts option={option} height={300}/>
+                    </View>
                 </Content>
             </Container>
             </StyleProvider>

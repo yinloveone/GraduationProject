@@ -26,5 +26,5 @@ public interface CourseRecordService {
 
     Result getContent(Integer coachId);
 
-    Result getDetailContent(Integer coachId);
+    Result getDetailContent(Integer courseId);
 }

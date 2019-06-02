@@ -107,8 +107,8 @@ public class CourseRecordServiceImpl implements CourseRecordService {
                 Calendar c = Calendar.getInstance();
                 c.setTime(date);
                 int day=c.get(Calendar.DATE);
-                c.set(Calendar.DATE,day+2);
-                Date afterDate=c.getTime();   //后两天的时间
+                c.set(Calendar.DATE,day+1);
+                Date afterDate=c.getTime();   //后1天的时间
                 if(course.getCourseTimeStart().after(afterDate)){
                     CourseHourExample hourExample = new CourseHourExample();
                     CourseHourExample.Criteria criteria1 = hourExample.createCriteria();
@@ -173,9 +173,9 @@ public class CourseRecordServiceImpl implements CourseRecordService {
         }
     }
     @Override
-    public Result getDetailContent(Integer coachId){
+    public Result getDetailContent(Integer courseId){
         CustomCourse customCourse = new CustomCourse();
-        customCourse.setCoachId(coachId);
+        customCourse.setCourseId(courseId);
         customCourse.setCourseTimeStart(new Date());
         List<CustomCourseR> list = customCourseRecordMapper.getDetailContent(customCourse);
         if (null != list && list.size() > 0) {

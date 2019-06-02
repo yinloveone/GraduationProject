@@ -21,6 +21,7 @@
             <result column="time_end_str" jdbcType="VARCHAR" property="timeEndStr" />
             <result column="comment_time" jdbcType="TIMESTAMP" property="commentTime" />
             <result column="score" jdbcType="INTEGER" property="score"/>
+            <result column="course_type" jdbcType="VARCHAR" property="courseType" />
         </collection>
     </resultMap>
 
@@ -35,6 +36,7 @@
             <result column="sign_in" jdbcType="TINYINT" property="signIn" />
             <result column="content" jdbcType="VARCHAR" property="content" />
             <result column="score" jdbcType="INTEGER" property="score"/>
+            <result column="student_portrait" jdbcType="VARCHAR" property="studentPortrait" />
             <result column="avg_score" jdbcType="DOUBLE" property="avgScore"/>
             <result column="course_time_start" jdbcType="TIMESTAMP" property="courseTimeStart" />
             <result column="course_time_end" jdbcType="TIMESTAMP" property="courseTimeEnd" />
@@ -58,7 +60,7 @@
 
     <select id="getRecordByStuId" parameterType="com.pers.aiyin.fitness.response.CourseRecordOption" resultMap="BaseResultMap">
         select c.course_id,course_record_id,course_name,course_time_start,course_time_end,c.room_id,cr.room_name,stu_id,c.coach_id,score,
-        comment_time,
+        comment_time,course_type,
             coach_name,DATE_FORMAT(course_time_start,'%Y-%m') as year_mouth,
             DATE_FORMAT(course_time_start,'%m-%d') as mouth_date,
                DATE_FORMAT(course_time_start,'%H:%i') as time_start_str,
@@ -67,10 +69,10 @@
              left join classroom cr on cr.room_id=c.room_id
         left join coach on c.coach_id=coach.coach_id
             where  courserecord.stu_id= #{stuId}
-        <if test="dateRange != null and dateRange != ''">
+        <if test="dateRange != null">
             AND course_time_start <![CDATA[>=]]> #{dateRange}
         </if>
-        <if test="dateRangeEnd != null and dateRangeEnd != ''">
+        <if test="dateRangeEnd != null">
             AND course_time_start <![CDATA[<=]]>#{dateRangeEnd}
         </if>
         group by year_mouth,c.course_id,course_name,course_time_start,course_time_end,c.room_id,room_name,c.coach_id,coach_name,
@@ -88,10 +90,10 @@
         left join classroom cr on cr.room_id=c.room_id
         left join coach on c.coach_id=coach.coach_id
         where c.coach_id= #{coachId}
-        <if test="dateRange != null and dateRange != ''">
+        <if test="dateRange != null">
             AND course_time_start <![CDATA[>=]]> #{dateRange}
         </if>
-        <if test="dateRangeEnd != null and dateRangeEnd != ''">
+        <if test="dateRangeEnd != null">
             AND course_time_start <![CDATA[<=]]>#{dateRangeEnd}
         </if>
         group by year_mouth,c.course_id,course_name,
@@ -137,9 +139,13 @@
     </select>
 
     <select id="getDetailContent" parameterType="com.pers.aiyin.fitness.response.CustomCourse" resultMap="BaseResultMap1">
-        select course_name,score,content,c.course_id from course c
+        select course_name,score,content,c.course_id,s.stu_id,s.stu_name,student_portrait,
+        DATE_FORMAT(comment_time,'%Y-%m-%d %H:%i') as time_end_str
+        from course c
         left join courserecord cr on c.course_id=cr.course_id
-        where c.coach_id=#{coachId}
+        left join student s on s.stu_id=cr.stu_id
+        where c.course_id=#{courseId} and cr.course_id is not null
+        and cr.comment_time is not null
         <if test="courseTimeStart != null">
             AND c.course_time_end <![CDATA[<]]> #{courseTimeStart}
         </if>
