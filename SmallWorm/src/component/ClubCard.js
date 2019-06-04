@@ -98,7 +98,7 @@ export default class ClubCard extends Component{
                         <View style={styles.card}>
                             <Row style={{marginTop: 20, marginLeft: 10}}>
                                 <Col style={{width: '18%', paddingTop: 15}}>
-                                    <Thumbnail source={sankhadeep}/>
+                                    <Thumbnail source={{uri:'http://47.100.239.1:8080'+this.state.cardInfo[0].studentPortrait}}/>
                                 </Col>
                                 <Col style={{width: '52%'}}>
                                     <View style={styles.cardHeader}>

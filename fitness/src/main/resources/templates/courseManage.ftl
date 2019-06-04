@@ -173,9 +173,13 @@
                         </div>
                         <input type="text" class="form-control col-7 datetimepicker-input" id="courseTimeEnd" data-toggle="datetimepicker" data-target="#courseTimeEnd">
                     </div>
+                    <div class="form-group flex-display">
+                        <label class="col-4">课程容量:</label>
+                        <input type="text" class="form-control col-8" id="courseCapacity">
+                    </div>
                     <div class="form-group" style="display:flex;">
                         <label  class="col-4">课程类型:</label>
-                        <select class="form-control col-8">
+                        <select class="form-control col-8" id="courseType">
                             <option value="1">团体课程</option>
                             <option value="2">私教课程</option>
                         </select>
@@ -393,7 +397,7 @@
     function eidtCourse(){
         var course = {
             courseId:$('#courseId').val(),
-           courseName: $('#eidtName').val(),
+            courseName: $('#eidtName').val(),
             coachId:$('#eidtCoach').val(),
             roomId: $('#eidtRoom').val(),
             courseTimeStart:$('#eidtTimeStart').val(),
@@ -418,7 +422,7 @@
                         }
                         $.ajax({
                             type: 'POST',
-                            url: 'course/updateCourse',
+                            url: 'course/deleteCourse',
                             data: course,
                             dataType: "json",
                             success: function (data) {
@@ -466,10 +470,10 @@
         var course = {
             courseName: $('#addName').val(),
             coachId:$('#addCoach').val(),
-            roomId: 1,
-            courseCapacity:45,
-            courseSurplus:45,
-            courseType:1,
+            roomId: $('#addRoom').val(),
+            courseCapacity:$('#courseCapacity').val(),
+            courseSurplus:$('#courseCapacity').val(),
+            courseType:$('#courseType').val(),
             courseTimeStart:$('#courseTimeStart').val(),
             courseTimeEnd:$('#courseTimeStart').val(),
         }
@@ -499,6 +503,7 @@
             type:'GET',
             url:'course/getCoachList',
             dataType:"json",
+            async: false,
             success: function (data){
                 var list = data.data;
                 if(null!=list) {
@@ -507,6 +512,13 @@
                         $(option).val(list[i].coachId);
                         $(option).text(list[i].coachName);
                         $('#addCoach').append(option);
+                       // $('#eidtCoach').append(option);
+                    }
+                    for (var i = 0; i < list.length; i++) {
+                        var option = document.createElement("option");
+                        $(option).val(list[i].coachId);
+                        $(option).text(list[i].coachName);
+                       // $('#addCoach').append(option);
                         $('#eidtCoach').append(option);
                     }
                 }
@@ -524,6 +536,7 @@
             type:'GET',
             url:'course/getRoomList',
             dataType:"json",
+            async: false,
             success: function (data){
                 var list = data.data;
                 if(null!=list) {
@@ -532,6 +545,13 @@
                         $(option).val(list[i].roomId);
                         $(option).text(list[i].roomName);
                         $('#addRoom').append(option);
+                       // $('#eidtRoom').append(option)
+                    }
+                    for (var i = 0; i < list.length; i++) {
+                        var option = document.createElement("option");
+                        $(option).val(list[i].roomId);
+                        $(option).text(list[i].roomName);
+                       // $('#addRoom').append(option);
                         $('#eidtRoom').append(option)
                     }
                 }

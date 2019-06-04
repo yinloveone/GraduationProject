@@ -41,9 +41,9 @@ export  default class DetailContent extends Component{
         let replys = [];
         for (let i = 0; i < dataList.length; i++) {
             replys.push(
-                <ListItem avatar>
+                <ListItem avatar key={dataList[i].courseRecordId}>
                     <Left>
-                        <Thumbnail source={{ uri: '../../img/6.png' }} />
+                        <Thumbnail source={{ uri:'http://47.100.239.1:8080'+dataList[i].studentPortrait }} />
                     </Left>
                     <Body>
                         <Text>{dataList[i].stuName}</Text>

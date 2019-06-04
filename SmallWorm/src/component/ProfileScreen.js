@@ -6,7 +6,7 @@ import {
     Text, Button, Body,
     Right, H1, Header,
     Left, Icon, Title,
-    ActionSheet,StyleProvider,
+    StyleProvider,
     Item,
     Picker,
     Input, DatePicker,
@@ -103,9 +103,10 @@ export default class ProfileScreen extends Component {
         }
         const url = 'http://47.100.239.1:8080/api/user/orderCourse';
         HttpUtil.post(url,courseRecord).then(result=>{
+            this.getCourse();
             if(result.code===0){
                 //ToastAndroid.show(result.msg,ToastAndroid.SHORT);
-                this.getCourse();
+
             }else{
                 ToastAndroid.show(result.msg,ToastAndroid.SHORT);
             }

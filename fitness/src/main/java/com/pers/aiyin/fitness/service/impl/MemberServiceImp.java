@@ -84,6 +84,51 @@ public class MemberServiceImp implements MemberService {
     }
 
     @Override
+    public Result addMemberTime(Student student){
+        Student student1=studentMapper.selectByPrimaryKey(student.getStuId());
+        if(null!=student1){
+            if(student1.getDueDate().getTime()>=new Date().getTime()){
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(student1.getDueDate());
+                if(student.getCardId()==1){
+                    cal.add(Calendar.MONTH, 1);
+                    student1.setDueDate(cal.getTime());
+
+                }else if(student.getCardId()==2){
+                    cal.add(Calendar.MONTH, 3);
+                    student1.setDueDate(cal.getTime());
+                }else{
+                    cal.add(Calendar.YEAR, 1);
+                    student1.setDueDate(cal.getTime());
+                }
+            }else if(student1.getDueDate().getTime()<new Date().getTime()){
+                Calendar cal1 = Calendar.getInstance();
+                cal1.setTime(new Date());
+                if(student.getCardId()==1){
+                    cal1.add(Calendar.MONTH, 1);
+                    student1.setDueDate(cal1.getTime());
+
+                }else if(student.getCardId()==2){
+                    cal1.add(Calendar.MONTH, 3);
+                    student1.setDueDate(cal1.getTime());
+                }else{
+                    cal1.add(Calendar.YEAR, 1);
+                    student1.setDueDate(cal1.getTime());
+                }
+            }
+            int count =studentMapper.updateByPrimaryKeySelective(student1);
+            if(count>0){
+                return Result.success();
+            }else{
+                return Result.failure(ResponseCode.FAIL);
+            }
+
+        }else{
+            return Result.failure(ResponseCode.FAIL);
+        }
+    }
+
+    @Override
     public Result modifyStudent(Student student){
         if(null!=student.getPhone()) {
 

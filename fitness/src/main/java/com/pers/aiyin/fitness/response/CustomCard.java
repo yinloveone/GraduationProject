@@ -19,4 +19,6 @@ public class CustomCard {
     private String restDateStr;
 
     private String dueDateStr;
+
+    private String studentPortrait;
 }

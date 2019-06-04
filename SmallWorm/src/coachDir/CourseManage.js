@@ -36,7 +36,7 @@ export default class CourseManage extends Component{
                 const url="http://47.100.239.1:8080/api/course/getPrivateList/"+object.coachId
                 HttpUtil.get(url).then(result=>{
                     if(result.code===0){
-                        ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+                        //ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                         this.setState({
                             courseList:result.data
                         })

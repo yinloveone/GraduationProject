@@ -14,6 +14,8 @@ public interface MemberService {
 
     Result addStudent(Student student);
 
+    Result addMemberTime(Student student);
+
     CustomStudent getStudent(Integer stuId);
 
     int deleteStudent(Integer stuId);

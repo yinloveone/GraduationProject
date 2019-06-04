@@ -74,8 +74,8 @@ export default class HomeScreen extends Component {
                     courseId: id
                 }
                 HttpUtil.post(url,courseRecord).then(result=>{
+                    this.getCourse(0);
                     if(result.code===0){
-                        this.getCourse(0);
                         ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                     }else{
                         ToastAndroid.show(result.msg,ToastAndroid.SHORT);

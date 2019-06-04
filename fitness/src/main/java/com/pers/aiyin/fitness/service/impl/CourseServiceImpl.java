@@ -2,14 +2,8 @@ package com.pers.aiyin.fitness.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.pers.aiyin.fitness.entity.ClassRoom;
-import com.pers.aiyin.fitness.entity.Coach;
-import com.pers.aiyin.fitness.entity.Course;
-import com.pers.aiyin.fitness.entity.CourseExample;
-import com.pers.aiyin.fitness.mapper.CourseMapper;
-import com.pers.aiyin.fitness.mapper.CustomCourseRecordMapper;
-import com.pers.aiyin.fitness.mapper.OptionListMapper;
-import com.pers.aiyin.fitness.mapper.PrivateCourseMapper;
+import com.pers.aiyin.fitness.entity.*;
+import com.pers.aiyin.fitness.mapper.*;
 import com.pers.aiyin.fitness.response.CustomCourse;
 import com.pers.aiyin.fitness.service.CourseService;
 import com.pers.aiyin.fitness.utils.ResponseCode;
@@ -27,6 +21,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private OptionListMapper optionListMapper;
+
+    @Autowired
+    private CourseRecordMapper courseRecordMapper;
 
     @Autowired
     private CustomCourseRecordMapper customCourseRecordMapper;
@@ -97,8 +94,22 @@ public class CourseServiceImpl implements CourseService {
         return courseMapper.selectByPrimaryKey(courseId);
     }
 
-    public int deleteCourse(Integer courseId){
-        return courseMapper.deleteByPrimaryKey(courseId);
+    public Result deleteCourse(Course course){
+        CourseRecordExample example =new CourseRecordExample();
+        CourseRecordExample.Criteria criteria=example.createCriteria();
+        criteria.andCourseIdEqualTo(course.getCourseId());
+        List<CourseRecord> list=courseRecordMapper.selectByExample(example);
+        if(null!=list&&list.size()>0){
+            return new Result(1,"已有学员选课，不能删除！");
+        }else{
+            int count= courseMapper.updateByPrimaryKeySelective(course);
+            if(count>0){
+                return Result.success();
+            }
+            return Result.failure(ResponseCode.FAIL);
+        }
+
+
     }
 
     public int updateCourse(Course course){

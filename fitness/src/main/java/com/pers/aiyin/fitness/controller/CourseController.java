@@ -68,14 +68,9 @@ public class CourseController {
         return Result.failure(ResponseCode.FAIL);
     }
 
-    @PostMapping("/course/deleteCourse/{courseId}")
-    public Result deleteCourse(@PathVariable("courseId") Integer courseId){
-        int result = courseService.deleteCourse(courseId);
-        if(result!=-1){
-            return Result.success();
-        }else {
-            return  Result.failure(ResponseCode.FAIL);
-        }
+    @PostMapping("/course/deleteCourse")
+    public Result deleteCourse(Course course){
+        return courseService.deleteCourse(course);
     }
 
     @GetMapping("/course/getCoachList")
@@ -100,12 +95,12 @@ public class CourseController {
 
     @PostMapping("/course/updateCourse")
     public Result updateCourse(Course course){
-        int result = courseService.updateCourse(course);
-        if(result!=-1){
+       return courseService.deleteCourse(course);
+       /* if(result!=-1){
             return Result.success();
         }else {
             return  Result.failure(ResponseCode.FAIL);
-        }
+        }*/
     }
 
     @PostMapping("/course/updatePrivateCourse")

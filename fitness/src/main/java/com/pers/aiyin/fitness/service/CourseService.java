@@ -17,7 +17,7 @@ public interface CourseService {
 
     Course getCourse(Integer courseId);
 
-    int deleteCourse(Integer courseId);
+    Result deleteCourse(Course course);
 
     int updateCourse(Course course);
 

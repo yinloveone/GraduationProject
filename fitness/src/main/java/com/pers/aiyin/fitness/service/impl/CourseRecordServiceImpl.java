@@ -89,7 +89,7 @@ public class CourseRecordServiceImpl implements CourseRecordService {
 
                }
                if(count>0&&updateCount>0)
-                return new Result(200,"预约成功");
+                return new Result(0,"预约成功");
                else
                    return new Result(500,"发生意外错误,请联系管理员");
             }
@@ -124,7 +124,7 @@ public class CourseRecordServiceImpl implements CourseRecordService {
                 course.setCourseSurplus(course.getCourseSurplus() + 1);
                 int updateCount = courseMapper.updateByPrimaryKeySelective(course);
                 if (updateCount > 0)
-                    return new Result(200, "取消成功");
+                    return new Result(0, "取消成功");
                 else
                     return new Result(500, "发生意外错误,请联系管理员");
             }else{

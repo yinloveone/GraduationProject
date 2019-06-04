@@ -139,7 +139,7 @@
     </select>
 
     <select id="getDetailContent" parameterType="com.pers.aiyin.fitness.response.CustomCourse" resultMap="BaseResultMap1">
-        select course_name,score,content,c.course_id,s.stu_id,s.stu_name,student_portrait,
+        select course_record_id, course_name,score,content,c.course_id,s.stu_id,s.stu_name,student_portrait,
         DATE_FORMAT(comment_time,'%Y-%m-%d %H:%i') as time_end_str
         from course c
         left join courserecord cr on c.course_id=cr.course_id

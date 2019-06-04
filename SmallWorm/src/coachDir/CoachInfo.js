@@ -49,7 +49,7 @@ export default class CoachInfo extends Component{
                 //object.stuId;
                 HttpUtil.get(url).then(result=>{
                     if(result.code===0){
-                        ToastAndroid.show(result.msg,ToastAndroid.SHORT);
+                     //   ToastAndroid.show(result.msg,ToastAndroid.SHORT);
                         this.setState({userInfo:result.data,
                             avatarSource:'http://47.100.239.1:8080'+result.data.coachPortrait
                         })

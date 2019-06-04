@@ -46,6 +46,7 @@ export default  class CourseScreen extends Component{
                 }
                 HttpUtil.post(url,data).then(result=>{
                     if(result.code === 0){
+
                         this.setState({
                             dataList:result.data
                         })
@@ -58,10 +59,6 @@ export default  class CourseScreen extends Component{
                 })
     }
     reload=()=>{
-        this.setState({
-                dateRange: null
-            }
-        )
         StorageUtil.get('stuId', (error, object) => {
             if (!error && object && object.stuId) {
                 const url = 'http://47.100.239.1:8080/api/courseRecord/getRecordById';
@@ -70,6 +67,7 @@ export default  class CourseScreen extends Component{
                 }
                 HttpUtil.post(url,data).then(result=>{
                     if(result.code === 0){
+                        console.log(result.data);
                         this.setState({
                             dataList:result.data
                         })
@@ -82,7 +80,8 @@ export default  class CourseScreen extends Component{
         })
     }
     cancelCourse(courseId,courseRecordId,courseTimeStart,courseType,e){
-        if((courseTimeStart-new Date().getTime())/60*60*1000<24&&courseType==='1'){
+        ToastAndroid.show(courseType, ToastAndroid.SHORT);
+        if((courseTimeStart-new Date().getTime())/(60*60*1000)<24&&courseType==='2'){
             Alert.alert('提醒','将不能退还课时，是否继续?',[
                 {text:'取消',onPress:()=>ToastAndroid.show('取消',ToastAndroid.SHORT)},
                 {text:'确定',onPress:()=>{
@@ -98,8 +97,10 @@ export default  class CourseScreen extends Component{
                                     courseRecordId: courseRecordId
                                 }
                                 HttpUtil.post(url, courseRecord).then(result => {
+                                    console.log(result.code)
+                                    this.reload()
                                     if (result.code === 0) {
-                                        this.reload(this);
+                                /*    this.reload()*/
                                     }
                                     ToastAndroid.show(result.msg, ToastAndroid.SHORT);
 
@@ -124,8 +125,10 @@ export default  class CourseScreen extends Component{
                         courseRecordId: courseRecordId
                     }
                     HttpUtil.post(url, courseRecord).then(result => {
+                        console.log(result.code)
+                        this.reload()
                         if (result.code === 0) {
-                            this.reload(this);
+ /*                           this.reload()*/
                         }
                         ToastAndroid.show(result.msg, ToastAndroid.SHORT);
 
@@ -136,8 +139,6 @@ export default  class CourseScreen extends Component{
             });
 
         }
-
-
     }
     submitScore = (courseRecordId,e) =>{
         this.props.navigation.navigate('SubmitScore',{

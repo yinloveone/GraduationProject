@@ -42,6 +42,12 @@ public class MemberController {
         return memberService.addStudent(student);
     }
 
+    @PostMapping("/member/addMemberTime")
+    public Result addMemberTime(Student student){
+        return memberService.addMemberTime(student);
+    }
+
+
     @GetMapping("/member/getStudentList")
     public Result getStudentList(){
         List<Student> list=memberService.getStudentList();

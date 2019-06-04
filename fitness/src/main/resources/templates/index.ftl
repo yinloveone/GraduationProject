@@ -385,6 +385,31 @@
                 $('#changeModel').modal('hide');
             },
         })
+        $('#updateName').val('');
+            $('#updatePhone').val('');
+           $('#updateEmail').val('');
+    }
+    function addMemberTime(){
+        var  student={
+            stuId:$('#stuId').val(),
+            cardId:$('#sumTime').val()
+        }
+        $.ajax({
+            type:'POST',
+            url:'member/addMemberTime',
+            data:student,
+            dataType:"json",
+            success: function (data){
+                $.alert(data.msg);
+                $('#addTimeModel').modal('hide');
+                $('#tb_roles').bootstrapTable('refresh')
+            },
+            error:function(){
+                $.alert("请求失败");
+                $('#addTimeModel').modal('hide');
+            },
+        })
+
     }
     function  resertForm(){
         $(':input','#searhForm')
